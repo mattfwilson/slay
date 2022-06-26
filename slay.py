@@ -11,5 +11,3 @@ class Defend(Card):
     def __init__(self, id):
         super().init(id)
         self.block = 6
-
-# Test 2
