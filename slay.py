@@ -1,9 +1,7 @@
 import itertools
-import time
-import operator
 
 hand = []
-card_types = ['Attack', 'Defend', 'Skill', 'Power', 'Curse']
+card_types = ['Base', 'Attack', 'Defend', 'Skill', 'Power', 'Curse']
 
 class Card:
 
@@ -11,27 +9,20 @@ class Card:
 
     def __init__(self):
         self.id = Card.id()
+        self.type = card_types[0]
 
     def __repr__(self):
-        return f'Card {self.id}'
+        return f'({self.id}) {self.type} Card'
 
 class Attack(Card):
     def __init__(self):
         super().__init__()
-        self. type = card_types[0]
-        self.damage = 6
-    
-    def __repr__(self):
-        return f'{self.type} Card {self.id}'
+        self.type = card_types[1]
 
 class Defend(Card):
     def __init__(self):
         super().__init__()
-        self.type = card_types[1]
-        self.block = 6
-    
-    def __repr__(self):
-        return f'{self.type} Card {self.id}'
+        self.type = card_types[2]
 
 hand.append(Card())
 hand.append(Attack())
