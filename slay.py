@@ -2,6 +2,11 @@ import itertools
 import random
 
 USER_LVL = 1
+CURRENT_HP = 70
+MAX_HP = 70
+CURRENT_ENERGY = 3
+MAX_ENERGY = 3
+USER_GOLD = 0
 SPIRE_LVL = 1
 DECK_START = 8
 CURRENT_HAND = []
@@ -39,6 +44,11 @@ def createDeck():
         CURRENT_HAND.append(Attack())
         CURRENT_HAND.append(Defend())
     random.shuffle(CURRENT_HAND)
-    print(CURRENT_HAND)
+
+def showSummary():
+    print(f'HP: {CURRENT_HP}/{MAX_HP}')
+    print(f'Energy: {CURRENT_ENERGY}/{MAX_ENERGY}')
+    print(f'Hand: {CURRENT_HAND}')
 
 createDeck()
+showSummary()
