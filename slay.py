@@ -7,10 +7,11 @@ MAX_HP = 70
 CURRENT_ENERGY = 3
 MAX_ENERGY = 3
 USER_GOLD = 0
-SPIRE_LVL = 1
-DECK_START = 8
-CURRENT_HAND = []
+COMBAT_COUNT = 1
+TURN_COUNT = 1
+HAND_START = 5
 DRAW_PILE = []
+CURRENT_HAND = []
 DISCARD_PILE = []
 CARD_TYPES = ['Base', 'Attack', 'Defend', 'Skill']
 
@@ -40,15 +41,27 @@ class Defend(Card):
         return f'({self.id}) {self.type} {self.block}'
 
 def createDeck():
-    for i in range(4):
-        CURRENT_HAND.append(Attack())
-        CURRENT_HAND.append(Defend())
-    random.shuffle(CURRENT_HAND)
+    for i in range(5):
+        DRAW_PILE.append(Attack())
+        DRAW_PILE.append(Defend())
+    random.shuffle(DRAW_PILE)
 
 def showSummary():
     print(f'HP: {CURRENT_HP}/{MAX_HP}')
     print(f'Energy: {CURRENT_ENERGY}/{MAX_ENERGY}')
-    print(f'Hand: {CURRENT_HAND}')
+    print(f'Cards: {CURRENT_HAND}')
+
+def drawCards():
+    for i in range(5):
+        card = DRAW_PILE.pop(-1)
+        CURRENT_HAND.append(card)
+
+def turnStart(energy, turn):
+    energy = MAX_ENERGY
+    turn += 1
+    drawCards()
+    showSummary()
 
 createDeck()
-showSummary()
+turnStart(CURRENT_ENERGY, TURN_COUNT)
+
