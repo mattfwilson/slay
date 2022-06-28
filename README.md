@@ -1,2 +1,2 @@
 # slay
-Slay the noob text spire
+Slay the text spire
