@@ -40,6 +40,17 @@ class Defend(Card):
     def __repr__(self):
         return f'({self.id}) {self.type} {self.block}'
 
+class Slime():
+
+    def __init__(self):
+        attack = range(3, 10)
+        block = range(4, 8)
+        hp = 37
+        self.hp = hp
+        self.attack = attack
+        self.defend = block
+
+
 def createDeck():
     for i in range(DRAW_COUNT):
         DRAW_PILE.append(Attack())
