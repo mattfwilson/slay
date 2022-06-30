@@ -84,7 +84,7 @@ class Slime():
         moves = [4, 5, 6, 7, 8, 10]
         attack = random.choices(moves, weights=[2, 8, 8, 3, 2, 1])
         block = random.choices(moves, weights=[3, 5, 8, 8, 6, 2])
-        self.name = 'Noob Slime'
+        self.name = 'Slime Noob'
         self.hp = 30
         self.max_hp = 30
         self.attack = attack
@@ -107,5 +107,35 @@ class Slime():
     def __repr__(self):
         print(f'Attack: {self.attack}, Block: {self.defend}')
 
+class Pigeon():
+
+    def __init__(self):
+        moves = [4, 5, 6, 7, 8, 10]
+        attack = random.choices(moves, weights=[1, 2, 4, 6, 8, 4])
+        block = random.choices(moves, weights=[8, 8, 6, 3, 1, 1])
+        self.name = 'Basic Pigeon Soldier'
+        self.hp = 42
+        self.max_hp = 42
+        self.attack = attack
+        self.defend = block
+
+    def sayName(self):
+        print(self.name)
+
+    def sayStats(self):
+        print(f'\n{self.name}')
+        print(f'HP: {self.hp}/{self.max_hp}')
+        print(f'Attack: {self.attack}, Block: {self.defend}\n')
+    
+    def playAttack(self):
+        pass
+
+    def playBlock(self):
+        pass
+
+    def __repr__(self):
+        print(f'Attack: {self.attack}, Block: {self.defend}')
+
 Slime().sayStats()
+Pigeon().sayStats()
 
