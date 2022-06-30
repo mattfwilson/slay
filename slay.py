@@ -47,8 +47,7 @@ def createDeck():
     random.shuffle(DRAW_PILE)
 
 def showSummary():
-    print('-' * 100)
-    print(f'Turn: {TURN_COUNT}')
+    print(f'----------------------------------------- Turn {TURN_COUNT} -----------------------------------------')
     print(f'HP: {CURRENT_HP}/{MAX_HP}')
     print(f'Energy: {CURRENT_ENERGY}/{MAX_ENERGY}')
     print(f'Cards: {CURRENT_HAND}')
@@ -82,11 +81,12 @@ startTurn()
 class Slime():
 
     def __init__(self):
-        attack = random.randint(3, 10)
-        block = random.randint(4, 9)
+        moves = [4, 5, 6, 7, 8, 10]
+        attack = random.choices(moves, weights=[2, 8, 8, 3, 2, 1])
+        block = random.choices(moves, weights=[3, 5, 8, 8, 6, 2])
         self.name = 'Noob Slime'
-        self.hp = 37
-        self.max_hp = 37
+        self.hp = 30
+        self.max_hp = 30
         self.attack = attack
         self.defend = block
 
@@ -94,11 +94,15 @@ class Slime():
         print(self.name)
 
     def sayStats(self):
-        print('-' * 100)
-        print(self.name)
+        print(f'\n{self.name}')
         print(f'HP: {self.hp}/{self.max_hp}')
-        print(f'Attack: {self.attack}, Block: {self.defend}')
+        print(f'Attack: {self.attack}, Block: {self.defend}\n')
+    
+    def playAttack(self):
+        pass
 
+    def playBlock(self):
+        pass
 
     def __repr__(self):
         print(f'Attack: {self.attack}, Block: {self.defend}')
