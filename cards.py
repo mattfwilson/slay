@@ -3,6 +3,7 @@ import itertools
 CARD_TYPES = ['Base', 'Attack', 'Defend', 'Skill']
 
 class Card:
+
     id = itertools.count(0).__next__
 
     def __init__(self):
@@ -10,6 +11,7 @@ class Card:
         self.type = CARD_TYPES[0]
 
 class Attack(Card):
+    
     def __init__(self):
         super().__init__()
         self.type = CARD_TYPES[1]
@@ -19,6 +21,7 @@ class Attack(Card):
         return f'({self.id}) {self.type} {self.attack}'
 
 class Defend(Card):
+
     def __init__(self):
         super().__init__()
         self.type = CARD_TYPES[2]

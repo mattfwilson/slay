@@ -2,6 +2,7 @@ import itertools
 import random
 
 class Enemy():
+    
      id = itertools.count(0).__next__
 
      def __init__(self):

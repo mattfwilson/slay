@@ -42,9 +42,19 @@ def startTurn():
     CURRENT_ENERGY = MAX_ENERGY
     drawCards()
     showSummary()
+    createEnemy()
 
 def enemyTurn():
     pass
+
+def createEnemy():
+    enemy_pool = (Slime, Pigeon)
+    enemies_fought = []
+    
+    for i in range(2):
+        enemy = random.choice(enemy_pool)
+        enemies_fought.append(enemy)
+    enemy().__repr__()
 
 def endTurn():
     CURRENT_HAND.pop(len(range(CURRENT_HAND)))
@@ -53,11 +63,3 @@ def endTurn():
     
 createDeck()
 startTurn()
-
-enemies = (Slime, Pigeon)
-enemies_fought = []
-
-for i in range(5):
-    instance = random.choice(enemies)
-    enemies_fought.append(instance)
-instance().__repr__()
