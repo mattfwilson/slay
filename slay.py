@@ -22,19 +22,13 @@ def createDeck():
         DRAW_PILE.append(Defend())
     random.shuffle(DRAW_PILE)
 
-def showSummary():
-    print('-' * 50 + f' Turn {TURN_COUNT} ' + '-' * 50)
-    print(f'HP: {CURRENT_HP}/{MAX_HP}')
-    print(f'Energy: {CURRENT_ENERGY}/{MAX_ENERGY}')
-    print(f'Cards: {CURRENT_HAND}')
-
-def startCombat():
-    pass
-
 def drawCards():
     for i in range(5):
         card = DRAW_PILE.pop(-1)
         CURRENT_HAND.append(card)
+
+def startCombat():
+    startTurn()
 
 def startTurn():
     global CURRENT_ENERGY
@@ -43,6 +37,12 @@ def startTurn():
     drawCards()
     showSummary()
     createEnemy()
+
+def showSummary():
+    print('-' * 50 + f' Turn {TURN_COUNT} ' + '-' * 50)
+    print(f'HP: {CURRENT_HP}/{MAX_HP}')
+    print(f'Energy: {CURRENT_ENERGY}/{MAX_ENERGY}')
+    print(f'Cards: {CURRENT_HAND}')
 
 def enemyTurn():
     pass
@@ -62,4 +62,4 @@ def endTurn():
     enemyTurn()
     
 createDeck()
-startTurn()
+startCombat()
