@@ -21,7 +21,7 @@ class Slime(Enemy):
         self.defend = block
 
     def intent(self, attack, block):
-        move = random.choidce(attack, block)
+        move = random.choice(attack, block)
 
     def sayStats(self):
         print(f'\n{self.name}')
@@ -43,8 +43,8 @@ class Pigeon(Enemy):
         self.attack = attack
         self.defend = block
 
-    def sayName(self):
-        print(self.name)
+    def intent(self, attack, block):
+        move = random.choice(attack, block)
 
     def sayStats(self):
         print(f'\n{self.name}')
