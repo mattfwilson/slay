@@ -29,7 +29,7 @@ class Slime(Enemy):
         print(f'Attack: {self.attack}, Block: {self.defend}\n')
 
     def __repr__(self):
-        print(f'\n{self.name} casually slides in...')
+        print({self.name})
 
 class Pigeon(Enemy):
 
@@ -52,4 +52,6 @@ class Pigeon(Enemy):
         print(f'Attack: {self.attack}, Block: {self.defend}\n')
 
     def __repr__(self):
-        print(f'\n{self.name} careens down...')
+        print(f'{self.name} careens down...')
+
+    

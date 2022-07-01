@@ -14,9 +14,7 @@ DRAW_COUNT = 5
 DRAW_PILE = []
 CURRENT_HAND = []
 DISCARD_PILE = []
-ENEMIES_FOUGHT = []
-CURRENT_ENEMY = ''
-
+ENEMIES = []
 
 def buildDeck():
     for i in range(DRAW_COUNT):
@@ -24,28 +22,37 @@ def buildDeck():
         DRAW_PILE.append(Defend())
     random.shuffle(DRAW_PILE)
 
-def createEnemy():
-    enemy_pool = (Slime, Pigeon)
-    
-    for i in range(1):
-        CURRENT_ENEMY = random.choice(enemy_pool)
-        ENEMIES_FOUGHT.append(CURRENT_ENEMY)
-
 def draw():
     for i in range(5):
         card = DRAW_PILE.pop(-1)
         CURRENT_HAND.append(card)
 
+def createEnemy():
+    enemy_pool = (Slime, Pigeon)
+    
+    for i in range(1):
+        CURRENT_ENEMY = random.choice(enemy_pool)
+        ENEMIES.append(CURRENT_ENEMY)
+    return enemy_pool[-1]
+
+def executeIntent():
+    pass
+
+def decideIntent():
+    pass
+
 def startCombat():
     startTurn()
-
+    # enemyTurn()
+    
 def startTurn():
     global CURRENT_ENERGY
-    global TURN_COUNT
     CURRENT_ENERGY = MAX_ENERGY
-    createEnemy()
+    ENEMIES.append(createEnemy())
     draw()
     showSummary()
+    ENEMIES[-1]().__repr__()
+    ENEMIES[-1]().sayStats()
 
 def showSummary():
     print('-' * 50 + f' Turn {TURN_COUNT} ' + '-' * 50)
@@ -54,14 +61,9 @@ def showSummary():
     print(f'Cards: {CURRENT_HAND}')
     # playerMove = input("Type the move you'd like to do? ")
 
-def executeIntent():
-    pass
-
-def decideIntent():
-    pass
-
 def enemyTurn():
     pass
+
 def endTurn():
     CURRENT_HAND.pop(len(range(CURRENT_HAND)))
     TURN_COUNT += 1
@@ -69,4 +71,3 @@ def endTurn():
     
 buildDeck()
 startCombat()
-print(ENEMIES_FOUGHT)
