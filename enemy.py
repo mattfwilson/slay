@@ -8,7 +8,7 @@ class Enemy():
      def __init__(self):
         self.id = Enemy.id()
 
-class Slime():
+class Slime(Enemy):
 
     def __init__(self):
         moves = [3, 4, 5, 6, 7, 8, 10]
@@ -20,8 +20,8 @@ class Slime():
         self.attack = attack
         self.defend = block
 
-    def sayName(self):
-        print(self.name)
+    def intent(self, attack, block):
+        move = random.choidce(attack, block)
 
     def sayStats(self):
         print(f'\n{self.name}')
@@ -31,7 +31,7 @@ class Slime():
     def __repr__(self):
         print(f'\n{self.name} casually slides in...')
 
-class Pigeon():
+class Pigeon(Enemy):
 
     def __init__(self):
         moves = [4, 5, 6, 7, 8, 10]

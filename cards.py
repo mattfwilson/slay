@@ -1,6 +1,6 @@
 import itertools
 
-CARD_TYPES = ['Base', 'Attack', 'Defend', 'Skill']
+CARD_TYPES = ['Base', 'Attack', 'Block', 'Skill']
 
 class Card:
 
@@ -14,18 +14,20 @@ class Attack(Card):
     
     def __init__(self):
         super().__init__()
+        self.energy = 1
         self.type = CARD_TYPES[1]
         self.attack = 6
 
     def __repr__(self):
-        return f'({self.id}) {self.type} {self.attack}'
+        return f'({self.energy}) {self.type} {self.attack}'
 
 class Defend(Card):
 
     def __init__(self):
         super().__init__()
+        self.energy = 1
         self.type = CARD_TYPES[2]
         self.block = 6
 
     def __repr__(self):
-        return f'({self.id}) {self.type} {self.block}'
+        return f'({self.energy}) {self.type} {self.block}'
