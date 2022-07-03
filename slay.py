@@ -1,6 +1,7 @@
 from enemy import *
 from cards import *
 import random
+import time
 
 USER_LVL = 1
 CURRENT_HP = 70
@@ -27,6 +28,11 @@ def draw():
         card = DRAW_PILE.pop(-1)
         CURRENT_HAND.append(card)
 
+def startCombat():
+    ENEMY.append(createEnemy())
+    draw()
+    startTurn()
+
 def createEnemy():
     enemy_pool = (Slime, Pigeon)
     
@@ -35,29 +41,26 @@ def createEnemy():
         ENEMY.append(CURRENT_ENEMY)
     return enemy_pool[-1]
 
-def startCombat():
-    ENEMY.append(createEnemy())
-    startTurn()
-    
-def startTurn():
-    draw()
-    showSummary()
-
-def showSummary():
+def playerSummary():
     print('-' * 50 + f' Turn {TURN_COUNT} ' + '-' * 50)
     print(f'HP: {CURRENT_HP}/{MAX_HP}')
     print(f'Energy: {CURRENT_ENERGY}/{MAX_ENERGY}')
     print(f'Cards: {CURRENT_HAND}')
-    ENEMY[-1]().__repr__()
-    print(ENEMY[-1]().intent())
-
-def enemyTurn():
-    pass
 
 def endTurn():
     CURRENT_HAND.pop(len(range(CURRENT_HAND)))
     TURN_COUNT += 1
-    enemyTurn()
+
+def enemySummary():
+    print('\n')
+    ENEMY[-1]().__repr__()
+    time.sleep(2)
+    print(ENEMY[-1]().intent())
+
+def startTurn():
+    playerSummary()
+    enemySummary()
+
     
 buildDeck()
 startCombat()
