@@ -3,7 +3,8 @@ from cards import *
 import random
 import time
 
-USER_LVL = 1
+NAME = 'Karmae'
+LVL = 1
 CURRENT_HP = 70
 MAX_HP = 70
 CURRENT_ENERGY = 1
@@ -28,18 +29,21 @@ def draw():
         card = DRAW_PILE.pop(-1)
         CURRENT_HAND.append(card)
 
+def startCombat():
+    ENEMY.append(createEnemy())
+    print('You encountered an enemy!')
+    time.sleep(1)
+    print(f'{ENEMY[-1]().__repr__()}')
+    time.sleep(1)
+    draw()
+    startTurn()
+
 def startTurn():
     playerSummary()
     enemySummary()
 
-def startCombat():
-    ENEMY.append(createEnemy())
-    print(f'{ENEMY[-1]().__repr__()}')
-    draw()
-    startTurn()
-
 def createEnemy():
-    enemy_pool = (Slime, Pigeon)
+    enemy_pool = (CatOfThondor, Pigeon)
     
     for i in range(1):
         CURRENT_ENEMY = random.choice(enemy_pool)
@@ -48,7 +52,7 @@ def createEnemy():
 
 def playerSummary():
     print('-' * 50 + f' Turn {TURN_COUNT} ' + '-' * 50)
-    print(f'Your Name')
+    print(f'{NAME}')
     print(f'HP: {CURRENT_HP}/{MAX_HP}')
     print(f'Energy: {CURRENT_ENERGY}/{MAX_ENERGY}')
     print(f'Cards: {CURRENT_HAND}\n')
@@ -63,6 +67,6 @@ def endTurn():
     TURN_COUNT += 1
 
 
-# main game execution
+# main game executionfvvvvvvvvv vfvvc
 buildDeck()
 startCombat()
