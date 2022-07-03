@@ -49,8 +49,8 @@ class Pigeon(Enemy):
                 intent = i
             return f'{self.name} intends to Block for {intent}.'
 
-    def sayName(self):
-        return {self.name}
+    def sayHP(self):
+        print(f'{self.name} HP: {self.hp}/{self.max_hp}')
 
     def __repr__(self):
         return f'A {self.name} appears...'

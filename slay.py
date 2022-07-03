@@ -34,7 +34,7 @@ def startTurn():
 
 def startCombat():
     ENEMY.append(createEnemy())
-    print(f'{ENEMY[-1]().__repr__()}\n')
+    print(f'{ENEMY[-1]().__repr__()}')
     draw()
     startTurn()
 
@@ -54,13 +54,15 @@ def playerSummary():
 
 def enemySummary():
     time.sleep(1)
-    print(f'\n{ENEMY[-1]().intent()}')
+    print('\n')
+    ENEMY[-1]().sayHP()
+    print(f'{ENEMY[-1]().intent()}')
 
 def endTurn():
     CURRENT_HAND.pop(len(range(CURRENT_HAND)))
     TURN_COUNT += 1
 
-# main game execution
 
+# main game execution
 buildDeck()
 startCombat()
