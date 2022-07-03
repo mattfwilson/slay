@@ -48,14 +48,14 @@ def createEnemy():
 
 def playerSummary():
     print('-' * 50 + f' Turn {TURN_COUNT} ' + '-' * 50)
+    print(f'Your Name')
     print(f'HP: {CURRENT_HP}/{MAX_HP}')
     print(f'Energy: {CURRENT_ENERGY}/{MAX_ENERGY}')
-    print(f'Cards: {CURRENT_HAND}')
+    print(f'Cards: {CURRENT_HAND}\n')
 
 def enemySummary():
     time.sleep(1)
-    print('\n')
-    ENEMY[-1]().sayHP()
+    ENEMY[-1]().saySummary()
     print(f'{ENEMY[-1]().intent()}')
 
 def endTurn():

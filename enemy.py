@@ -43,14 +43,15 @@ class Pigeon(Enemy):
         if intent == 1:
             for i in attack:
                 intent = i
-            return f'{self.name} intends to Attack for {intent}.'
+            return f'They intend to Attack for {intent}.'
         else:
             for i in block:
                 intent = i
-            return f'{self.name} intends to Block for {intent}.'
+            return f'They intend to Block for {intent}.'
 
-    def sayHP(self):
-        print(f'{self.name} HP: {self.hp}/{self.max_hp}')
+    def saySummary(self):
+        print(self.name)
+        print(f'HP: {self.hp}/{self.max_hp}')
 
     def __repr__(self):
         return f'A {self.name} appears...'
