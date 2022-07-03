@@ -53,6 +53,6 @@ class Pigeon(Enemy):
         return {self.name}
 
     def __repr__(self):
-        print(f'A {self.name} appears...')
+        return f'A {self.name} appears...'
 
     

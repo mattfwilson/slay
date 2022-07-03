@@ -28,8 +28,13 @@ def draw():
         card = DRAW_PILE.pop(-1)
         CURRENT_HAND.append(card)
 
+def startTurn():
+    playerSummary()
+    enemySummary()
+
 def startCombat():
     ENEMY.append(createEnemy())
+    print(f'{ENEMY[-1]().__repr__()}\n')
     draw()
     startTurn()
 
@@ -47,20 +52,15 @@ def playerSummary():
     print(f'Energy: {CURRENT_ENERGY}/{MAX_ENERGY}')
     print(f'Cards: {CURRENT_HAND}')
 
+def enemySummary():
+    time.sleep(1)
+    print(f'\n{ENEMY[-1]().intent()}')
+
 def endTurn():
     CURRENT_HAND.pop(len(range(CURRENT_HAND)))
     TURN_COUNT += 1
 
-def enemySummary():
-    print('\n')
-    ENEMY[-1]().__repr__()
-    time.sleep(2)
-    print(ENEMY[-1]().intent())
+# main game execution
 
-def startTurn():
-    playerSummary()
-    enemySummary()
-
-    
 buildDeck()
 startCombat()
