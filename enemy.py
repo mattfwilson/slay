@@ -7,11 +7,11 @@ class Enemy():
     def __init__(self):
         self.id = Enemy.id()
 
-class CatOfThondor(Enemy):
+class Seagull(Enemy):
 
     def __init__(self):
         super().__init__()
-        self.name = 'Cat of Thondor'
+        self.name = 'Standard Seagull'
         self.hp = 25
         self.max_hp = 25
 
@@ -52,14 +52,14 @@ class Pigeon(Enemy):
         if intent == 1:
             for i in attack:
                 intent = i
-            return f'They intend to Attack for {intent}.'
+            return f'Enemy intends to Attack for {intent}.'
         else:
             for i in block:
                 intent = i
-            return f'They intend to Block for {intent}.'
+            return f'Enemy intends to Block for {intent}.'
 
     def saySummary(self):
-        print(f'{self.name} [{self.id}]')
+        print(f'{self.name} - ID: {self.id}')
         print(f'HP: {self.hp}/{self.max_hp}')
 
     def __repr__(self):
