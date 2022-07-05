@@ -1,24 +1,7 @@
-from tkinter.tix import MAX
+from vars import *
 from enemy import *
 from cards import *
 import random
-import time
-
-COUNTER = 25
-NAME = 'Karmae'
-HP = 70
-MAX_HP = 70
-ENERGY = 1
-MAX_ENERGY = 3
-USER_GOLD = 0
-COMBAT_COUNT = 1
-TURN_COUNT = 1
-DRAW_COUNT = 5
-DRAW_PILE = []
-CURRENT_HAND = []
-DISCARD_PILE = []
-ENEMIES = []
-ACTIONS = ['Draw', 'Attack', 'Block', 'Draw Pile', 'Discard Pile']
 
 def buildDeck():
     for i in range(DRAW_COUNT):
@@ -27,7 +10,7 @@ def buildDeck():
     random.shuffle(DRAW_PILE)
 
 def createEnemy():
-    enemy_pool = [Seagull, Pigeon, Hawk]
+    enemy_pool = [Pigeon, Duck, SpaceCat]
     enemy = random.choices(enemy_pool, weights=[10, 7, 2])
     ENEMIES.append(enemy[0])
 
@@ -56,10 +39,10 @@ def startTurn():
 
 def playerSummary():
     print('-' * 70 + f' [Turn {TURN_COUNT}]')
-    print(f'{NAME}')
-    print(f'HP: {HP}/{MAX_HP}')
-    print(f'Energy: {ENERGY}/{MAX_ENERGY}')
-    print(f'Cards: {CURRENT_HAND}\n')
+    print(f'🙂 {NAME}')
+    print(f'🩸 HP: {HP}/{MAX_HP}')
+    print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}')
+    print(f'🖐  Cards: {CURRENT_HAND}\n')
 
 def enemySummary():
     ENEMIES[-1]().saySummary()

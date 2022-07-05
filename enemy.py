@@ -7,11 +7,11 @@ class Enemy():
     def __init__(self):
         self.id = Enemy.id()
 
-class Seagull(Enemy):
+class Pigeon(Enemy):
 
     def __init__(self):
         super().__init__()
-        self.name = 'Seagull Private'
+        self.name = '🐦 Standard Pigeon'
         self.hp = 25
         self.max_hp = 25
 
@@ -26,15 +26,15 @@ class Seagull(Enemy):
         if intent == 1:
             for i in attack:
                 intent = i
-            return f'Enemy intends to Attack for {intent}.\n'
+            return f'⚔  Enemy intends to Attack for {intent}.\n'
         else:
             for i in block:
                 intent = i
-            return f'Enemy intends to Block for {intent}.\n'
+            return f'🛡  Enemy intends to Block for {intent}.\n'
 
     def saySummary(self):
         print(f'{self.name}')
-        print(f'HP: {self.hp}/{self.max_hp}')
+        print(f'🩸 HP: {self.hp}/{self.max_hp}')
 
     def intro(self):
         print('You encountered an enemy!')
@@ -43,11 +43,11 @@ class Seagull(Enemy):
     def __repr__(self):
         print(self.name)
 
-class Pigeon(Enemy):
+class Duck(Enemy):
 
     def __init__(self):
         super().__init__()
-        self.name = 'Pigeon Soldier'
+        self.name = '🦆 Dwabbling Duck'
         self.hp = 25
         self.max_hp = 25
 
@@ -62,15 +62,15 @@ class Pigeon(Enemy):
         if intent == 1:
             for i in attack:
                 intent = i
-            return f'Enemy intends to Attack for {intent}.\n'
+            return f'⚔  Enemy intends to Attack for {intent}.\n'
         else:
             for i in block:
                 intent = i
-            return f'Enemy intends to Block for {intent}.\n'
+            return f'🛡  Enemy intends to Block for {intent}.\n'
 
     def saySummary(self):
         print(f'{self.name}')
-        print(f'HP: {self.hp}/{self.max_hp}')
+        print(f'🩸 HP: {self.hp}/{self.max_hp}')
 
     def intro(self):
         print('You encountered an enemy!')
@@ -79,11 +79,11 @@ class Pigeon(Enemy):
     def __repr__(self):
         print(self.name)
 
-class Hawk(Enemy):
+class SpaceCat(Enemy):
 
     def __init__(self):
         super().__init__()
-        self.name = 'Hawk Lieutenant'
+        self.name = '😾 Space Cat'
         self.hp = 25
         self.max_hp = 25
 
@@ -98,15 +98,15 @@ class Hawk(Enemy):
         if intent == 1:
             for i in attack:
                 intent = i
-            return f'Enemy intends to Attack for {intent}.\n'
+            return f'⚔  Enemy intends to Attack for {intent}.\n'
         else:
             for i in block:
                 intent = i
-            return f'Enemy intends to Block for {intent}.\n'
+            return f'🛡  Enemy intends to Block for {intent}.\n'
 
     def saySummary(self):
         print(f'{self.name}')
-        print(f'HP: {self.hp}/{self.max_hp}')
+        print(f'🩸 HP: {self.hp}/{self.max_hp}')
 
     def intro(self):
         print('You encountered an enemy!')

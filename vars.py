@@ -1,0 +1,14 @@
+COUNTER = 25
+NAME = 'Karmae'
+HP = 70
+MAX_HP = 70
+ENERGY = 1
+MAX_ENERGY = 3
+COMBAT_COUNT = 1
+TURN_COUNT = 1
+DRAW_COUNT = 5
+CURRENT_HAND = []
+DRAW_PILE = []
+DISCARD_PILE = []
+ENEMIES = []
+ACTIONS = ['Draw', 'Attack', 'Block', 'Draw Pile', 'Discard Pile']
