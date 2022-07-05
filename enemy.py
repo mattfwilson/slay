@@ -2,21 +2,35 @@ import itertools
 import random
 
 class Enemy():
-    id = itertools.count(1).__next__
+    id = itertools.count(0).__next__
 
     def __init__(self):
         self.id = Enemy.id()
+
+########################################################################
 
 class Pigeon(Enemy):
 
     def __init__(self):
         super().__init__()
-        self.name = '🐦 Standard Pigeon'
+        self.name = 'Standard Pigeon'
         self.hp = 25
         self.max_hp = 25
-
+    
     def sayID(self):
-        print(f'{self.id} {self.name}')
+        return self.id
+
+    def sayName(self):
+        return self.name
+
+    def sayHP(self):
+        return self.hp
+
+    def sayMaxHP(self):
+        return self.max_hp
+
+    def doDamage(self, damage):
+        return self.hp - damage
 
     def intent(self):
         values = [3, 4, 5, 6, 7, 8, 10]
@@ -26,11 +40,11 @@ class Pigeon(Enemy):
         if intent == 1:
             for i in attack:
                 intent = i
-            return f'⚔  Enemy intends to Attack for {intent}.\n'
+            return f'Enemy intends to ⚔  Attack for {intent}.\n'
         else:
             for i in block:
                 intent = i
-            return f'🛡  Enemy intends to Block for {intent}.\n'
+            return f'Enemy intends to 🛡  Block for {intent}.\n'
 
     def saySummary(self):
         print(f'{self.name}')
@@ -42,6 +56,8 @@ class Pigeon(Enemy):
 
     def __repr__(self):
         print(self.name)
+
+########################################################################
 
 class Duck(Enemy):
 
@@ -62,11 +78,11 @@ class Duck(Enemy):
         if intent == 1:
             for i in attack:
                 intent = i
-            return f'⚔  Enemy intends to Attack for {intent}.\n'
+            return f'⚔  Enemy intends to ⚔  Attack for {intent}.\n'
         else:
             for i in block:
                 intent = i
-            return f'🛡  Enemy intends to Block for {intent}.\n'
+            return f'Enemy intends to 🛡  Block for {intent}.\n'
 
     def saySummary(self):
         print(f'{self.name}')
@@ -78,6 +94,8 @@ class Duck(Enemy):
 
     def __repr__(self):
         print(self.name)
+
+########################################################################
 
 class SpaceCat(Enemy):
 
@@ -98,11 +116,11 @@ class SpaceCat(Enemy):
         if intent == 1:
             for i in attack:
                 intent = i
-            return f'⚔  Enemy intends to Attack for {intent}.\n'
+            return f'⚔  Enemy intends to ⚔  Attack for {intent}.\n'
         else:
             for i in block:
                 intent = i
-            return f'🛡  Enemy intends to Block for {intent}.\n'
+            return f'Enemy intends to 🛡  Block for {intent}.\n'
 
     def saySummary(self):
         print(f'{self.name}')

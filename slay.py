@@ -1,3 +1,4 @@
+from venv import create
 from vars import *
 from enemy import *
 from cards import *
@@ -10,8 +11,8 @@ def buildDeck():
     random.shuffle(DRAW_PILE)
 
 def createEnemy():
-    enemy_pool = [Pigeon, Duck, SpaceCat]
-    enemy = random.choices(enemy_pool, weights=[10, 7, 2])
+    enemy_pool = [Pigeon]
+    enemy = random.choices(enemy_pool, weights=[1]) # add more weights after testing
     ENEMIES.append(enemy[0])
 
 def draw():
@@ -38,20 +39,29 @@ def startTurn():
     global ENERGY
     global MOVE
     ENERGY = MAX_ENERGY
-    playerSummary()
-    enemySummary()
-    MOVE = input('What would you like to do? ')
+    print(f'Enemy Pool: {ENEMIES}')
+    print(f'self.id: {ENEMIES[-1]().sayID()}')
+    print(f'self.name: {ENEMIES[-1]().sayName()}')
+    print(f'self.hp/self.max_hp: {ENEMIES[-1]().sayHP()}/{ENEMIES[-1]().sayMaxHP()}')
+    print(ENEMIES[-1]().doDamage(3))
+    print(ENEMIES[-1]().sayHP())
+    # playerSummary()
+    # enemySummary()
+    # MOVE = input('What would you like to do? ')
 
-    if MOVE == ACTIONS[1]:
-        for card in CURRENT_HAND:
-            if card.sayType() == MOVE:
-                print(f'You use {card.sayEnergy()} 💧 to play ⚔  {card.sayType()} for {card.sayAttack()}')
-                ENERGY -= card.sayEnergy()
-    elif MOVE == ACTIONS[2]:
-        for card in CURRENT_HAND:
-            if card.sayType() == MOVE:
-                print(f'You use {card.sayEnergy()} 💧 to play 🛡  {card.sayType()} for {card.sayBlock()}')
-                ENERGY -= card.sayEnergy()
+    # if MOVE == ACTIONS[1]:
+    #     for card in CURRENT_HAND:
+    #         if card.sayType() == MOVE:
+    #             print(f'You use {card.sayEnergy()} 💧 to play ⚔  {card.sayType()} for {card.sayAttack()}')
+    #             ENERGY -= card.sayEnergy()
+    # elif MOVE == ACTIONS[2]:
+    #     for card in CURRENT_HAND:
+    #         if card.sayType() == MOVE:
+    #             print(f'You use {card.sayEnergy()} 💧 to play 🛡  {card.sayType()} for {card.sayBlock()}')
+    #             ENERGY -= card.sayEnergy()
+    # else:
+    #     print('You hit the else')
+
 
 def playerSummary():
     print('-' * 70 + f' [Turn {TURN_COUNT}]')
