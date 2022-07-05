@@ -1,8 +1,10 @@
+from tkinter.tix import MAX
 from enemy import *
 from cards import *
 import random
 import time
 
+COUNTER = 25
 NAME = 'Karmae'
 HP = 70
 MAX_HP = 70
@@ -16,6 +18,7 @@ DRAW_PILE = []
 CURRENT_HAND = []
 DISCARD_PILE = []
 ENEMIES = []
+ACTIONS = ['Draw', 'Attack', 'Block', 'Draw Pile', 'Discard Pile']
 
 def buildDeck():
     for i in range(DRAW_COUNT):
@@ -24,10 +27,9 @@ def buildDeck():
     random.shuffle(DRAW_PILE)
 
 def createEnemy():
-    enemy_pool = [Seagull, Pigeon]
-    enemy = random.choice(enemy_pool)
-    ENEMIES.append(enemy)
-    return ENEMIES
+    enemy_pool = [Seagull, Pigeon, Hawk]
+    enemy = random.choices(enemy_pool, weights=[10, 7, 2])
+    ENEMIES.append(enemy[0])
 
 def draw():
     for i in range(5):
@@ -35,17 +37,25 @@ def draw():
         CURRENT_HAND.append(card)
 
 def startCombat():
+    for i in range(COUNTER):
+        createEnemy()
+    print(ENEMIES)
+    for i in ENEMIES:
+        i().sayID()
+    print('\n')
     createEnemy()
     ENEMIES[-1]().intro()
     draw()
     startTurn()
 
 def startTurn():
+    global ENERGY
+    ENERGY = MAX_ENERGY
     playerSummary()
     enemySummary()
 
 def playerSummary():
-    print('-' * 80 + f' [Turn {TURN_COUNT}]')
+    print('-' * 70 + f' [Turn {TURN_COUNT}]')
     print(f'{NAME}')
     print(f'HP: {HP}/{MAX_HP}')
     print(f'Energy: {ENERGY}/{MAX_ENERGY}')
