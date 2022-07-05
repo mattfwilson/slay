@@ -6,7 +6,7 @@ import random
 def buildDeck():
     for i in range(DRAW_COUNT):
         DRAW_PILE.append(Attack())
-        DRAW_PILE.append(Defend())
+        DRAW_PILE.append(Block())
     random.shuffle(DRAW_PILE)
 
 def createEnemy():
@@ -19,13 +19,16 @@ def draw():
         card = DRAW_PILE.pop(-1)
         CURRENT_HAND.append(card)
 
-def startCombat():
+def showPool():
     for i in range(COUNTER):
         createEnemy()
     print(ENEMIES)
     for i in ENEMIES:
         i().sayID()
     print('\n')
+
+def startCombat():
+    # showPool()
     createEnemy()
     ENEMIES[-1]().intro()
     draw()
@@ -33,9 +36,22 @@ def startCombat():
 
 def startTurn():
     global ENERGY
+    global MOVE
     ENERGY = MAX_ENERGY
     playerSummary()
     enemySummary()
+    MOVE = input('What would you like to do? ')
+
+    if MOVE == ACTIONS[1]:
+        for card in CURRENT_HAND:
+            if card.sayType() == MOVE:
+                print(f'You use {card.sayEnergy()} 💧 to play ⚔  {card.sayType()} for {card.sayAttack()}')
+                ENERGY -= card.sayEnergy()
+    elif MOVE == ACTIONS[2]:
+        for card in CURRENT_HAND:
+            if card.sayType() == MOVE:
+                print(f'You use {card.sayEnergy()} 💧 to play 🛡  {card.sayType()} for {card.sayBlock()}')
+                ENERGY -= card.sayEnergy()
 
 def playerSummary():
     print('-' * 70 + f' [Turn {TURN_COUNT}]')
@@ -49,6 +65,7 @@ def enemySummary():
     print(f'{ENEMIES[-1]().intent()}')
 
 def endTurn():
+    global TURN_COUNT
     CURRENT_HAND.pop(len(range(CURRENT_HAND)))
     TURN_COUNT += 1
 

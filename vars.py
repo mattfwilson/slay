@@ -11,4 +11,5 @@ CURRENT_HAND = []
 DRAW_PILE = []
 DISCARD_PILE = []
 ENEMIES = []
+MOVE = ''
 ACTIONS = ['Draw', 'Attack', 'Block', 'Draw Pile', 'Discard Pile']

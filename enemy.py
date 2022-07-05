@@ -38,7 +38,7 @@ class Pigeon(Enemy):
 
     def intro(self):
         print('You encountered an enemy!')
-        print(f'A {self.name} waddles in...\n')
+        print(f'A {self.name} swoops down...\n')
 
     def __repr__(self):
         print(self.name)
@@ -47,7 +47,7 @@ class Duck(Enemy):
 
     def __init__(self):
         super().__init__()
-        self.name = '🦆 Dwabbling Duck'
+        self.name = '🦆 Anxious Duck'
         self.hp = 25
         self.max_hp = 25
 
@@ -74,7 +74,7 @@ class Duck(Enemy):
 
     def intro(self):
         print('You encountered an enemy!')
-        print(f'A {self.name} careens down...\n')
+        print(f'A {self.name} waddles in...\n')
 
     def __repr__(self):
         print(self.name)
@@ -110,7 +110,7 @@ class SpaceCat(Enemy):
 
     def intro(self):
         print('You encountered an enemy!')
-        print(f'A {self.name} marches in...\n')
+        print(f'A {self.name} readies his stance...\n')
 
     def __repr__(self):
         print(self.name)
