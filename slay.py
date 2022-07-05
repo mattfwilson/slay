@@ -35,11 +35,8 @@ def draw():
         CURRENT_HAND.append(card)
 
 def startCombat():
-    ENEMIES.append(createEnemy())
-    print('You encountered an enemy!')
-    # time.sleep(1)
-    print(f'{ENEMIES[-1]().__repr__()}')
-    # time.sleep(1)
+    createEnemy()
+    ENEMIES[-1]().intro()
     draw()
     startTurn()
 
@@ -55,7 +52,6 @@ def playerSummary():
     print(f'Cards: {CURRENT_HAND}\n')
 
 def enemySummary():
-    # time.sleep(1)
     ENEMIES[-1]().saySummary()
     print(f'{ENEMIES[-1]().intent()}')
 

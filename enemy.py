@@ -23,18 +23,22 @@ class Seagull(Enemy):
         if intent == 1:
             for i in attack:
                 intent = i
-            return f'They intend to Attack for {intent}.'
+            return f'Enemy intends to Attack for {intent}.'
         else:
             for i in block:
                 intent = i
-            return f'They intend to Block for {intent}.'
+            return f'Enemy intends to Block for {intent}.'
 
     def saySummary(self):
         print(f'{self.name} [{self.id}]')
         print(f'HP: {self.hp}/{self.max_hp}')
 
+    def intro(self):
+        print('You encountered an enemy!')
+        print(f'A {self.name} waddles in...')
+
     def __repr__(self):
-        return f'A {self.name} appears...'
+        print(self.name)
 
 class Pigeon(Enemy):
 
@@ -59,10 +63,14 @@ class Pigeon(Enemy):
             return f'Enemy intends to Block for {intent}.'
 
     def saySummary(self):
-        print(f'{self.name} - ID: {self.id}')
+        print(f'{self.name} [{self.id}]')
         print(f'HP: {self.hp}/{self.max_hp}')
 
+    def intro(self):
+        print('You encountered an enemy!')
+        print(f'A {self.name} careens down...')
+
     def __repr__(self):
-        return f'A {self.name} appears...'
+        print(self.name)
 
     
