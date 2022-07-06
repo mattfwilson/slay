@@ -16,8 +16,8 @@ class Pigeon(Enemy):
     def __init__(self):
         super().__init__()
         self.name = '🐦 Standard Pigeon'
-        self.hp = 25
-        self.max_hp = 25
+        self.hp = random.randint(20, 35)
+        self.max_hp = self.hp
 
     def __repr__(self):
         return f'self.id: {self.id} self.name: {self.name}, self.hp/self.max_hp: {self.hp}/{self.max_hp}'
@@ -53,10 +53,10 @@ class Pigeon(Enemy):
         block = random.choices(values, weights=[1, 3, 3, 8, 8, 3, 2])
         if intent == 1:
             for i in attack: # prints intent without list brackets (better way to do this?)
-                return f'Enemy intends to ⚔  Attack for {i}.'
+                return f'💢 Enemy intends to ⚔  Attack for {i}.'
         else:
             for i in block:
-                return f'Enemy intends to 🛡  Block for {i}.'
+                return f'💢 Enemy intends to 🛡  Block for {i}.'
 
 ########################################################################
 

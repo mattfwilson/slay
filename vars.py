@@ -12,7 +12,7 @@ DISCARD_PILE = []
 # combat
 ENEMY = []
 COMBAT_COUNT = 1
-TURN_COUNT = 1
+TURN_COUNT = 0
 MOVE = ''
 ACTIONS = ['Draw', 'Attack', 'Block', 'Draw Pile', 'Discard Pile']
 

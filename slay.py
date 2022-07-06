@@ -4,7 +4,7 @@ from cards import *
 import random
 
 def buildDeck():
-    for i in range(DRAW_COUNT):
+    for i in range(10):
         card = random.randint(1, 2)
         if card == 1:
             DRAW_PILE.append(Attack())
@@ -18,7 +18,7 @@ def createEnemy():
     ENEMY.append(enemy[0])
 
 def draw():
-    for i in range(5):
+    for i in range(DRAW_COUNT):
         card = DRAW_PILE.pop(-1)
         HAND.append(card)
 
@@ -39,10 +39,10 @@ def startTurn():
     TURN_COUNT += 1
     ENERGY = MAX_ENERGY
     draw()
-    print(HAND)
     playerSummary()
     enemySummary()
-    MOVE = input('What would you like to do? ')
+    ENEMY[-1].saySummary()
+    # MOVE = input('\nWhat would you like to do? ')
 
     if MOVE in HAND:
         if ENERGY > 0:
