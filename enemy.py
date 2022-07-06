@@ -13,7 +13,7 @@ class Pigeon(Enemy):
 
     def __init__(self):
         super().__init__()
-        self.name = 'Standard Pigeon'
+        self.name = '🐦 Standard Pigeon'
         self.hp = 25
         self.max_hp = 25
     
@@ -30,7 +30,8 @@ class Pigeon(Enemy):
         return self.max_hp
 
     def doDamage(self, damage):
-        return self.hp - damage
+        self.hp -= damage
+        return self.hp
 
     def intent(self):
         values = [3, 4, 5, 6, 7, 8, 10]
@@ -40,11 +41,11 @@ class Pigeon(Enemy):
         if intent == 1:
             for i in attack:
                 intent = i
-            return f'Enemy intends to ⚔  Attack for {intent}.\n'
+            return f'Enemy intends to ⚔  Attack for {intent}.'
         else:
             for i in block:
                 intent = i
-            return f'Enemy intends to 🛡  Block for {intent}.\n'
+            return f'Enemy intends to 🛡  Block for {intent}.'
 
     def saySummary(self):
         print(f'{self.name}')
@@ -55,7 +56,7 @@ class Pigeon(Enemy):
         print(f'A {self.name} swoops down...\n')
 
     def __repr__(self):
-        print(self.name)
+        return self.name
 
 ########################################################################
 

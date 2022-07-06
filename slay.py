@@ -11,27 +11,25 @@ def buildDeck():
     random.shuffle(DRAW_PILE)
 
 def createEnemy():
-    enemy_pool = [Pigeon]
+    enemy_pool = [Pigeon()]
     enemy = random.choices(enemy_pool, weights=[1]) # add more weights after testing
-    ENEMIES.append(enemy[0])
+    ENEMY.append(enemy[0])
 
 def draw():
     for i in range(5):
         card = DRAW_PILE.pop(-1)
-        CURRENT_HAND.append(card)
+        HAND.append(card)
 
-def showPool():
-    for i in range(COUNTER):
+def testPool():
+    for num in range(COUNTER):
         createEnemy()
-    print(ENEMIES)
-    for i in ENEMIES:
-        i().sayID()
+    for enemy in ENEMY:
+        print(f'{enemy.sayName()} {enemy.sayID()}, {enemy.sayHP()}/{enemy.sayMaxHP()} - {enemy.intent()}')
     print('\n')
 
 def startCombat():
-    # showPool()
     createEnemy()
-    ENEMIES[-1]().intro()
+    ENEMY[-1].intro()
     draw()
     startTurn()
 
@@ -39,44 +37,38 @@ def startTurn():
     global ENERGY
     global MOVE
     ENERGY = MAX_ENERGY
-    print(f'Enemy Pool: {ENEMIES}')
-    print(f'self.id: {ENEMIES[-1]().sayID()}')
-    print(f'self.name: {ENEMIES[-1]().sayName()}')
-    print(f'self.hp/self.max_hp: {ENEMIES[-1]().sayHP()}/{ENEMIES[-1]().sayMaxHP()}')
-    print(ENEMIES[-1]().doDamage(3))
-    print(ENEMIES[-1]().sayHP())
-    # playerSummary()
-    # enemySummary()
-    # MOVE = input('What would you like to do? ')
+    # testPool()
+    playerSummary()
+    enemySummary()
+    MOVE = input('What would you like to do? ')
 
-    # if MOVE == ACTIONS[1]:
-    #     for card in CURRENT_HAND:
-    #         if card.sayType() == MOVE:
-    #             print(f'You use {card.sayEnergy()} 💧 to play ⚔  {card.sayType()} for {card.sayAttack()}')
-    #             ENERGY -= card.sayEnergy()
-    # elif MOVE == ACTIONS[2]:
-    #     for card in CURRENT_HAND:
-    #         if card.sayType() == MOVE:
-    #             print(f'You use {card.sayEnergy()} 💧 to play 🛡  {card.sayType()} for {card.sayBlock()}')
-    #             ENERGY -= card.sayEnergy()
-    # else:
-    #     print('You hit the else')
-
+    if MOVE == ACTIONS[1]:
+        for card in HAND:
+            if card.sayType() == MOVE:
+                print(f'You use {card.sayEnergy()} 💧 to play ⚔  {card.sayType()} for {card.sayAttack()}')
+                ENERGY -= card.sayEnergy()
+    elif MOVE == ACTIONS[2]:
+        for card in HAND:
+            if card.sayType() == MOVE:
+                print(f'You use {card.sayEnergy()} 💧 to play 🛡  {card.sayType()} for {card.sayBlock()}')
+                ENERGY -= card.sayEnergy()
+    else:
+        print('You hit the else')
 
 def playerSummary():
     print('-' * 70 + f' [Turn {TURN_COUNT}]')
     print(f'🙂 {NAME}')
     print(f'🩸 HP: {HP}/{MAX_HP}')
     print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}')
-    print(f'🖐  Cards: {CURRENT_HAND}\n')
+    print(f'🖐  Cards: {HAND}\n')
 
 def enemySummary():
-    ENEMIES[-1]().saySummary()
-    print(f'{ENEMIES[-1]().intent()}')
+    ENEMY[-1].saySummary()
+    print(f'{ENEMY[-1].intent()}')
 
 def endTurn():
     global TURN_COUNT
-    CURRENT_HAND.pop(len(range(CURRENT_HAND)))
+    HAND.pop(len(range(HAND)))
     TURN_COUNT += 1
 
 # main game execution
