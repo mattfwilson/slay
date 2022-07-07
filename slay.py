@@ -41,21 +41,40 @@ def startTurn():
     draw()
     playerSummary()
     enemySummary()
-    ENEMY[-1].saySummary()
-    # MOVE = input('\nWhat would you like to do? ')
+    while ENERGY > 0:
+        MOVE = input('What do you want to do? ')
+        count = 0
+        for card in HAND:
+            if str(card) == MOVE:
+                count += 1
+                HAND.remove(MOVE)
+                DISCARD_PILE.append(MOVE)
+                print(HAND)
+                print(DISCARD_PILE)
 
-    if MOVE in HAND:
-        if ENERGY > 0:
-            print(f'You use {card.sayEnergy()} 💧 to play ⚔  {card.sayType()} for {card.sayAttack()}')
-            ENERGY -= card.sayEnergy()
-            print(ENERGY)
-        elif MOVE == ACTIONS[2]:
-            for card in HAND:
-                if card.sayType() == MOVE:
-                    print(f'You use {card.sayEnergy()} 💧 to play 🛡  {card.sayType()} for {card.sayBlock()}')
-                    ENERGY -= card.sayEnergy()
-        else:
-            print('You hit the else')
+            else:
+                print(f'{MOVE} not in hand...')
+                MOVE = input('What do you want to do? ')
+        if count == 0:
+            print('You have no move. Type "end" to conclude your turn.')
+
+
+
+
+
+
+    # while HP > 0 or ENEMY[-1].sayHP() > 0:
+    #     if MOVE in HAND:
+    #         print(f'You use {card.sayEnergy()} 💧 to play ⚔  {card.sayType()} for {card.sayAttack()}')
+    #         ENERGY -= card.sayEnergy()
+    #         print(ENERGY)
+    #     elif MOVE == ACTIONS[2]:
+    #         for card in HAND:
+    #             if card.sayType() == MOVE:
+    #                 print(f'You use {card.sayEnergy()} 💧 to play 🛡  {card.sayType()} for {card.sayBlock()}')
+    #                 ENERGY -= card.sayEnergy()
+    #     else:
+    #         print('You hit the else')
 
 def endTurn():
     HAND.pop(len(range(HAND)))

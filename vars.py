@@ -1,7 +1,7 @@
 # player
 NAME = 'Karmae'
-HP = 70
-MAX_HP = 70
+HP = 50
+MAX_HP = 50
 ENERGY = 1
 MAX_ENERGY = 3
 DRAW_COUNT = 5

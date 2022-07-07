@@ -27,7 +27,7 @@ class Attack(Card):
         return self.attack
 
     def __repr__(self):
-        return f'({self.energy}) {self.type} {self.attack}'
+        return f'{self.type}'
 
 class Block(Card):
 
@@ -47,4 +47,4 @@ class Block(Card):
         return self.block
 
     def __repr__(self):
-        return f'({self.energy}) {self.type} {self.block}'
+        return f'{self.type}'

@@ -16,7 +16,7 @@ class Pigeon(Enemy):
     def __init__(self):
         super().__init__()
         self.name = '🐦 Standard Pigeon'
-        self.hp = random.randint(20, 35)
+        self.hp = random.randint(25, 100)
         self.max_hp = self.hp
 
     def __repr__(self):
