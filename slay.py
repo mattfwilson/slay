@@ -16,6 +16,7 @@ def createEnemy():
     enemy_pool = [Pigeon()]
     enemy = random.choices(enemy_pool, weights=[1]) # add more weights after testing
     ENEMY.append(enemy[0])
+    ENEMY[-1].intro()
 
 def draw():
     for i in range(DRAW_COUNT):
@@ -30,7 +31,6 @@ def testPool():
 
 def startCombat():
     createEnemy()
-    ENEMY[-1].intro()
     startTurn()
 
 def startTurn():
@@ -41,40 +41,29 @@ def startTurn():
     draw()
     playerSummary()
     enemySummary()
+
+# start WHILE:
+# PLAYER_HP > 0 or ENEMY_HP > 0: "I'm not dead. Enemy is not dead"
+# PLAYCARD is in HAND: "Card I played is in my current hand"
+# PLAYCARD == Block or Attack: "Check to what card type I played"
+# PLAYCARD ENERGY >= ENERGY: I can afford the energy cost of card I played
+
     while ENERGY > 0:
-        MOVE = input('What do you want to do? ')
+        PLAYCARD = input('What do you want to do? ')
         count = 0
         for card in HAND:
-            if str(card) == MOVE:
+            if str(card) == PLAYCARD:
                 count += 1
-                HAND.remove(MOVE)
-                DISCARD_PILE.append(MOVE)
+                HAND.remove(PLAYCARD)
+                DISCARD_PILE.append(PLAYCARD)
                 print(HAND)
                 print(DISCARD_PILE)
 
             else:
-                print(f'{MOVE} not in hand...')
-                MOVE = input('What do you want to do? ')
+                print(f'{PLAYCARD} not in hand...')
+                PLAYCARD = input('What do you want to do? ')
         if count == 0:
             print('You have no move. Type "end" to conclude your turn.')
-
-
-
-
-
-
-    # while HP > 0 or ENEMY[-1].sayHP() > 0:
-    #     if MOVE in HAND:
-    #         print(f'You use {card.sayEnergy()} 💧 to play ⚔  {card.sayType()} for {card.sayAttack()}')
-    #         ENERGY -= card.sayEnergy()
-    #         print(ENERGY)
-    #     elif MOVE == ACTIONS[2]:
-    #         for card in HAND:
-    #             if card.sayType() == MOVE:
-    #                 print(f'You use {card.sayEnergy()} 💧 to play 🛡  {card.sayType()} for {card.sayBlock()}')
-    #                 ENERGY -= card.sayEnergy()
-    #     else:
-    #         print('You hit the else')
 
 def endTurn():
     HAND.pop(len(range(HAND)))
