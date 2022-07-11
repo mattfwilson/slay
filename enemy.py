@@ -16,7 +16,7 @@ class Pigeon(Enemy):
     def __init__(self):
         super().__init__()
         self.name = '🐦 Standard Pigeon'
-        self.hp = random.randint(25, 100)
+        self.hp = random.randint(25, 50)
         self.max_hp = self.hp
 
     def __repr__(self):
@@ -57,3 +57,10 @@ class Pigeon(Enemy):
         else:
             for i in block:
                 return f'💢 Enemy intends to 🛡  Block for {i}.'
+
+class Boss:
+
+    def __init__(self):
+        self.bonusHP = .5
+        self.bonusAttack = .5
+

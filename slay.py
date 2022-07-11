@@ -52,13 +52,18 @@ def startTurn():
         PLAYCARD = input('What do you want to do? ')
         count = 0
         for card in HAND:
-            if str(card) == PLAYCARD:
+            if PLAYCARD in HAND:
                 count += 1
-                HAND.remove(PLAYCARD)
+                HAND.pop(PLAYCARD)
                 DISCARD_PILE.append(PLAYCARD)
                 print(HAND)
                 print(DISCARD_PILE)
-
+            elif PLAYCARD == 'hand':
+                print(HAND)
+                break
+            elif PLAYCARD == 'discard':
+                print(DISCARD_PILE)
+                break
             else:
                 print(f'{PLAYCARD} not in hand...')
                 PLAYCARD = input('What do you want to do? ')
