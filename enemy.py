@@ -3,11 +3,19 @@ import random
 
 ########################################################################
 
-class Enemy():
+class Enemy:
     id = itertools.count(0).__next__
 
     def __init__(self):
         self.id = Enemy.id()
+
+########################################################################
+
+class Boss:
+
+    def __init__(self):
+        self.bonusHP = .5
+        self.bonusAttack = .5
 
 ########################################################################
 
@@ -16,18 +24,18 @@ class Pigeon(Enemy):
     def __init__(self):
         super().__init__()
         self.name = '🐦 Standard Pigeon'
-        self.hp = random.randint(25, 50)
+        self.hp = random.randint(35, 55)
         self.max_hp = self.hp
 
     def __repr__(self):
         return f'self.id: {self.id} self.name: {self.name}, self.hp/self.max_hp: {self.hp}/{self.max_hp}'
 
     def intro(self):
-        print('You encountered an enemy!')
+        print('\nYou encountered an enemy!')
         print(f'A {self.name} swoops down...\n')
 
     def saySummary(self):
-        print(f'{self.name}')
+        print(f'\n\n{self.name}')
         print(f'🩸 HP: {self.hp}/{self.max_hp}')
 
     def sayID(self):
@@ -57,10 +65,4 @@ class Pigeon(Enemy):
         else:
             for i in block:
                 return f'💢 Enemy intends to 🛡  Block for {i}.'
-
-class Boss:
-
-    def __init__(self):
-        self.bonusHP = .5
-        self.bonusAttack = .5
 

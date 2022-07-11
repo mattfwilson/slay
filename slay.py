@@ -48,8 +48,8 @@ def startTurn():
 # PLAYCARD == Block or Attack: "Check to what card type I played"
 # PLAYCARD ENERGY >= ENERGY: I can afford the energy cost of card I played
 
-    while ENERGY > 0:
-        PLAYCARD = input('What do you want to do? ')
+    while HP > 0:
+        PLAYCARD = input('\nWhat do you want to do? ')
         count = 0
         for card in HAND:
             if PLAYCARD in HAND:
@@ -78,7 +78,8 @@ def playerSummary():
     print(f'🙂 {NAME}')
     print(f'🩸 HP: {HP}/{MAX_HP}')
     print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}')
-    print(f'🖐  Cards: {HAND}\n')
+    for card in HAND:
+        print(card, end=' ')
 
 def enemySummary():
     ENEMY[-1].saySummary()
