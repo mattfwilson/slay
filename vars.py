@@ -1,5 +1,5 @@
 # player
-NAME = 'Karmae'
+NAME = 'You'
 HP = 50
 MAX_HP = 50
 ENERGY = 1

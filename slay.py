@@ -40,29 +40,18 @@ def startTurn():
     # ENERGY = MAX_ENERGY
     draw()
     enemySummary()
-    playerSummary()
-
-# start WHILE:
-# PLAYER_HP > 0 or ENEMY_HP > 0: "I'm not dead. Enemy is not dead"
-# action is in HAND: "Card I played is in my current hand"
-# action == Block or Attack: "Check to what card type I played"
-# action ENERGY >= ENERGY: I can afford the energy cost of card I played
 
 
     while ENERGY > 0:
-        action = int(input('\nWhat do you want to do? '))
-        ENERGY -= 1
-        print(f'You used {HAND[action]}!')
+        playerSummary()
+        action = int(input('\nWhich card do you want to play? '))
+        if HAND[action].sayType() == ACTIONS[1]:
+            ENERGY -= 1
+            print(f'You used {HAND[action].sayEnergy()}💧 and attacked for {HAND[action].sayAttack()}!')
+        elif HAND[action].sayType() == ACTIONS[2]:
+            ENERGY -= 1
+            print(f'You used {HAND[action].sayEnergy()}💧 and blocked for {HAND[action].sayBlock()}!')
 
-            # elif action == 'hand':
-            #     print(HAND)
-            # elif action == 'discard':
-            #     print(DISCARD_PILE)
-            # else:
-            #     print(f'{action} not in hand...')
-            #     action = input('What do you want to do? ')
-        # if ENERGY == 0:
-        #     print(f'Your 💧 Energy is {ENERGY}/{MAX_ENERGY}. Type "end" to finish your turn.')
 
 def endTurn():
     HAND.pop(len(range(HAND)))
@@ -76,8 +65,8 @@ def playerSummary():
     print(f'🙂 {NAME}')
     print(f'🩸 HP: {HP}/{MAX_HP}')
     print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
-    for (card, item) in enumerate(HAND, start=0):
-        print(card, item)
+    for (index, card) in enumerate(HAND, start=0):
+        print(index, card)
 
 # main game execution
 buildDeck()
