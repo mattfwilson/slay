@@ -1,3 +1,4 @@
+from vars import *
 import itertools
 
 class Card:
@@ -12,7 +13,7 @@ class Attack(Card):
     def __init__(self):
         super().__init__()
         self.energy = 1
-        self.type = 'Attack'
+        self.type = ACTIONS[1]
         self.attack = 6
 
     def sayEnergy(self):
@@ -25,14 +26,14 @@ class Attack(Card):
         return self.attack
 
     def __repr__(self):
-        return f'({self.energy}) {self.type} {self.attack} '
+        return f'[{self.type} {self.attack} for {self.energy} 💧]'
 
 class Block(Card):
 
     def __init__(self):
         super().__init__()
         self.energy = 1
-        self.type = 'Block'
+        self.type = ACTIONS[2]
         self.block = 6
 
     def sayEnergy(self):
@@ -45,4 +46,4 @@ class Block(Card):
         return self.block
 
     def __repr__(self):
-        return f'({self.energy}) {self.type} {self.block}'
+        return f'[{self.type} {self.block} for {self.energy} 💧]'

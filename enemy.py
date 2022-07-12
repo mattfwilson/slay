@@ -35,7 +35,7 @@ class Pigeon(Enemy):
         print(f'A {self.name} swoops down...\n')
 
     def saySummary(self):
-        print(f'\n\n{self.name}')
+        print(f'{self.name}')
         print(f'🩸 HP: {self.hp}/{self.max_hp}')
 
     def sayID(self):

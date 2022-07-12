@@ -37,10 +37,10 @@ def startTurn():
     global TURN_COUNT
     global ENERGY
     TURN_COUNT += 1
-    ENERGY = MAX_ENERGY
+    # ENERGY = MAX_ENERGY
     draw()
-    playerSummary()
     enemySummary()
+    playerSummary()
 
 # start WHILE:
 # PLAYER_HP > 0 or ENEMY_HP > 0: "I'm not dead. Enemy is not dead"
@@ -48,46 +48,36 @@ def startTurn():
 # action == Block or Attack: "Check to what card type I played"
 # action ENERGY >= ENERGY: I can afford the energy cost of card I played
 
-    while HP > 0:
-        action = input('\nWhat do you want to do? ')
-        for card in HAND:
-            if action == 'Attack':
-                playable = filter('Attack', HAND)
-                print(playable)
-                ENERGY -= 1
-                HAND.remove(card)
-                DISCARD_PILE.append(card)
-            elif action == 'Block':
-                playable = filter('Block', HAND)
-                print(playable)
-                ENERGY -= 1
-                HAND.remove(card)
-                DISCARD_PILE.append(card)
 
-            elif action == 'hand':
-                print(HAND)
-            elif action == 'discard':
-                print(DISCARD_PILE)
-            else:
-                print(f'{action} not in hand...')
-                action = input('What do you want to do? ')
+    while ENERGY > 0:
+        action = int(input('\nWhat do you want to do? '))
+        ENERGY -= 1
+        print(f'You used {HAND[action]}!')
+
+            # elif action == 'hand':
+            #     print(HAND)
+            # elif action == 'discard':
+            #     print(DISCARD_PILE)
+            # else:
+            #     print(f'{action} not in hand...')
+            #     action = input('What do you want to do? ')
         # if ENERGY == 0:
         #     print(f'Your 💧 Energy is {ENERGY}/{MAX_ENERGY}. Type "end" to finish your turn.')
 
 def endTurn():
     HAND.pop(len(range(HAND)))
 
-def playerSummary():
+def enemySummary():
     print('-' * 70 + f' [Turn {TURN_COUNT}]')
+    ENEMY[-1].saySummary()
+    print(f'{ENEMY[-1].intent()}\n')
+
+def playerSummary():
     print(f'🙂 {NAME}')
     print(f'🩸 HP: {HP}/{MAX_HP}')
     print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
-    for card in HAND:
-        print(card, end=' ')
-
-def enemySummary():
-    ENEMY[-1].saySummary()
-    print(f'{ENEMY[-1].intent()}')
+    for (card, item) in enumerate(HAND, start=0):
+        print(card, item)
 
 # main game execution
 buildDeck()
