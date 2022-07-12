@@ -44,31 +44,35 @@ def startTurn():
 
 # start WHILE:
 # PLAYER_HP > 0 or ENEMY_HP > 0: "I'm not dead. Enemy is not dead"
-# PLAYCARD is in HAND: "Card I played is in my current hand"
-# PLAYCARD == Block or Attack: "Check to what card type I played"
-# PLAYCARD ENERGY >= ENERGY: I can afford the energy cost of card I played
+# action is in HAND: "Card I played is in my current hand"
+# action == Block or Attack: "Check to what card type I played"
+# action ENERGY >= ENERGY: I can afford the energy cost of card I played
 
     while HP > 0:
-        PLAYCARD = input('\nWhat do you want to do? ')
-        count = 0
+        action = input('\nWhat do you want to do? ')
         for card in HAND:
-            if PLAYCARD in HAND:
-                count += 1
-                HAND.pop(PLAYCARD)
-                DISCARD_PILE.append(PLAYCARD)
+            if action == 'Attack':
+                playable = filter('Attack', HAND)
+                print(playable)
+                ENERGY -= 1
+                HAND.remove(card)
+                DISCARD_PILE.append(card)
+            elif action == 'Block':
+                playable = filter('Block', HAND)
+                print(playable)
+                ENERGY -= 1
+                HAND.remove(card)
+                DISCARD_PILE.append(card)
+
+            elif action == 'hand':
                 print(HAND)
+            elif action == 'discard':
                 print(DISCARD_PILE)
-            elif PLAYCARD == 'hand':
-                print(HAND)
-                break
-            elif PLAYCARD == 'discard':
-                print(DISCARD_PILE)
-                break
             else:
-                print(f'{PLAYCARD} not in hand...')
-                PLAYCARD = input('What do you want to do? ')
-        if count == 0:
-            print('You have no move. Type "end" to conclude your turn.')
+                print(f'{action} not in hand...')
+                action = input('What do you want to do? ')
+        # if ENERGY == 0:
+        #     print(f'Your 💧 Energy is {ENERGY}/{MAX_ENERGY}. Type "end" to finish your turn.')
 
 def endTurn():
     HAND.pop(len(range(HAND)))
@@ -77,7 +81,7 @@ def playerSummary():
     print('-' * 70 + f' [Turn {TURN_COUNT}]')
     print(f'🙂 {NAME}')
     print(f'🩸 HP: {HP}/{MAX_HP}')
-    print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}')
+    print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
     for card in HAND:
         print(card, end=' ')
 

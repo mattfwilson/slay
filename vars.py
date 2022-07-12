@@ -2,8 +2,8 @@
 NAME = 'Karmae'
 HP = 50
 MAX_HP = 50
-ENERGY = 1
-MAX_ENERGY = 3
+ENERGY = 5
+MAX_ENERGY = 5
 DRAW_COUNT = 5
 HAND = []
 DRAW_PILE = []

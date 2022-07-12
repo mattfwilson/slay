@@ -1,7 +1,5 @@
 import itertools
 
-CARD_TYPES = ['Attack', 'Block']
-
 class Card:
 
     id = itertools.count(0).__next__
@@ -14,7 +12,7 @@ class Attack(Card):
     def __init__(self):
         super().__init__()
         self.energy = 1
-        self.type = CARD_TYPES[0]
+        self.type = 'Attack'
         self.attack = 6
 
     def sayEnergy(self):
@@ -34,7 +32,7 @@ class Block(Card):
     def __init__(self):
         super().__init__()
         self.energy = 1
-        self.type = CARD_TYPES[1]
+        self.type = 'Block'
         self.block = 6
 
     def sayEnergy(self):
