@@ -36,11 +36,10 @@ def startCombat():
 def startTurn():
     global TURN_COUNT
     global ENERGY
-    TURN_COUNT += 1
+    # TURN_COUNT += 1
     # ENERGY = MAX_ENERGY
     draw()
     enemySummary()
-
 
     while ENERGY > 0:
         playerSummary()
@@ -51,10 +50,13 @@ def startTurn():
         elif HAND[action].sayType() == ACTIONS[2]:
             ENERGY -= 1
             print(f'You used {HAND[action].sayEnergy()}💧 and blocked for {HAND[action].sayBlock()}!')
+        else:
+            print('Invalid input...')
 
 
 def endTurn():
-    HAND.pop(len(range(HAND)))
+    for card in HAND:
+        HAND.pop(card)
 
 def enemySummary():
     print('-' * 70 + f' [Turn {TURN_COUNT}]')

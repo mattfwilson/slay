@@ -2,7 +2,7 @@
 NAME = 'You'
 HP = 50
 MAX_HP = 50
-ENERGY = 1
+ENERGY = 3
 MAX_ENERGY = 5
 DRAW_COUNT = 5
 HAND = []
