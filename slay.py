@@ -40,16 +40,24 @@ def startTurn():
     # ENERGY = MAX_ENERGY
     draw()
     enemySummary()
+    playerSummary()
 
     while ENERGY > 0:
-        playerSummary()
         action = int(input('\nWhich card do you want to play? '))
         if HAND[action].sayType() == ACTIONS[1]:
-            ENERGY -= 1
+            HAND.remove(HAND[action])
+            DISCARD_PILE.append(HAND[action])
             print(f'You used {HAND[action].sayEnergy()}💧 and attacked for {HAND[action].sayAttack()}!')
-        elif HAND[action].sayType() == ACTIONS[2]:
             ENERGY -= 1
+            print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
+        elif HAND[action].sayType() == ACTIONS[2]:
             print(f'You used {HAND[action].sayEnergy()}💧 and blocked for {HAND[action].sayBlock()}!')
+            ENERGY -= 1
+            print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
+        elif action == 'hand':
+            print(HAND)
+        elif action == 'discard':
+            print(DISCARD_PILE)
         else:
             print('Invalid input...')
 
