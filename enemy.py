@@ -55,10 +55,11 @@ class Pigeon(Enemy):
         return self.hp
 
     def intent(self):
-        values = [4, 5, 6, 7, 8, 10, 11]
+        attackValues = [8, 10, 12, 14]
+        blockValues = [8, 10, 12, 16]
         intent = random.randint(1, 2)
-        attack = random.choices(values, weights=[1, 1, 1, 2, 6, 8, 6])
-        block = random.choices(values, weights=[1, 3, 3, 8, 8, 3, 2])
+        attack = random.choices(attackValues, weights=[1, 2, 6, 1])
+        block = random.choices(blockValues, weights=[1, 8, 3, 2])
         if intent == 1:
             for i in attack: # prints intent without list brackets (better way to do this?)
                 return f'💢 Enemy intends to ⚔  Attack for {i}.'

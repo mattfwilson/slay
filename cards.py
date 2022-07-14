@@ -1,4 +1,5 @@
 from vars import *
+import random
 import itertools
 
 class Card:
@@ -9,12 +10,14 @@ class Card:
         self.id = Card.id()
 
 class Attack(Card):
-    
+
     def __init__(self):
+        amount = [4, 6, 8]
+        attack = random.choices(amount, weights=[2, 4, 1])
         super().__init__()
         self.energy = 1
         self.type = ACTIONS[1]
-        self.attack = 6
+        self.attack = attack
 
     def sayEnergy(self):
         return self.energy
@@ -31,10 +34,12 @@ class Attack(Card):
 class Block(Card):
 
     def __init__(self):
+        amount = [4, 6, 8, 10]
+        block = random.choices(amount, weights=[1, 2, 6, 1])
         super().__init__()
         self.energy = 1
         self.type = ACTIONS[2]
-        self.block = 6
+        self.block = block
 
     def sayEnergy(self):
         return self.energy
