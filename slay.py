@@ -23,7 +23,7 @@ def draw():
         card = DRAW_PILE.pop(-1)
         HAND.append(card)
 
-def testPool():
+def test():
     for num in range(COUNTER):
         createEnemy()
     for enemy in ENEMY:
@@ -33,15 +33,8 @@ def startCombat():
     createEnemy()
     startTurn()
 
-def startTurn():
-    global TURN_COUNT
+def main():
     global ENERGY
-    # TURN_COUNT += 1
-    # ENERGY = MAX_ENERGY
-    draw()
-    enemySummary()
-    playerSummary()
-    # mainLoop()
     while ENERGY > 0:
         action = int(input('\nWhich card do you want to play? '))
         currentHand = HAND[action]
@@ -62,6 +55,16 @@ def startTurn():
         else:
             print('Invalid input...')
 
+def startTurn():
+    global TURN_COUNT
+    global ENERGY
+    # TURN_COUNT += 1
+    # ENERGY = MAX_ENERGY
+    draw()
+    enemySummary()
+    playerSummary()
+    main()
+
 
 def endTurn():
     for card in HAND:
@@ -79,7 +82,6 @@ def playerSummary():
     for (index, card) in enumerate(HAND, start=0):
         print(index, card)
 
-# main game execution
 buildDeck()
 startCombat()
 
@@ -92,5 +94,3 @@ startCombat()
 # pull out parts of main battle loop into individual functions to make it easier to debug
 # uses loops within summaries to continue actions
 # try making a "game state" class to instantiate all needed global variables
-
-# [Block 6, Block 6, Attack 6, Block 6, Attack 6]

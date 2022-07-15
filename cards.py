@@ -46,18 +46,27 @@ class Block(Card):
         super().__init__()
         amount = [4, 6, 8, 10]
         block = random.choices(amount, weights=[1, 2, 6, 1])
-        self.energy = 1
-        self.type = ACTIONS[2]
-        self.block = block
+        self._energy = 1
+        self._type = ACTIONS[2]
+        self._block = block
 
-    def sayEnergy(self):
-        return self.energy
+    def setEnergy(self):
+        return self._energy
 
-    def sayType(self):
-        return self.type
+    def getEnergy(self):
+        return self._energy
 
-    def sayBlock(self):
-        return self.block
+    def setType(self):
+        return self._type
+
+    def getType(self):
+        return self._type
+
+    def setBlock(self):
+        return self._block
+
+    def getBlock(self):
+        return self._block
 
     def __repr__(self):
-        return f'🛡  {self.type} {self.block} for {self.energy}💧'
+        return f'🛡  {self._type} {self._block} for {self._energy}💧'
