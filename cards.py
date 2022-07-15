@@ -12,31 +12,40 @@ class Card:
 class Attack(Card):
 
     def __init__(self):
+        super().__init__()
         amount = [4, 6, 8]
         attack = random.choices(amount, weights=[2, 4, 1])
-        super().__init__()
-        self.energy = 1
-        self.type = ACTIONS[1]
-        self.attack = attack
+        self._energy = 1
+        self._type = ACTIONS[1]
+        self._attack = attack
 
-    def sayEnergy(self):
-        return self.energy
+    def setEnergy(self):
+        return self._energy
+    
+    def getEnergy(self):
+        return self._energy
 
-    def sayType(self):
-        return self.type
+    def setType(self):
+        return self._type
 
-    def sayAttack(self):
-        return self.attack
+    def getType(self):
+        return self._type
+
+    def setAttack(self):
+        return self._attack
+
+    def getAttack(self):
+        return self._attack
 
     def __repr__(self):
-        return f'⚔  {self.type} {self.attack} for {self.energy}💧'
+        return f'⚔  {self._type} {self._attack} for {self._energy}💧'
 
 class Block(Card):
 
     def __init__(self):
+        super().__init__()
         amount = [4, 6, 8, 10]
         block = random.choices(amount, weights=[1, 2, 6, 1])
-        super().__init__()
         self.energy = 1
         self.type = ACTIONS[2]
         self.block = block

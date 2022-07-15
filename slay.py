@@ -13,8 +13,8 @@ def buildDeck():
     random.shuffle(DRAW_PILE)
 
 def createEnemy():
-    enemy_pool = [Pigeon()]
-    enemy = random.choices(enemy_pool, weights=[1]) # add more weights after testing
+    enemy_pool = [Pigeon(), CatOfThondor()]
+    enemy = random.choices(enemy_pool, weights=[1, 1]) # add more weights after testing
     ENEMY.append(enemy[0])
     ENEMY[-1].intro()
 
@@ -41,17 +41,18 @@ def startTurn():
     draw()
     enemySummary()
     playerSummary()
-
+    # mainLoop()
     while ENERGY > 0:
         action = int(input('\nWhich card do you want to play? '))
-        if HAND[action].sayType() == ACTIONS[1]:
-            HAND.remove(HAND[action])
-            DISCARD_PILE.append(HAND[action])
-            print(f'You used {HAND[action].sayEnergy()}💧 and attacked for {HAND[action].sayAttack()}!')
+        currentHand = HAND[action]
+        if currentHand.sayType() == ACTIONS[1]:
+            HAND.remove(currentHand)
+            DISCARD_PILE.append(currentHand)
+            print(f'You used {currentHand.sayEnergy()}💧 and attacked for {HAND[action].sayAttack()}!')
             ENERGY -= 1
             print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
-        elif HAND[action].sayType() == ACTIONS[2]:
-            print(f'You used {HAND[action].sayEnergy()}💧 and blocked for {HAND[action].sayBlock()}!')
+        elif currentHand.sayType() == ACTIONS[2]:
+            print(f'You used {currentHand.sayEnergy()}💧 and blocked for {HAND[action].sayBlock()}!')
             ENERGY -= 1
             print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
         elif action == 'hand':
@@ -81,3 +82,15 @@ def playerSummary():
 # main game execution
 buildDeck()
 startCombat()
+
+# Max ???s
+
+# what order would you do for checking the main battle loop?
+# best way to create iterators?
+# is there an easier way to call class methods? 
+
+# pull out parts of main battle loop into individual functions to make it easier to debug
+# uses loops within summaries to continue actions
+# try making a "game state" class to instantiate all needed global variables
+
+# [Block 6, Block 6, Attack 6, Block 6, Attack 6]
