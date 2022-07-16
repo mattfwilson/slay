@@ -33,27 +33,27 @@ def startCombat():
     createEnemy()
     startTurn()
 
-def main():
-    global ENERGY
-    while ENERGY > 0:
-        action = int(input('\nWhich card do you want to play? '))
-        currentHand = HAND[action]
-        if currentHand.sayType() == ACTIONS[1]:
-            HAND.remove(currentHand)
-            DISCARD_PILE.append(currentHand)
-            print(f'You used {currentHand.sayEnergy()}💧 and attacked for {HAND[action].sayAttack()}!')
-            ENERGY -= 1
-            print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
-        elif currentHand.sayType() == ACTIONS[2]:
-            print(f'You used {currentHand.sayEnergy()}💧 and blocked for {HAND[action].sayBlock()}!')
-            ENERGY -= 1
-            print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
-        elif action == 'hand':
-            print(HAND)
-        elif action == 'discard':
-            print(DISCARD_PILE)
-        else:
-            print('Invalid input...')
+# def main():
+#     global ENERGY
+#     while ENERGY > 0:
+#         action = int(input('\nWhich card do you want to play? '))
+#         handIndex = HAND[action]
+#         if handIndex.sayType() == ACTIONS[1]:
+#             HAND.remove(handIndex)
+#             DISCARD_PILE.append(handIndex)
+#             print(f'You used {handIndex.sayEnergy()}💧 and attacked for {HAND[action].sayAttack()}!')
+#             ENERGY -= 1
+#             print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
+#         elif handIndex.sayType() == ACTIONS[2]:
+#             print(f'You used {handIndex.sayEnergy()}💧 and blocked for {HAND[action].sayBlock()}!')
+#             ENERGY -= 1
+#             print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
+#         elif action == 'hand':
+#             print(HAND)
+#         elif action == 'discard':
+#             print(DISCARD_PILE)
+#         else:
+#             print('Invalid input...')
 
 def startTurn():
     global TURN_COUNT
@@ -63,8 +63,7 @@ def startTurn():
     draw()
     enemySummary()
     playerSummary()
-    main()
-
+    # main()
 
 def endTurn():
     for card in HAND:

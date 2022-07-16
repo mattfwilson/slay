@@ -23,8 +23,13 @@ class Boss:
 class Pigeon(Enemy):
 
     def __init__(self):
+
+        adjectives = ['Standard', 'Basic', 'Plebian', 'Undead', 'Armored', 'Elite', 'Untouchable']
+        roll = random.choice(adjectives)
+        name_adj = '🐦 ' + roll + ' Pigeon'
+
         super().__init__()
-        self.name = '🐦 Standard Pigeon'
+        self.name = name_adj
         self.hp = random.randint(35, 55)
         self.max_hp = self.hp
 
@@ -71,8 +76,13 @@ class Pigeon(Enemy):
 class CatOfThondor(Enemy):
 
     def __init__(self):
+
+        adjectives = ['Shrieking', 'Complacent', 'Regimented', 'Ghostly', 'Robotic', 'Frantic', 'Verbose']
+        roll = random.choice(adjectives)
+        name_adj = '😼 ' + roll + ' Cat Of Thondor'
+
         super().__init__()
-        self.name = '😼 Cat Of Thondor'
+        self.name = name_adj
         self.hp = random.randint(60, 75)
         self.max_hp = self.hp
 
