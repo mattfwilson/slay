@@ -34,7 +34,7 @@ class Pigeon(Enemy):
         self.max_hp = self.hp
 
     def __repr__(self):
-        return f'self.id: {self.id} self.name: {self.name}, self.hp/self.max_hp: {self.hp}/{self.max_hp}'
+        return f'This is the  repr of {self.name}, id: {self.id}'
 
     def intro(self):
         print('\nYou encountered an enemy!')
@@ -87,7 +87,7 @@ class CatOfThondor(Enemy):
         self.max_hp = self.hp
 
     def __repr__(self):
-        return f'self.id: {self.id} self.name: {self.name}, self.hp/self.max_hp: {self.hp}/{self.max_hp}'
+        return f'This is the  repr of {self.name}, id: {self.id}'
 
     def intro(self):
         print('\nYou encountered an enemy!')
