@@ -31,37 +31,55 @@ def test():
 
 def startCombat():
     createEnemy()
-    startTurn()
+    startPlayerTurn()
+
+def checkInput(input):
+    try:
+        val = int(input)
+        print("Input is an integer number. Number = ", val)
+    except ValueError:
+        try:
+            # Convert it into float
+            val = float(input)
+            print("Input is a float  number. Number = ", val)
+        except ValueError:
+            print("No.. input is not a number. It's a string")
 
 def main():
     global ENERGY
     while ENERGY > 0:
+        enemySummary()
+        playerSummary()
         action = int(input('\nWhich card do you want to play? '))
-        handChoice = HAND[action]
-        print(handChoice)
-        if handChoice.getType() == ACTIONS[1]:
-            HAND.remove(handChoice)
-            DISCARD_PILE.append(handChoice)
-            print(f'You used {handChoice.getEnergy()}💧 and attacked for {HAND[action].getAttack()} {HAND[action].getType()}!')
-            ENERGY -= 1
-            print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
-        elif handChoice.getType() == ACTIONS[2]:
-            print(f'You used {handChoice.getEnergy()}💧 and blocked for {HAND[action].getBlock()} {HAND[action].getType()}!')
-            ENERGY -= 1
-            print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
-        elif action == 'hand':
-            print(HAND)
-        elif action == 'discard':
-            print(DISCARD_PILE)
-        else:
-            print('Invalid input...')
+        try:
+            int(action)
+            handChoice = HAND[action]
+            if handChoice.getType() == ACTIONS[1]:
+                print(f'You used {handChoice.getEnergy()}💧 and attacked for {HAND[action].getAttack()} {HAND[action].getType()}!')
+                ENERGY -= 1
+                HAND.remove(handChoice)
+                DISCARD_PILE.append(handChoice)
+                print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
+            elif handChoice.getType() == ACTIONS[2]:
+                print(f'You used {handChoice.getEnergy()}💧 and blocked for {HAND[action].getBlock()} {HAND[action].getType()}!')
+                ENERGY -= 1
+                HAND.remove(handChoice)
+                DISCARD_PILE.append(handChoice)
+                print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
+        except ValueError:
+            if action == 'hand':
+                print(HAND)
+            elif action == 'discard':
+                print(DISCARD_PILE)
+            else:
+                print('Invalid input...')
+        
+    print('You\'re out of energy!')
 
-def startTurn():
+def startPlayerTurn():
     global TURN_COUNT
     global ENERGY
     draw()
-    enemySummary()
-    playerSummary()
     main()
 
 def endTurn():
