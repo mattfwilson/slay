@@ -51,8 +51,15 @@ def main():
         enemySummary()
         playerSummary()
         action = int(input('\nWhich card do you want to play? '))
+
         try:
             int(action)
+            val = True
+        except ValueError:
+            val = False
+        print(val)
+
+        if val == True:
             handChoice = HAND[action]
             if handChoice.getType() == ACTIONS[1]:
                 print(f'You used {handChoice.getEnergy()}💧 and attacked for {HAND[action].getAttack()} {HAND[action].getType()}!')
@@ -66,21 +73,21 @@ def main():
                 HAND.remove(handChoice)
                 DISCARD_PILE.append(handChoice)
                 print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
-        except ValueError:
+        else:
             if action == 'hand':
                 print(HAND)
             elif action == 'discard':
                 print(DISCARD_PILE)
             else:
                 print('Invalid input...')
-        
-    print('You\'re out of energy!')
+            
+        print('You\'re out of energy!')
 
 def startPlayerTurn():
-    global TURN_COUNT
-    global ENERGY
-    draw()
-    main()
+        global TURN_COUNT
+        global ENERGY
+        draw()
+        main()
 
 def endTurn():
     for card in HAND:
