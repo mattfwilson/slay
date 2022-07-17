@@ -5,12 +5,12 @@ MAX_HP = 50
 ENERGY = 5
 MAX_ENERGY = 5
 DRAW_COUNT = 5
-HAND = list()
-DRAW_PILE = list()
-DISCARD_PILE = list()
+HAND = []
+DRAW_PILE = []
+DISCARD_PILE = []
 
 # combat
-ENEMY = list()
+ENEMY = []
 COMBAT_COUNT = 1
 TURN_COUNT = 0
 ACTIONS = ['Draw', 'Attack', 'Block', 'Draw Pile', 'Discard Pile']
