@@ -1,13 +1,13 @@
 # player
 NAME = 'You'
-HP = 50
-MAX_HP = 50
-ENERGY = 5
-MAX_ENERGY = 5
+HP = 54
+MAX_HP = 54
+ENERGY = 3
+MAX_ENERGY = 3
 DRAW_COUNT = 5
-HAND = []
-DRAW_PILE = []
-DISCARD_PILE = []
+HAND = [] # doesn't need to be global
+DRAW_PILE = [] # doesn't need to be global
+DISCARD_PILE = [] # doesn't need to be global
 
 # combat
 ENEMY = []
@@ -15,5 +15,23 @@ COMBAT_COUNT = 1
 TURN_COUNT = 0
 ACTIONS = ['Draw', 'Attack', 'Block', 'Draw Pile', 'Discard Pile']
 
-# misc
-COUNTER = 10 # for testPool() function
+# # misc
+# COUNTER = 10 # for testPool() function
+
+class GameState:
+    def __init__(self):
+        self.NAME = 'You'
+        self.HP = 50
+        self.MAX_HP = 50
+        self.ENERGY = 3
+        self.MAX_ENERGY = 3
+        # self.DECK
+        self.DRAW_COUNT = 5
+        self.TURN_COUNT = 0
+        # self.COMBAT_COUNT
+        self.ENCOUNTERS = []
+        self.ACTIONS = ['Draw', 'Attack', 'Block', 'Draw Pile', 'Discard Pile']
+
+state = GameState()
+
+print(state.HP)
