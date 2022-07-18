@@ -17,91 +17,79 @@ def createEnemy():
     enemy = random.choices(enemy_pool, weights=[1, 1]) # add more weights after testing
     ENEMY.append(enemy[0])
     ENEMY[-1].intro()
+    return ENEMY[-1]
 
 def draw():
     for i in range(DRAW_COUNT):
         card = DRAW_PILE.pop(-1)
         HAND.append(card)
 
-def test():
-    for num in range(COUNTER):
-        createEnemy()
-    for enemy in ENEMY:
-        print(f'{enemy.sayName()} {enemy.sayID()}, {enemy.sayHP()}/{enemy.sayMaxHP()} - {enemy.intent()}')
+def startCombat(hp, max_hp, energy, max_energy, hand, discard):
+    draw()
+    startPlayerTurn(hp, max_hp, energy, max_energy, hand, discard, createEnemy())
 
-def startCombat():
-    createEnemy()
-    startPlayerTurn()
-
-def checkInput(input):
-    try:
-        val = int(input)
-        return True
-        print('Input is an integer. Number = ', val)
-    except ValueError:
-        try:
-            # Convert it into float
-            val = float(input)
-            return False
-            print('Input is a float. Number = ', val)
-        except ValueError:
-            print('Input is a string.')
-
-def main():
-    global TURN_COUNT
-    global ENERGY
-    while ENERGY > 0:
-        enemySummary()
-        playerSummary()
+def startPlayerTurn(hp, max_hp, energy, max_energy, hand, discard, enemy):
+    while energy > 0:
+        enemySummary(enemy)
+        playerSummary(hp, max_hp, energy, max_energy, hand)
         action = input('\nWhich card do you want to play? ')
         try:
             index = int(action)
-            handChoice = HAND[index]
+            handChoice = hand[index]
             if handChoice.getType() == ACTIONS[1]:
                 print(f'You used {handChoice.getEnergy()}💧 and attacked for {handChoice.getAttack()} {handChoice.getType()}!')
-                ENERGY -= 1
-                HAND.remove(handChoice)
-                DISCARD_PILE.append(handChoice)
-                print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
+                energy -= 1
+                hand.remove(handChoice)
+                discard.append(handChoice)
+                print(f'💧 Energy: {energy}/{max_energy}\n')
             elif handChoice.getType() == ACTIONS[2]:
                 print(f'You used {handChoice.getEnergy()}💧 and blocked for {handChoice.getBlock()} {handChoice.getType()}!')
-                ENERGY -= 1
-                HAND.remove(handChoice)
-                DISCARD_PILE.append(handChoice)
-                print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
+                energy -= 1
+                hand.remove(handChoice)
+                discard.append(handChoice)
+                print(f'💧 Energy: {energy}/{max_energy}\n')
+        except IndexError:
+            pass
         except ValueError:
             if action == 'hand':
-                print(HAND)
+                print('Current Hand: {hand}')
             elif action == 'discard':
-                print(DISCARD_PILE)
-            else:
-                print('Invalid input...')
-    print('You\'re out of energy!')
+                print(f'Discard Pile: {discard}')
+            elif action == 'end':
+                print(f'Global energy: {ENERGY}')
+                print(f'Function energy: {energy}')
+                return energy
+    action = input('You\'re out of energy! Type "end" to conclude your turn. ')
+    if action == 'end':
+        return hp, max_hp, energy, max_energy, hand, discard
+    else:
+        action = input('You\'re out of energy! Type "end" to conclude your turn. ')
+    hp, max_hp, energy, max_energy, hand, discard
+def endPlayerTurn():
+    print(f'Hit endPlayerTurn function')
+    pass
+    # for card in HAND:
+    #     print(card)
+    #     HAND.remove(card)
+    #     DISCARD_PILE.append(card)
+    #     print(f'Discard Pile: {DISCARD_PILE}')
 
-def startPlayerTurn():
-        draw()
-        main()
-
-def endTurn():
-    for card in HAND:
-        HAND.remove(card)
-        DISCARD_PILE.append(card)
-
-def enemySummary():
+def enemySummary(enemy):
     print('-' * 70 + f' [Turn {TURN_COUNT}]')
-    ENEMY[-1].saySummary()
-    print(f'{ENEMY[-1].intent()}\n')
+    enemy.saySummary()
+    print(f'{enemy.intent()}\n')
 
-def playerSummary():
+def playerSummary(hp, max_hp, energy, max_energy, hand):
     print(f'🙂 {NAME}')
-    print(f'🩸 HP: {HP}/{MAX_HP}')
-    print(f'💧 Energy: {ENERGY}/{MAX_ENERGY}\n')
-    for (index, card) in enumerate(HAND, start=0):
+    print(f'🩸 HP: {hp}/{max_hp}')
+    print(f'💧 Energy: {energy}/{max_energy}\n')
+    for (index, card) in enumerate(hand, start=0):
         print(index, card)
 
 buildDeck()
-startCombat()
+startCombat(HP, MAX_HP, ENERGY, MAX_ENERGY, HAND, DISCARD_PILE)
 
+print(f'Global energy (outside): {ENERGY}')
 # Max ???s
 
 # what order would you do for checking the main battle loop?
