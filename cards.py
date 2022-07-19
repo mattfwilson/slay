@@ -16,7 +16,7 @@ class Attack(Card):
         amount = [4, 6, 8]
         attack = random.choices(amount, weights=[2, 4, 1])
         self._energy = 1
-        self._type = ACTIONS[1]
+        self._type = state.ACTIONS[1]
         self._attack = attack
 
     def setEnergy(self):
@@ -47,7 +47,7 @@ class Block(Card):
         amount = [4, 6, 8, 10]
         block = random.choices(amount, weights=[1, 2, 6, 1])
         self._energy = 1
-        self._type = ACTIONS[2]
+        self._type = state.ACTIONS[2]
         self._block = block
 
     def setEnergy(self):

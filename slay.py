@@ -28,7 +28,6 @@ def startCombat():
     startPlayerTurn()
 
 def startPlayerTurn():
-    # print(f'***TESTING*** before while loop: {state.ENERGY} energy')
     while state.ENERGY > 0:
         enemySummary()
         playerSummary()
@@ -36,13 +35,13 @@ def startPlayerTurn():
         try:
             index = int(action)
             handChoice = state.HAND[index]
-            if handChoice.getType() == ACTIONS[1]:
+            if handChoice.getType() == state.ACTIONS[1]:
                 print(f'You used {handChoice.getEnergy()}💧 and attacked for {handChoice.getAttack()} {handChoice.getType()}!')
                 state.ENERGY -= 1
                 state.HAND.remove(handChoice)
                 state.DISCARD_PILE.append(handChoice)
                 print(f'💧 Energy: {state.ENERGY}/{state.MAX_ENERGY}\n')
-            elif handChoice.getType() == ACTIONS[2]:
+            elif handChoice.getType() == state.ACTIONS[2]:
                 print(f'You used {handChoice.getEnergy()}💧 and blocked for {handChoice.getBlock()} {handChoice.getType()}!')
                 state.ENERGY -= 1
                 state.HAND.remove(handChoice)
@@ -51,20 +50,20 @@ def startPlayerTurn():
         except IndexError:
             pass
         except ValueError:
-            if action == 'HAND':
-                print('Current Hand: {state.HAND}')
-            elif action == 'DISCARD_PILE':
-                print(f'Discard Pile: {state.DISCARD}')
+            if action == 'hand':
+                print(f'Current Hand: {state.HAND}')
+            elif action == 'discard':
+                print(f'Discard pile: {state.DISCARD_PILE}')
             elif action == 'end':
-                # print(f'***TESTING*** after while loop: {state.ENERGY} energy')
-                return state.ENERGY
+                print(f'Discard pile: {state.DISCARD_PILE}')
+                break
+            else:
+                break
     action = input('You\'re out of energy! Type "end" to conclude your turn. ')
     if action == 'end':
-        # print(f'***TESTING*** after while loop: {state.ENERGY} energy')
-        return f'Energy: {state.ENERGY}/{state.MAX_ENERGY}, end of turn {TURN_COUNT}'
+        print(f'Discard pile: {state.DISCARD_PILE}')
     else:
         action = input('You\'re out of energy! Type "end" to conclude your turn. ')
-
 
 def enemySummary():
     print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
@@ -84,13 +83,6 @@ def endPlayerTurn():
 
 buildDeck()
 startCombat()
-
-print(f'Global energy (outside): {state.ENERGY}')
-# Max ???s
-
-# what order would you do for checking the main battle loop?
-# best way to create iterators?
-# is there an easier way to call class methods? 
 
 # pull out parts of main battle loop into individual functions to make it easier to debug
 # uses loops within summaries to continue actions
