@@ -30,8 +30,8 @@ class Pigeon(Enemy):
 
         super().__init__()
         self.name = name_adj
-        self.hp = random.randint(35, 55)
-        self.max_hp = self.hp
+        self._hp = random.randint(35, 55)
+        self.max_hp = self._hp
 
     def __repr__(self):
         return f'This is the  repr of {self.name}, id: {self.id}'
@@ -40,20 +40,23 @@ class Pigeon(Enemy):
         print('\nYou encountered an enemy!')
         print(f'A {self.name} swoops down...\n')
 
-    def saySummary(self):
+    def summary(self):
         print(f'{self.name}')
-        print(f'🩸 HP: {self.hp}/{self.max_hp}')
+        print(f'🩸 HP: {self._hp}/{self.max_hp}')
 
-    def sayID(self):
+    def getID(self):
         return self.id
 
-    def sayName(self):
+    def getName(self):
         return self.name
 
-    def sayHP(self):
-        return self.hp
+    def getHP(self):
+        return self._hp
+    
+    def setHP(self):
+        return self._hp
 
-    def sayMaxHP(self):
+    def getMaxHP(self):
         return self.max_hp
 
     def doDamage(self, damage):
@@ -83,30 +86,30 @@ class CatOfThondor(Enemy):
 
         super().__init__()
         self.name = name_adj
-        self.hp = random.randint(60, 75)
-        self.max_hp = self.hp
+        self._hp = random.randint(60, 75)
+        self.max_hp = self._hp
 
     def __repr__(self):
-        return f'This is the  repr of {self.name}, id: {self.id}'
+        return f'This is the repr of {self.name}, id: {self.id}'
 
     def intro(self):
         print('\nYou encountered an enemy!')
         print(f'A {self.name} swoops down...\n')
 
-    def saySummary(self):
+    def summary(self):
         print(f'{self.name}')
-        print(f'🩸 HP: {self.hp}/{self.max_hp}')
+        print(f'🩸 HP: {self._hp}/{self.max_hp}')
 
-    def sayID(self):
+    def getID(self):
         return self.id
 
-    def sayName(self):
-        return self.name
+    def getHP(self):
+        return self._hp
+    
+    def setHP(self):
+        return self._hp
 
-    def sayHP(self):
-        return self.hp
-
-    def sayMaxHP(self):
+    def getMaxHP(self):
         return self.max_hp
 
     def doDamage(self, damage):
@@ -120,8 +123,8 @@ class CatOfThondor(Enemy):
         attack = random.choices(attackValues, weights=[1, 2, 6, 1])
         block = random.choices(blockValues, weights=[1, 8, 3, 2])
         if intent == 1:
-            for i in attack: # prints intent without list brackets (better way to do this?)
-                return f'💢 Enemy intends to ⚔  Attack for {i}.'
+            for damage in attack: # prints intent without list brackets (better way to do this?)
+                return f'💢 Enemy intends to ⚔  Attack for {damage}.'
         else:
-            for i in block:
-                return f'💢 Enemy intends to 🛡  Block for {i}.'
+            for blocked in block:
+                return f'💢 Enemy intends to 🛡  Block for {blocked}.'

@@ -4,9 +4,9 @@ from cards import *
 import random
 
 def buildDeck():
-    for i in range(5):
+    for count in range(5):
         state.DECK.append(Attack())
-    for j in range(5):
+    for count in range(5):
         state.DECK.append(Block())
 
 def createEnemy():
@@ -16,10 +16,9 @@ def createEnemy():
     state.ENCOUNTER[-1].intro()
 
 def draw():
-    print(state.DECK)
     for card in state.DECK:
         state.DRAW_PILE.append(card)
-    for x in range(state.DRAW_COUNT):
+    for count in range(state.DRAW_COUNT):
         state.HAND.append(random.choice(state.DRAW_PILE))
 
 def startCombat():
@@ -35,13 +34,13 @@ def startPlayerTurn():
         try:
             index = int(action)
             handChoice = state.HAND[index]
-            if handChoice.getType() == state.ACTIONS[1]:
+            if handChoice.getType() == state.ACTIONS[2]:
                 print(f'You used {handChoice.getEnergy()}💧 and attacked for {handChoice.getAttack()} {handChoice.getType()}!')
                 state.ENERGY -= 1
                 state.HAND.remove(handChoice)
                 state.DISCARD_PILE.append(handChoice)
                 print(f'💧 Energy: {state.ENERGY}/{state.MAX_ENERGY}\n')
-            elif handChoice.getType() == state.ACTIONS[2]:
+            elif handChoice.getType() == state.ACTIONS[3]:
                 print(f'You used {handChoice.getEnergy()}💧 and blocked for {handChoice.getBlock()} {handChoice.getType()}!')
                 state.ENERGY -= 1
                 state.HAND.remove(handChoice)
@@ -59,15 +58,15 @@ def startPlayerTurn():
                 break
             else:
                 break
-    action = input('You\'re out of energy! Type "end" to conclude your turn. ')
-    if action == 'end':
-        print(f'Discard pile: {state.DISCARD_PILE}')
-    else:
-        action = input('You\'re out of energy! Type "end" to conclude your turn. ')
+    # action = input('You\'re out of energy! Type "end" to conclude your turn. ')
+    # if action == 'end':
+    #     print(f'Discard pile: {state.DISCARD_PILE}')
+    # else:
+    #     action = input('You\'re out of energy! Type "end" to conclude your turn. ')
 
 def enemySummary():
     print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
-    state.ENCOUNTER[-1].saySummary()
+    state.ENCOUNTER[-1].summary()
     print(f'{state.ENCOUNTER[-1].intent()}\n')
 
 def playerSummary():

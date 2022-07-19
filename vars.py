@@ -13,6 +13,6 @@ class GameState:
         self.TURN_COUNT = 0
         self.COMBAT_COUNT = 0
         self.ENCOUNTER = []
-        self.ACTIONS = ['Draw', 'Attack', 'Block', 'Draw Pile', 'Discard Pile']
+        self.ACTIONS = ['Draw', 'Draw Pile', 'Attack', 'Block', 'Discard', 'Discard Pile']
 
 state = GameState()
