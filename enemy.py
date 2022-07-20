@@ -103,6 +103,9 @@ class CatOfThondor(Enemy):
     def getID(self):
         return self.id
 
+    def getName(self):
+        return self.name
+
     def getHP(self):
         return self._hp
     

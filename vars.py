@@ -5,6 +5,7 @@ class GameState:
         self.MAX_HP = 50
         self.ENERGY = 3
         self.MAX_ENERGY = 3
+        self.BLOCK = 0
         self.DECK = []
         self.DRAW_PILE = []
         self.HAND = []

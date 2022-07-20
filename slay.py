@@ -23,56 +23,63 @@ def draw():
 
 def startCombat():
     createEnemy()
-    draw()
     startPlayerTurn()
 
 def startPlayerTurn():
-    while state.ENERGY > 0:
-        enemySummary()
-        playerSummary()
-        action = input('\nWhich card do you want to play? ')
-        try:
-            index = int(action)
-            handChoice = state.HAND[index]
-            if handChoice.getType() == state.ACTIONS[2]:
-                print(f'You used {handChoice.getEnergy()}💧 and attacked for {handChoice.getAttack()} {handChoice.getType()}!')
-                state.ENERGY -= 1
-                state.HAND.remove(handChoice)
-                state.DISCARD_PILE.append(handChoice)
-                print(f'💧 Energy: {state.ENERGY}/{state.MAX_ENERGY}\n')
-            elif handChoice.getType() == state.ACTIONS[3]:
-                print(f'You used {handChoice.getEnergy()}💧 and blocked for {handChoice.getBlock()} {handChoice.getType()}!')
-                state.ENERGY -= 1
-                state.HAND.remove(handChoice)
-                state.DISCARD_PILE.append(handChoice)
-                print(f'💧 Energy: {state.ENERGY}/{state.MAX_ENERGY}\n')
-        except IndexError:
-            pass
-        except ValueError:
-            if action == 'hand':
-                print(f'Current Hand: {state.HAND}')
-            elif action == 'discard':
-                print(f'Discard pile: {state.DISCARD_PILE}')
-            elif action == 'end':
-                print(f'Discard pile: {state.DISCARD_PILE}')
-                break
-            else:
-                break
-    # action = input('You\'re out of energy! Type "end" to conclude your turn. ')
-    # if action == 'end':
-    #     print(f'Discard pile: {state.DISCARD_PILE}')
-    # else:
-    #     action = input('You\'re out of energy! Type "end" to conclude your turn. ')
+    print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
+    draw()
+    while state.HP > 0 or state.ENCOUNTER[-1].getHP() > 0:
+        while state.ENERGY > 0:
+            enemySummary()
+            playerSummary()
+            action = input('\nType the card index you want to play: ')
+            try:
+                index = int(action)
+                handChoice = state.HAND[index]
+                if handChoice.getType() == state.ACTIONS[2]:
+                    state.ENERGY -= 1
+                    print(f'You used {handChoice.getEnergy()}💧 and attacked for {handChoice.getAttack()[0]} {handChoice.getType()}!\n')
+                    state.HAND.remove(handChoice)
+                    state.DISCARD_PILE.append(handChoice)
+                elif handChoice.getType() == state.ACTIONS[3]:
+                    state.ENERGY -= 1
+                    state.BLOCK += handChoice.getBlock()[0]
+                    print(f'You used {handChoice.getEnergy()}💧 and blocked for {handChoice.getBlock()[0]} {handChoice.getType()}!\n')
+                    state.HAND.remove(handChoice)
+                    state.DISCARD_PILE.append(handChoice)
+            except IndexError:
+                pass
+            except ValueError:
+                if action == 'hand':
+                    print(f'Current Hand: {state.HAND}')
+                elif action == 'discard':
+                    print(f'Discard pile: {state.DISCARD_PILE}')
+                elif action == 'end':
+                    print(f'Discard pile: {state.DISCARD_PILE}')
+                    break
+                else:
+                    break
+        action = input('You\'re out of energy! Type "end" to conclude your turn: ')
+        if action == 'end':
+            print('Turn end')
+            break
+        else:
+            action = input('You\'re out of energy! Type "end" to conclude your turn: ')
+    if state.ENCOUNTER[-1].getHP() <= 0:
+        print(f'You win! You beat the {state.ENCOUNTER[-1].getName()}')
+    else:
+        print(f'You died.')
 
 def enemySummary():
-    print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
     state.ENCOUNTER[-1].summary()
     print(f'{state.ENCOUNTER[-1].intent()}\n')
 
 def playerSummary():
     print(f'🙂 {state.NAME}')
     print(f'🩸 HP: {state.HP}/{state.MAX_HP}')
-    print(f'💧 Energy: {state.ENERGY}/{state.MAX_ENERGY}\n')
+    print(f'💧 Energy: {state.ENERGY}/{state.MAX_ENERGY}')
+    if state.BLOCK > 0:
+        print(f'🛡  Block: {state.BLOCK}\n')
     for (index, card) in enumerate(state.HAND, start=0):
         print(index, card)
 
