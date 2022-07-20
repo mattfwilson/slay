@@ -1,3 +1,5 @@
+# need to figure out why the main gamp loop can't call enemy from GameState class
+
 from vars import *
 from enemy import *
 from cards import *
@@ -11,9 +13,11 @@ def buildDeck():
 
 def createEnemy():
     enemy_pool = [Pigeon(), CatOfThondor()]
-    enemy = random.choices(enemy_pool, weights=[2, 1]) # add more weights after testing
+    enemy = random.choices(enemy_pool, weights=[1, 1]) # add more weights after testing
     state.ENCOUNTER.append(enemy[0])
-    state.ENCOUNTER[-1].intro()
+    enemy = state.ENCOUNTER[-1]
+    enemy.intro()
+    return enemy
 
 def draw():
     for card in state.DECK:
@@ -35,18 +39,25 @@ def startPlayerTurn():
             action = input('\nType the card index you want to play: ')
             try:
                 index = int(action)
-                handChoice = state.HAND[index]
-                if handChoice.getType() == state.ACTIONS[2]:
-                    state.ENERGY -= 1
-                    print(f'You used {handChoice.getEnergy()}💧 and attacked for {handChoice.getAttack()[0]} {handChoice.getType()}!\n')
-                    state.HAND.remove(handChoice)
-                    state.DISCARD_PILE.append(handChoice)
-                elif handChoice.getType() == state.ACTIONS[3]:
-                    state.ENERGY -= 1
-                    state.BLOCK += handChoice.getBlock()[0]
-                    print(f'You used {handChoice.getEnergy()}💧 and blocked for {handChoice.getBlock()[0]} {handChoice.getType()}!\n')
-                    state.HAND.remove(handChoice)
-                    state.DISCARD_PILE.append(handChoice)
+                cardPlayed = state.HAND[index]
+                enemy = state.ENCOUNTER[-1]
+                if (state.ENERGY - cardPlayed.getEnergy()) >= 0:
+                    if cardPlayed.getType() == state.ACTIONS[2]:
+                        state.ENERGY -= cardPlayed.getEnergy()
+                        # print(cardPlayed.getAttack()[0])
+                        # print(enemy.setHP())
+                        # enemy.setHP() -= cardPlayed.getAttack()[0]
+                        print(f'You used {cardPlayed.getEnergy()}💧 and attacked for {cardPlayed.getAttack()[0]} {cardPlayed.getType()}!\n')
+                        state.HAND.remove(cardPlayed)
+                        state.DISCARD_PILE.append(cardPlayed)
+                    elif cardPlayed.getType() == state.ACTIONS[3]:
+                        state.ENERGY -= cardPlayed.getEnergy()
+                        state.BLOCK += cardPlayed.getBlock()[0]
+                        print(f'You used {cardPlayed.getEnergy()}💧 and blocked for {cardPlayed.getBlock()[0]} {cardPlayed.getType()}!\n')
+                        state.HAND.remove(cardPlayed)
+                        state.DISCARD_PILE.append(cardPlayed)
+                else:
+                    print('You don\'t have enough energy!\n')
             except IndexError:
                 pass
             except ValueError:

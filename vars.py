@@ -15,5 +15,9 @@ class GameState:
         self.COMBAT_COUNT = 0
         self.ENCOUNTER = []
         self.ACTIONS = ['Draw', 'Draw Pile', 'Attack', 'Block', 'Discard', 'Discard Pile']
+        self.PLAYER_DMG = 0
+        self.BLOCK = 0
+        self.ENEMY_DMG = 0
+        self.CARDS_PLAYED = 0
 
 state = GameState()

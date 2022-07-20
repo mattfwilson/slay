@@ -46,7 +46,7 @@ class Block(Card):
         super().__init__()
         amount = [4, 6, 8, 10]
         block = random.choices(amount, weights=[1, 2, 6, 1])
-        self._energy = 1
+        self._energy = 2
         self._type = state.ACTIONS[3]
         self._block = block
 
