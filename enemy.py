@@ -70,11 +70,9 @@ class Pigeon(Enemy):
         attack = random.choices(attackValues, weights=[1, 2, 6, 1])
         block = random.choices(blockValues, weights=[1, 8, 3, 2])
         if intent == 1:
-            for i in attack: # prints intent without list brackets (better way to do this?)
-                return f'💢 Enemy intends to ⚔  Attack for {i}.'
+            return intent, attack
         else:
-            for i in block:
-                return f'💢 Enemy intends to 🛡  Block for {i}.'
+            return intent, block
 
 class CatOfThondor(Enemy):
 
@@ -126,8 +124,6 @@ class CatOfThondor(Enemy):
         attack = random.choices(attackValues, weights=[1, 2, 6, 1])
         block = random.choices(blockValues, weights=[1, 8, 3, 2])
         if intent == 1:
-            for damage in attack: # prints intent without list brackets (better way to do this?)
-                return f'💢 Enemy intends to ⚔  Attack for {damage}.'
+            return intent, attack
         else:
-            for blocked in block:
-                return f'💢 Enemy intends to 🛡  Block for {blocked}.'
+            return intent, block

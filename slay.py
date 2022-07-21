@@ -1,5 +1,4 @@
 # need to figure out why the main gamp loop can't call enemy from GameState class
-# enemy intent keeps randomizing with every played card
 
 from vars import *
 from enemy import *
@@ -12,30 +11,37 @@ def buildDeck():
     for count in range(5):
         state.DECK.append(Block())
 
+def getEnemyIntent():
+    intent = state.ENCOUNTER[-1].intent()
+    return intent
+
+
 def startCombat():
     createEnemy()
     print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
     draw()
     playerTurn()
 
-def enemySummary():
+def enemySummary(intent):
     state.ENCOUNTER[-1].summary()
-    print(f'{state.ENCOUNTER[-1].intent()}\n')
+    if intent[0] == 1:
+        print(f'⚔  Enemy intends to Attack for {intent[1]}\n')
+    else:
+        print(f'🛡  Enemy intends to Block for {intent[1]}\n')
 
 def playerSummary():
     print(f'🙂 {state.NAME}')
     print(f'🩸 HP: {state.HP}/{state.MAX_HP}')
     print(f'💧 Energy: {state.ENERGY}/{state.MAX_ENERGY}')
     if state.BLOCK > 0:
-        print(f'🛡  Block: {state.BLOCK}\n')
-
+        print(f'🛡  Block: {state.BLOCK}')
+    print(f'\nCURRENT HAND:')
     for (index, card) in enumerate(state.HAND, start=0):
-        # print(f'{index} {card.getSummary()}')
         print(index, card.getSummary())
 
 def createEnemy():
     enemy_pool = [Pigeon(), CatOfThondor()]
-    enemy = random.choices(enemy_pool, weights=[1, 1]) # add more weights after testing
+    enemy = random.choices(enemy_pool, weights=[1, 1])
     state.ENCOUNTER.append(enemy[0])
     enemy = state.ENCOUNTER[-1]
     enemy.intro()
@@ -52,9 +58,10 @@ def enemyTurn():
     exit()
 
 def playerTurn():
+    intent = getEnemyIntent()
     while state.HP > 0 or state.ENCOUNTER[-1].getHP() > 0:
         while state.ENERGY > 0:
-            enemySummary()
+            enemySummary(intent)
             playerSummary()
             action = input('\nType the card index you want to play: ')
             try:
@@ -81,15 +88,15 @@ def playerTurn():
                 pass
             except ValueError:
                 if action == 'hand':
-                    print(f'CURRENT HAND:')
+                    print(f'\nCURRENT HAND:')
                     for card in state.HAND:
                         print(f'{card.getSummary()}')
                 elif action == 'draw':
-                    print(f'DRAW PILE:')
+                    print(f'\nDRAW PILE:')
                     for card in state.DRAW_PILE:
                         print(f'{card.getSummary()}')
                 elif action == 'discard':
-                    print(f'DISCARD PILE:')
+                    print(f'\nDISCARD PILE:')
                     for card in state.DISCARD_PILE:
                         print(f'{card.getSummary()}')
                 elif action == 'end':
@@ -111,6 +118,3 @@ def playerTurn():
 
 buildDeck()
 startCombat()
-
-# pull out parts of main battle loop into individual functions to make it easier to debug
-# uses loops within summaries to continue actions
