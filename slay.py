@@ -1,4 +1,5 @@
 # need to figure out why the main gamp loop can't call enemy from GameState class
+# enemy intent keeps randomizing with every played card
 
 from vars import *
 from enemy import *
@@ -10,6 +11,27 @@ def buildDeck():
         state.DECK.append(Attack())
     for count in range(5):
         state.DECK.append(Block())
+
+def startCombat():
+    createEnemy()
+    print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
+    draw()
+    playerTurn()
+
+def enemySummary():
+    state.ENCOUNTER[-1].summary()
+    print(f'{state.ENCOUNTER[-1].intent()}\n')
+
+def playerSummary():
+    print(f'🙂 {state.NAME}')
+    print(f'🩸 HP: {state.HP}/{state.MAX_HP}')
+    print(f'💧 Energy: {state.ENERGY}/{state.MAX_ENERGY}')
+    if state.BLOCK > 0:
+        print(f'🛡  Block: {state.BLOCK}\n')
+
+    for (index, card) in enumerate(state.HAND, start=0):
+        # print(f'{index} {card.getSummary()}')
+        print(index, card.getSummary())
 
 def createEnemy():
     enemy_pool = [Pigeon(), CatOfThondor()]
@@ -25,13 +47,11 @@ def draw():
     for count in range(state.DRAW_COUNT):
         state.HAND.append(random.choice(state.DRAW_PILE))
 
-def startCombat():
-    createEnemy()
-    startPlayerTurn()
+def enemyTurn():
+    print(f'start of enemyTurn function')
+    exit()
 
-def startPlayerTurn():
-    print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
-    draw()
+def playerTurn():
     while state.HP > 0 or state.ENCOUNTER[-1].getHP() > 0:
         while state.ENERGY > 0:
             enemySummary()
@@ -44,13 +64,12 @@ def startPlayerTurn():
                 if (state.ENERGY - cardPlayed.getEnergy()) >= 0:
                     if cardPlayed.getType() == state.ACTIONS[2]:
                         state.ENERGY -= cardPlayed.getEnergy()
-                        # print(cardPlayed.getAttack()[0])
-                        # print(enemy.setHP())
                         # enemy.setHP() -= cardPlayed.getAttack()[0]
                         print(f'You used {cardPlayed.getEnergy()}💧 and attacked for {cardPlayed.getAttack()[0]} {cardPlayed.getType()}!\n')
                         state.HAND.remove(cardPlayed)
                         state.DISCARD_PILE.append(cardPlayed)
-                    elif cardPlayed.getType() == state.ACTIONS[3]:
+                if (state.ENERGY - cardPlayed.getEnergy()) >= 0:
+                    if cardPlayed.getType() == state.ACTIONS[3]:
                         state.ENERGY -= cardPlayed.getEnergy()
                         state.BLOCK += cardPlayed.getBlock()[0]
                         print(f'You used {cardPlayed.getEnergy()}💧 and blocked for {cardPlayed.getBlock()[0]} {cardPlayed.getType()}!\n')
@@ -62,41 +81,33 @@ def startPlayerTurn():
                 pass
             except ValueError:
                 if action == 'hand':
-                    print(f'Current Hand: {state.HAND}')
+                    print(f'CURRENT HAND:')
+                    for card in state.HAND:
+                        print(f'{card.getSummary()}')
+                elif action == 'draw':
+                    print(f'DRAW PILE:')
+                    for card in state.DRAW_PILE:
+                        print(f'{card.getSummary()}')
                 elif action == 'discard':
-                    print(f'Discard pile: {state.DISCARD_PILE}')
+                    print(f'DISCARD PILE:')
+                    for card in state.DISCARD_PILE:
+                        print(f'{card.getSummary()}')
                 elif action == 'end':
-                    print(f'Discard pile: {state.DISCARD_PILE}')
+                    enemyTurn()
                     break
                 else:
                     break
-        action = input('You\'re out of energy! Type "end" to conclude your turn: ')
         if action == 'end':
-            print('Turn end')
-            break
+            for card in state.HAND:
+                state.HAND.remove(card)
+                state.DISCARD_PILE.append(card)
+            enemyTurn()
         else:
-            action = input('You\'re out of energy! Type "end" to conclude your turn: ')
+            action = input('ELSE if not int or not actions: Type "end" to conclude your turn: ')
     if state.ENCOUNTER[-1].getHP() <= 0:
         print(f'You win! You beat the {state.ENCOUNTER[-1].getName()}')
     else:
-        print(f'You died.')
-
-def enemySummary():
-    state.ENCOUNTER[-1].summary()
-    print(f'{state.ENCOUNTER[-1].intent()}\n')
-
-def playerSummary():
-    print(f'🙂 {state.NAME}')
-    print(f'🩸 HP: {state.HP}/{state.MAX_HP}')
-    print(f'💧 Energy: {state.ENERGY}/{state.MAX_ENERGY}')
-    if state.BLOCK > 0:
-        print(f'🛡  Block: {state.BLOCK}\n')
-    for (index, card) in enumerate(state.HAND, start=0):
-        print(index, card)
-
-def endPlayerTurn():
-    print(f'Hit endPlayerTurn function')
-    pass
+        print(f'You died. End of player/enemy HP loop')
 
 buildDeck()
 startCombat()

@@ -3,8 +3,8 @@ class GameState:
         self.NAME = 'You'
         self.HP = 50
         self.MAX_HP = 50
-        self.ENERGY = 3
-        self.MAX_ENERGY = 3
+        self.ENERGY = 5
+        self.MAX_ENERGY = 5
         self.BLOCK = 0
         self.DECK = []
         self.DRAW_PILE = []

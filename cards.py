@@ -37,8 +37,11 @@ class Attack(Card):
     def getAttack(self):
         return self._attack
 
-    def __repr__(self):
+    def getSummary(self):
         return f'⚔  {self._type} {self._attack[0]} for {self._energy}💧'
+
+    def __repr__(self):
+        return f'attack repr'
 
 class Block(Card):
 
@@ -68,5 +71,8 @@ class Block(Card):
     def getBlock(self):
         return self._block
 
-    def __repr__(self):
+    def getSummary(self):
         return f'🛡  {self._type} {self._block[0]} for {self._energy}💧'
+
+    def __repr__(self):
+        return f'block repr'

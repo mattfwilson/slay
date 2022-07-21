@@ -41,7 +41,7 @@ class Pigeon(Enemy):
         print(f'A {self.name} swoops down...\n')
 
     def summary(self):
-        print(f'{self.name}')
+        print(f'\n{self.name}')
         print(f'🩸 HP: {self._hp}/{self.max_hp}')
 
     def getID(self):
@@ -97,7 +97,7 @@ class CatOfThondor(Enemy):
         print(f'A {self.name} swoops down...\n')
 
     def summary(self):
-        print(f'{self.name}')
+        print(f'\n{self.name}')
         print(f'🩸 HP: {self._hp}/{self.max_hp}')
 
     def getID(self):
