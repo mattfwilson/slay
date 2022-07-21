@@ -11,16 +11,13 @@ def buildDeck():
     for count in range(5):
         state.DECK.append(Block())
 
-def getEnemyIntent():
-    intent = state.ENCOUNTER[-1].intent()
-    return intent
-
-
-def startCombat():
-    createEnemy()
-    print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
-    draw()
-    playerTurn()
+def createEnemy():
+    enemy_pool = [Pigeon(), CatOfThondor()]
+    enemy = random.choices(enemy_pool, weights=[1, 1])
+    state.ENCOUNTER.append(enemy[0])
+    enemy = state.ENCOUNTER[-1]
+    enemy.intro()
+    return enemy
 
 def enemySummary(intent):
     state.ENCOUNTER[-1].summary()
@@ -28,6 +25,14 @@ def enemySummary(intent):
         print(f'⚔  Enemy intends to Attack for {intent[1]}\n')
     else:
         print(f'🛡  Enemy intends to Block for {intent[1]}\n')
+
+def enemyIntent():
+    intent = state.ENCOUNTER[-1].intent()
+    return intent
+
+def enemyTurn():
+    print(f'start of enemyTurn function')
+    exit()
 
 def playerSummary():
     print(f'🙂 {state.NAME}')
@@ -39,13 +44,11 @@ def playerSummary():
     for (index, card) in enumerate(state.HAND, start=0):
         print(index, card.getSummary())
 
-def createEnemy():
-    enemy_pool = [Pigeon(), CatOfThondor()]
-    enemy = random.choices(enemy_pool, weights=[1, 1])
-    state.ENCOUNTER.append(enemy[0])
-    enemy = state.ENCOUNTER[-1]
-    enemy.intro()
-    return enemy
+def startCombat():
+    createEnemy()
+    print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
+    draw()
+    playerTurn()
 
 def draw():
     for card in state.DECK:
@@ -53,12 +56,8 @@ def draw():
     for count in range(state.DRAW_COUNT):
         state.HAND.append(random.choice(state.DRAW_PILE))
 
-def enemyTurn():
-    print(f'start of enemyTurn function')
-    exit()
-
 def playerTurn():
-    intent = getEnemyIntent()
+    intent = enemyIntent()
     while state.HP > 0 or state.ENCOUNTER[-1].getHP() > 0:
         while state.ENERGY > 0:
             enemySummary(intent)
