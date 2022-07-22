@@ -10,7 +10,7 @@ def buildDeck():
         state.DECK.append(Attack())
     for count in range(5):
         state.DECK.append(Block())
-
+        
 def createEnemy():
     enemy_pool = [Pigeon(), CatOfThondor()]
     enemy = random.choices(enemy_pool, weights=[1, 1])
@@ -19,20 +19,24 @@ def createEnemy():
     enemy.intro()
     return enemy
 
+def enemyIntent():
+    intent = state.ENCOUNTER[-1].intent()
+    return intent
+
 def enemySummary(intent):
     state.ENCOUNTER[-1].summary()
     if intent[0] == 1:
         print(f'⚔  Enemy intends to Attack for {intent[1]}\n')
     else:
         print(f'🛡  Enemy intends to Block for {intent[1]}\n')
-
-def enemyIntent():
-    intent = state.ENCOUNTER[-1].intent()
-    return intent
-
-def enemyTurn():
+        
+def enemyTurn(player_hp, player_block, intent):
     print(f'start of enemyTurn function')
-    exit()
+    enemy = state.ENCOUNTER[-1]
+    if intent[0] == 1:
+        print(f'Enemy attacks lol for {intent}')
+    else:
+        print(f'Enemy blocks lol for {intent}')
 
 def playerSummary():
     print(f'🙂 {state.NAME}')
@@ -66,10 +70,13 @@ def playerTurn():
             try:
                 index = int(action)
                 cardPlayed = state.HAND[index]
+                print(state.ENCOUNTER[-1])
                 enemy = state.ENCOUNTER[-1]
                 if (state.ENERGY - cardPlayed.getEnergy()) >= 0:
                     if cardPlayed.getType() == state.ACTIONS[2]:
                         state.ENERGY -= cardPlayed.getEnergy()
+                        print(f'Enemy HP: {enemy.setHP()}')
+                        print(f'Attacking for {cardPlayed.getAttack()[0]} damage')
                         # enemy.setHP() -= cardPlayed.getAttack()[0]
                         print(f'You used {cardPlayed.getEnergy()}💧 and attacked for {cardPlayed.getAttack()[0]} {cardPlayed.getType()}!\n')
                         state.HAND.remove(cardPlayed)
@@ -99,7 +106,7 @@ def playerTurn():
                     for card in state.DISCARD_PILE:
                         print(f'{card.getSummary()}')
                 elif action == 'end':
-                    enemyTurn()
+                    enemyTurn(state.HP, state.BLOCK, intent)
                     break
                 else:
                     break
@@ -107,7 +114,7 @@ def playerTurn():
             for card in state.HAND:
                 state.HAND.remove(card)
                 state.DISCARD_PILE.append(card)
-            enemyTurn()
+            enemyTurn(state.HP, state.BLOCK, intent)
         else:
             action = input('ELSE if not int or not actions: Type "end" to conclude your turn: ')
     if state.ENCOUNTER[-1].getHP() <= 0:

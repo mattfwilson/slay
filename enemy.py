@@ -23,9 +23,8 @@ class Boss:
 class Pigeon(Enemy):
 
     def __init__(self):
-
-        adjectives = ['Standard', 'Basic', 'Plebian', 'Undead', 'Armored', 'Elite', 'Untouchable']
-        roll = random.choice(adjectives)
+        adj = ['Standard', 'Basic', 'Plebian', 'Undead', 'Armored', 'Elite', 'Untouchable']
+        roll = random.choice(adj)
         name_adj = '🐦 ' + roll + ' Pigeon'
 
         super().__init__()
@@ -34,7 +33,7 @@ class Pigeon(Enemy):
         self.max_hp = self._hp
 
     def __repr__(self):
-        return f'This is the  repr of {self.name}, id: {self.id}'
+        return f'__repr__ for {self.name}, id: {self.id}'
 
     def intro(self):
         print('\nYou encountered an enemy!')
@@ -78,8 +77,8 @@ class CatOfThondor(Enemy):
 
     def __init__(self):
 
-        adjectives = ['Shrieking', 'Complacent', 'Regimented', 'Ghostly', 'Robotic', 'Frantic', 'Verbose']
-        roll = random.choice(adjectives)
+        adj = ['Shrieking', 'Complacent', 'Regimented', 'Ghostly', 'Robotic', 'Frantic', 'Verbose']
+        roll = random.choice(adj)
         name_adj = '😼 ' + roll + ' Cat Of Thondor'
 
         super().__init__()
@@ -88,7 +87,7 @@ class CatOfThondor(Enemy):
         self.max_hp = self._hp
 
     def __repr__(self):
-        return f'This is the repr of {self.name}, id: {self.id}'
+        return f'__repr__ for {self.name}, id: {self.id}'
 
     def intro(self):
         print('\nYou encountered an enemy!')
