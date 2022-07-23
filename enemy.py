@@ -1,24 +1,12 @@
 import itertools
 import random
 
-########################################################################
-
 class Enemy:
 
     id = itertools.count(0)
 
     def __init__(self):
         self.id = next(Enemy.id)
-
-########################################################################
-
-class Boss:
-
-    def __init__(self):
-        self.bonusHP = .5
-        self.bonusAttack = .5
-
-########################################################################
 
 class Pigeon(Enemy):
 
