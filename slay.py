@@ -1,4 +1,5 @@
 # need to figure out why the main gamp loop can't call enemy from GameState class
+# I think the main try is causing cards to discard at some interval when the player ends their turn
 
 from vars import *
 from enemy import *
@@ -60,6 +61,22 @@ def draw():
     for count in range(state.DRAW_COUNT):
         state.HAND.append(random.choice(state.DRAW_PILE))
 
+def discard(hand, discard_pile):
+    for card in hand:
+        hand.remove(card)
+        discard_pile.append(card)
+
+def showPiles():
+    print(f'\nDRAW PILE:')
+    for card in state.DRAW_PILE:
+        print(card.getSummary())
+    print(f'\nCURRENT HAND:')
+    for card in state.HAND:
+        print(card.getSummary())
+    print(f'\nDISCARD PILE:')
+    for card in state.DISCARD_PILE:
+        print(card.getSummary())
+
 def playerTurn():
     intent = enemyIntent()
     while state.HP > 0 or state.ENCOUNTER[-1].getHP() > 0:
@@ -106,21 +123,21 @@ def playerTurn():
                     for card in state.DISCARD_PILE:
                         print(f'{card.getSummary()}')
                 elif action == 'end':
+                    discard(state.HAND, state.DISCARD_PILE)
+                    showPiles()
                     enemyTurn(state.HP, state.BLOCK, intent)
                     break
-                else:
-                    break
-        if action == 'end':
-            for card in state.HAND:
-                state.HAND.remove(card)
-                state.DISCARD_PILE.append(card)
-            enemyTurn(state.HP, state.BLOCK, intent)
+            if action == 'end':
+                discard(state.HAND, state.DISCARD_PILE)
+                showPiles()
+                enemyTurn(state.HP, state.BLOCK, intent)
+                break
+            else:
+                action = input('ELSE if not int or not actions: Type "end" to conclude your turn: ')
+        if state.ENCOUNTER[-1].getHP() <= 0:
+            print(f'You win! You beat the {state.ENCOUNTER[-1].getName()}')
         else:
-            action = input('ELSE if not int or not actions: Type "end" to conclude your turn: ')
-    if state.ENCOUNTER[-1].getHP() <= 0:
-        print(f'You win! You beat the {state.ENCOUNTER[-1].getName()}')
-    else:
-        print(f'You died. End of player/enemy HP loop')
+            print(f'You died. End of player/enemy HP loop')
 
 buildDeck()
 startCombat()
