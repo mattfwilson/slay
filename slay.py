@@ -52,7 +52,7 @@ def startCombat():
     createEnemy()
     print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
     draw()
-    playerTurn(state.ENCOUNTER[-1], state.ENERGY, state.HAND, state.DISCARD_PILE)
+    playerTurn(state.ENCOUNTER[-1], state.HAND, state.DISCARD_PILE)
 
 def draw():
     for card in state.DECK:
@@ -85,28 +85,27 @@ def showPiles():
     showHand()
     showDiscard()
 
-def playerTurn(enemy, energy, hand, discarded):
+def playerTurn(enemy, hand, discarded):
     intent = enemyIntent(enemy)
     while state.HP > 0 or enemy.getHP() > 0:
-        while energy > 0:
+        while state.ENERGY > 0:
             enemySummary(intent, enemy)
             playerSummary()
             action = input('\nType the card index you want to play: ')
             try:
                 index = int(action)
                 cardPlayed = hand[index]
-                if (energy - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
+                if (state.ENERGY - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
                     if cardPlayed.getType() == state.ACTIONS[2]: # checks if attack
-                        energy -= cardPlayed.getEnergy()
+                        state.ENERGY -= cardPlayed.getEnergy()
                         # print(f'Enemy HP: {enemy.setHP()}')
                         # print(f'Attacking for {cardPlayed.getAttack()[0]} damage')
                         # enemy.setHP() -= cardPlayed.getAttack()[0]
                         print(f'You used {cardPlayed.getEnergy()}💧 and attacked for {cardPlayed.getAttack()[0]} {cardPlayed.getType()}!\n')
                         hand.remove(cardPlayed)
                         discarded.append(cardPlayed)
-                elif (energy - cardPlayed.getEnergy()) >= 0:
-                    if cardPlayed.getType() == state.ACTIONS[3]: # checks if block
-                        energy -= cardPlayed.getEnergy()
+                    elif cardPlayed.getType() == state.ACTIONS[3]: # checks if block
+                        state.ENERGY -= cardPlayed.getEnergy()
                         state.BLOCK += cardPlayed.getBlock()[0]
                         print(f'You used {cardPlayed.getEnergy()}💧 and blocked for {cardPlayed.getBlock()[0]} {cardPlayed.getType()}!\n')
                         hand.remove(cardPlayed)
@@ -125,15 +124,15 @@ def playerTurn(enemy, energy, hand, discarded):
                 elif action == 'end':
                     discard(hand, discarded)
                     showPiles()
-                    enemyTurn(state.HP, state.BLOCK, intent)
+                    # enemyTurn(state.HP, state.BLOCK, intent)
                     break
             if action == 'end':
                 discard(hand, discarded)
                 showPiles()
                 enemyTurn(hand, state.BLOCK, intent)
                 break
-            else:
-                action = input('ELSE if not int or not actions: Type "end" to conclude your turn: ')
+            # else:
+            #     action = input('ELSE if not int or not actions: Type "end" to conclude your turn: ')
         if enemy.getHP() <= 0:
             print(f'You win! You beat the {enemy.getName()}')
         else:
