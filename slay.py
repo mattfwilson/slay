@@ -1,5 +1,6 @@
 # need to figure out why the main gamp loop can't call enemy from GameState class
 # I think the main try is causing cards to discard at some interval when the player ends their turn
+# why isn't discard() discarding all cards
 
 from vars import *
 from enemy import *
@@ -24,7 +25,6 @@ def draw():
             random.shuffle(state.DRAW_PILE)
         else:
             state.HAND.append(random.choice(state.DRAW_PILE))
-
 
 def createEnemy():
     enemy_pool = [Pigeon(), CatOfThondor()]
@@ -72,10 +72,12 @@ def startCombat():
     print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
     playerTurn(state.HP, state.ENCOUNTER[-1], state.HAND, state.DISCARD_PILE, state.ENERGY)
 
-def discard(hand, discard_pile):
-    for card in hand:
-        hand.remove(card)
-        discard_pile.append(card)
+def discard():
+    print(len(state.HAND))
+    for card in state.HAND:
+        state.HAND.remove(card)
+        state.DISCARD_PILE.append(card)
+    print(state.DISCARD_PILE)
 
 def playerTurn(hp, enemy, hand, discard_pile, energy):
     draw()
@@ -116,11 +118,10 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
             elif action == 'discard':
                 showDiscard()
             elif action == 'end':
-                discard(hand, discard_pile)
+                discard()
                 enemyTurn(hand, state.BLOCK, intent)
         if action == 'end':
-            discard(hand, discard_pile)
-            showPiles()
+            discard()
             enemyTurn(hand, state.BLOCK, intent)
     if enemy.getHP() <= 0:
         print(f'You win! You beat the {enemy.getName()}')

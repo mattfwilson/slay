@@ -41,7 +41,8 @@ class Attack(Card):
         return f'⚔  {self._type} {self._attack[0]} for {self._energy}💧'
 
     def __repr__(self):
-        return f'Attack'
+        for attack in self._attack:
+            return f'Attack {attack}'
 
 class Block(Card):
 
@@ -75,4 +76,5 @@ class Block(Card):
         return f'🛡  {self._type} {self._block[0]} for {self._energy}💧'
 
     def __repr__(self):
-        return f'Block'
+        for block in self._block:
+            return f'Block {block}'
