@@ -1,6 +1,4 @@
 # need to figure out why the main gamp loop can't call enemy from GameState class
-# I think the main try is causing cards to discard at some interval when the player ends their turn
-# why isn't discard() discarding all cards
 
 from vars import *
 from enemy import *
@@ -17,14 +15,18 @@ def buildDeck():
     random.shuffle(state.DRAW_PILE)
 
 def draw():
-    for count in range(state.DRAW_COUNT):
-        if len(state.DRAW_PILE) < state.DRAW_COUNT:
-            for card in state.DISCARD_PILE:
-                state.DISCARD_PILE.pop(card)
-                state.DRAW_PILE.append(card)
-            random.shuffle(state.DRAW_PILE)
-        else:
-            state.HAND.append(random.choice(state.DRAW_PILE))
+    if len(state.DRAW_PILE) < state.DRAW_COUNT:
+        print(f'Length of draw: {len(state.DRAW_PILE)}')
+        state.DRAW_PILE += state.DISCARD_PILE
+        state.DISCARD_PILE = []
+        random.shuffle(state.DRAW_PILE)
+        for card in range(state.DRAW_COUNT):
+            drawn = state.DRAW_PILE.pop(-1)
+            state.HAND.append(drawn)
+    else:
+        for card in range(state.DRAW_COUNT):
+            drawn = state.DRAW_PILE.pop(-1)
+            state.HAND.append(drawn)
 
 def createEnemy():
     enemy_pool = [Pigeon(), CatOfThondor()]
@@ -32,6 +34,7 @@ def createEnemy():
     state.ENCOUNTER.append(enemy[0])
     enemy = state.ENCOUNTER[-1]
     enemy.intro()
+    print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
     return enemy
 
 def enemyIntent(enemy):
@@ -41,9 +44,9 @@ def enemyIntent(enemy):
 def enemySummary(intent, enemy):
     enemy.summary()
     if intent[0] == 1:
-        print(f'⚔  Enemy intends to Attack for {intent[1]}\n')
+        print(f'⚔  Enemy intends to Attack for {intent[1][0]}\n')
     else:
-        print(f'🛡  Enemy intends to Block for {intent[1]}\n')
+        print(f'🛡  Enemy intends to Block for {intent[1][0]}\n')
         
 def enemyTurn(hand, block, intent):
     print(f'start of enemyTurn function')
@@ -54,7 +57,7 @@ def enemyTurn(hand, block, intent):
         print(f'Enemy attacks for {intent[1]}')
         print(state.HP)
     else:
-        print(f'Enemy blocks lol for {intent[1]}')
+        print(f'Enemy blocks for {intent[1]}')
     playerTurn(state.HP, state.ENCOUNTER[-1], state.HAND, state.DISCARD_PILE, state.ENERGY)
 
 def playerSummary(current_energy):
@@ -69,25 +72,25 @@ def playerSummary(current_energy):
 
 def startCombat():
     createEnemy()
-    print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
-    playerTurn(state.HP, state.ENCOUNTER[-1], state.HAND, state.DISCARD_PILE, state.ENERGY)
+    while state.HP > 0 or state.ENCOUNTER[-1].getHP() > 0:
+        playerTurn(state.HP, state.ENCOUNTER[-1], state.HAND, state.DISCARD_PILE, state.ENERGY)
 
 def discard():
-    print(len(state.HAND))
-    for card in state.HAND:
-        state.HAND.remove(card)
-        state.DISCARD_PILE.append(card)
-    print(state.DISCARD_PILE)
+    state.DISCARD_PILE += state.HAND
+    state.HAND = []
 
 def playerTurn(hp, enemy, hand, discard_pile, energy):
+    print('-' * 70)
     draw()
+    showPiles()
     intent = enemyIntent(enemy)
-    while state.HP > 0 or enemy.getHP() > 0:
-        enemySummary(intent, enemy)
-        playerSummary(energy)
-        action = input('\nType the card index you want to play: ')
+    enemySummary(intent, enemy)
+    playerSummary(energy)
+    action = input('\nType the card index you want to play: ')
+    if action.isdigit():
+        index = int(action)
         try:
-            index = int(action)
+            print(f'TRY - Index played: {index}')
             cardPlayed = hand[index]
             if (energy - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
                 if cardPlayed.getType() == state.ACTIONS[2]: # checks if user input is attack action
@@ -100,17 +103,17 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                     discard_pile.append(cardPlayed)
                 elif cardPlayed.getType() == state.ACTIONS[3]: # checks if user input is block action
                     energy -= cardPlayed.getEnergy()
-                    print(energy)
-                    print(cardPlayed.getEnergy())
                     state.BLOCK += cardPlayed.getBlock()[0]
                     print(f'You used {cardPlayed.getEnergy()}💧 and blocked for {cardPlayed.getBlock()[0]} {cardPlayed.getType()}!\n')
                     hand.remove(cardPlayed)
                     discard_pile.append(cardPlayed)
             else:
-                print('You don\'t have enough energy!\n')
+                print('You need more energy to play that card!\n')
         except IndexError:
+            print(f'EXCEPT - IndexError')
             pass
         except ValueError:
+            print(f'EXCEPT - ValueError')
             if action == 'hand':
                 showHand()
             elif action == 'draw':
@@ -119,11 +122,12 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                 showDiscard()
             elif action == 'end':
                 discard()
-                enemyTurn(hand, state.BLOCK, intent)
-        if action == 'end':
-            discard()
-            enemyTurn(hand, state.BLOCK, intent)
-    if enemy.getHP() <= 0:
+                # enemyTurn(hand, state.BLOCK, intent)
+            else:
+                print(f'Invalid input.')
+    if action == 'end':
+        discard()
+    elif enemy.getHP() <= 0:
         print(f'You win! You beat the {enemy.getName()}')
     else:
         action = input('\nType the card index you want to play: ')
