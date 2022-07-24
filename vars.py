@@ -1,3 +1,5 @@
+import random
+
 class GameState:
     def __init__(self):
         self.NAME = 'You'
@@ -20,5 +22,26 @@ class GameState:
         self.ENEMY_BLOCK = 0
         self.ENEMY_DMG = 0
         self.CARDS_PLAYED = 0
+
+
+def showDraw():
+    print(f'\nDRAW PILE:')
+    for card in state.DRAW_PILE:
+        print(card.getSummary())
+
+def showHand():
+    print(f'\nCURRENT HAND:')
+    for card in state.HAND:
+        print(card.getSummary())
+
+def showDiscard():
+    print(f'\nDISCARD PILE:')
+    for card in state.DISCARD_PILE:
+        print(card.getSummary())
+
+def showPiles():
+    showDraw()
+    showHand()
+    showDiscard()
 
 state = GameState()
