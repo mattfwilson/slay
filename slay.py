@@ -4,6 +4,7 @@
 from vars import *
 from enemy import *
 from cards import *
+import copy
 import random
 
 def buildDeck():
@@ -11,7 +12,13 @@ def buildDeck():
         state.DECK.append(Attack())
     for count in range(5):
         state.DECK.append(Block())
+    state.DRAW_PILE = state.DECK
+    random.shuffle(state.DRAW_PILE)
         
+def draw():
+    for count in range(state.DRAW_COUNT):
+        state.HAND.append(random.choice(state.DRAW_PILE))
+
 def createEnemy():
     enemy_pool = [Pigeon(), CatOfThondor()]
     enemy = random.choices(enemy_pool, weights=[1, 1])
@@ -31,7 +38,7 @@ def enemySummary(intent, enemy):
     else:
         print(f'🛡  Enemy intends to Block for {intent[1]}\n')
         
-def enemyTurn(intent):
+def enemyTurn(hand, block, intent):
     print(f'start of enemyTurn function')
     if intent[0] == 1:
         print(f'Enemy attacks lol for {intent}')
@@ -52,13 +59,7 @@ def startCombat():
     createEnemy()
     print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
     draw()
-    playerTurn(state.ENCOUNTER[-1], state.HAND, state.DISCARD_PILE)
-
-def draw():
-    for card in state.DECK:
-        state.DRAW_PILE.append(card)
-    for count in range(state.DRAW_COUNT):
-        state.HAND.append(random.choice(state.DRAW_PILE))
+    playerTurn(state.ENCOUNTER[-1], state.HAND, state.DISCARD_PILE, state.ENERGY)
 
 def discard(hand, discard_pile):
     for card in hand:
@@ -85,19 +86,19 @@ def showPiles():
     showHand()
     showDiscard()
 
-def playerTurn(enemy, hand, discarded):
+def playerTurn(enemy, hand, discarded, energy):
     intent = enemyIntent(enemy)
     while state.HP > 0 or enemy.getHP() > 0:
-        while state.ENERGY > 0:
+        while energy > 0:
             enemySummary(intent, enemy)
             playerSummary()
             action = input('\nType the card index you want to play: ')
             try:
                 index = int(action)
                 cardPlayed = hand[index]
-                if (state.ENERGY - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
+                if (energy - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
                     if cardPlayed.getType() == state.ACTIONS[2]: # checks if attack
-                        state.ENERGY -= cardPlayed.getEnergy()
+                        energy -= cardPlayed.getEnergy()
                         # print(f'Enemy HP: {enemy.setHP()}')
                         # print(f'Attacking for {cardPlayed.getAttack()[0]} damage')
                         # enemy.setHP() -= cardPlayed.getAttack()[0]
@@ -105,7 +106,7 @@ def playerTurn(enemy, hand, discarded):
                         hand.remove(cardPlayed)
                         discarded.append(cardPlayed)
                     elif cardPlayed.getType() == state.ACTIONS[3]: # checks if block
-                        state.ENERGY -= cardPlayed.getEnergy()
+                        energy -= cardPlayed.getEnergy()
                         state.BLOCK += cardPlayed.getBlock()[0]
                         print(f'You used {cardPlayed.getEnergy()}💧 and blocked for {cardPlayed.getBlock()[0]} {cardPlayed.getType()}!\n')
                         hand.remove(cardPlayed)
@@ -124,6 +125,7 @@ def playerTurn(enemy, hand, discarded):
                 elif action == 'end':
                     discard(hand, discarded)
                     showPiles()
+                    enemyTurn(hand, state.BLOCK, intent)
                     # enemyTurn(state.HP, state.BLOCK, intent)
                     break
             if action == 'end':
@@ -131,8 +133,8 @@ def playerTurn(enemy, hand, discarded):
                 showPiles()
                 enemyTurn(hand, state.BLOCK, intent)
                 break
-            # else:
-            #     action = input('ELSE if not int or not actions: Type "end" to conclude your turn: ')
+            else:
+                action = input('ELSE if not int or not actions: Type "end" to conclude your turn: ')
         if enemy.getHP() <= 0:
             print(f'You win! You beat the {enemy.getName()}')
         else:
