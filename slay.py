@@ -34,7 +34,6 @@ def createEnemy():
     state.ENCOUNTER.append(enemy[0])
     enemy = state.ENCOUNTER[-1]
     enemy.intro()
-    print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
     return enemy
 
 def enemyIntent(enemy):
@@ -51,11 +50,15 @@ def enemySummary(intent, enemy):
 def enemyTurn(hand, block, intent):
     print(f'start of enemyTurn function')
     for i in intent[1]:
-        action = i
+        dmgAmount = i
     if intent[0] == 1:
-        state.HP -= action
-        print(f'Enemy attacks for {intent[1]}')
-        print(state.HP)
+        if dmgAmount >= block:
+            state.HP -= dmgAmount - block
+            print(f'Enemy attacks for {intent[1]}!')
+            print(state.HP)
+        else:
+            block -= dmgAmount
+            print(f'Remaining Block: {block}')
     else:
         print(f'Enemy blocks for {intent[1]}')
     playerTurn(state.HP, state.ENCOUNTER[-1], state.HAND, state.DISCARD_PILE, state.ENERGY)
@@ -72,65 +75,80 @@ def playerSummary(current_energy):
 
 def startCombat():
     createEnemy()
-    while state.HP > 0 or state.ENCOUNTER[-1].getHP() > 0:
-        playerTurn(state.HP, state.ENCOUNTER[-1], state.HAND, state.DISCARD_PILE, state.ENERGY)
+    playerTurn(state.HP, state.ENCOUNTER[-1], state.HAND, state.DISCARD_PILE, state.ENERGY)
 
 def discard():
     state.DISCARD_PILE += state.HAND
     state.HAND = []
 
+def showDraw():
+    print(f'DRAW PILE:')
+    print(state.DRAW_PILE)
+
+def showHand():
+    print(f'\nCURRENT HAND:')
+    print(state.HAND)
+
+def showDiscard():
+    print(f'\nDISCARD PILE:')
+    print(state.DISCARD_PILE)
+
+def showPiles():
+    print('-' * 70 + f' [PILES]')
+    showDraw()
+    showHand()
+    showDiscard()
+
 def playerTurn(hp, enemy, hand, discard_pile, energy):
-    print('-' * 70)
     draw()
-    showPiles()
     intent = enemyIntent(enemy)
-    enemySummary(intent, enemy)
-    playerSummary(energy)
-    action = input('\nType the card index you want to play: ')
-    if action.isdigit():
-        index = int(action)
-        try:
-            print(f'TRY - Index played: {index}')
-            cardPlayed = hand[index]
-            if (energy - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
-                if cardPlayed.getType() == state.ACTIONS[2]: # checks if user input is attack action
-                    energy -= cardPlayed.getEnergy()
-                    # print(f'Enemy HP: {enemy.setHP()}')
-                    # print(f'Attacking for {cardPlayed.getAttack()[0]} damage')
-                    # enemy.setHP() -= cardPlayed.getAttack()[0]
-                    print(f'You used {cardPlayed.getEnergy()}💧 and attacked for {cardPlayed.getAttack()[0]} {cardPlayed.getType()}!\n')
-                    hand.remove(cardPlayed)
-                    discard_pile.append(cardPlayed)
-                elif cardPlayed.getType() == state.ACTIONS[3]: # checks if user input is block action
-                    energy -= cardPlayed.getEnergy()
-                    state.BLOCK += cardPlayed.getBlock()[0]
-                    print(f'You used {cardPlayed.getEnergy()}💧 and blocked for {cardPlayed.getBlock()[0]} {cardPlayed.getType()}!\n')
-                    hand.remove(cardPlayed)
-                    discard_pile.append(cardPlayed)
-            else:
-                print('You need more energy to play that card!\n')
-        except IndexError:
-            print(f'EXCEPT - IndexError')
-            pass
-        except ValueError:
-            print(f'EXCEPT - ValueError')
-            if action == 'hand':
-                showHand()
-            elif action == 'draw':
-                showDraw()
-            elif action == 'discard':
-                showDiscard()
-            elif action == 'end':
-                discard()
-                # enemyTurn(hand, state.BLOCK, intent)
-            else:
-                print(f'Invalid input.')
-    if action == 'end':
-        discard()
-    elif enemy.getHP() <= 0:
-        print(f'You win! You beat the {enemy.getName()}')
-    else:
+    while state.HP > 0 or state.ENCOUNTER[-1].getHP() > 0:
+        print('-' * 70 + f' [Turn {state.TURN_COUNT}]')
+        enemySummary(intent, enemy)
+        playerSummary(energy)
         action = input('\nType the card index you want to play: ')
+        if action.isdigit():
+            index = int(action)
+            try:
+                print(f'TRY - Index played: {index}')
+                cardPlayed = hand[index]
+                if (energy - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
+                    if cardPlayed.getType() == state.ACTIONS[2]: # checks if user input is attack action
+                        energy -= cardPlayed.getEnergy()
+                        # print(f'Enemy HP: {enemy.setHP()}')
+                        # print(f'Attacking for {cardPlayed.getAttack()[0]} damage')
+                        # enemy.setHP() -= cardPlayed.getAttack()[0]
+                        print(f'You used {cardPlayed.getEnergy()}💧 and attacked for {cardPlayed.getAttack()[0]} {cardPlayed.getType()}!\n')
+                        discard_pile += state.HAND[cardPlayed]
+                    elif cardPlayed.getType() == state.ACTIONS[3]: # checks if user input is block action
+                        energy -= cardPlayed.getEnergy()
+                        state.BLOCK += cardPlayed.getBlock()[0]
+                        print(f'You used {cardPlayed.getEnergy()}💧 and blocked for {cardPlayed.getBlock()[0]} {cardPlayed.getType()}!\n')
+                        hand.pop(index)
+                        discard_pile.append(cardPlayed)
+                else:
+                    print('You need more energy to play that card!\n')
+            except IndexError:
+                print(f'EXCEPT - IndexError')
+                pass
+            except ValueError:
+                print(f'EXCEPT - ValueError')
+                if action == 'show':
+                    showPiles()
+                elif action == 'end':
+                    discard()
+                    # enemyTurn(hand, state.BLOCK, intent)
+                else:
+                    print(f'Invalid input.')
+        if action == 'end':
+            discard()
+            enemyTurn(hand, state.BLOCK, intent)
+        elif action == 'piles':
+            showPiles()
+        elif enemy.getHP() <= 0:
+            print(f'You win! You beat the {enemy.getName()}')
+        else:
+            continue
 
 buildDeck()
 startCombat()
