@@ -19,8 +19,27 @@ class GameState:
         self.ACTIONS = ['Draw', 'Draw Pile', 'Attack', 'Block', 'Discard', 'Discard Pile']
         self.PLAYER_DMG = 0
         self.BLOCK = 0
+        self.ENEMY_HP = 0
         self.ENEMY_BLOCK = 0
         self.ENEMY_DMG = 0
         self.CARDS_PLAYED = 0
+
+def showDraw():
+    print(f'DRAW PILE:')
+    print(state.DRAW_PILE)
+
+def showHand():
+    print(f'\nCURRENT HAND:')
+    print(state.HAND)
+
+def showDiscard():
+    print(f'\nDISCARD PILE:')
+    print(state.DISCARD_PILE)
+
+def showPiles():
+    print('-' * 70 + f' [PILES]')
+    showDraw()
+    showHand()
+    showDiscard()
 
 state = GameState()

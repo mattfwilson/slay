@@ -40,8 +40,8 @@ class Pigeon(Enemy):
     def getHP(self):
         return self._hp
     
-    def setHP(self):
-        return self._hp
+    def setHP(self, dmg):
+        self._hp -= dmg
 
     def getMaxHP(self):
         return self.max_hp
@@ -94,8 +94,8 @@ class CatOfThondor(Enemy):
     def getHP(self):
         return self._hp
     
-    def setHP(self):
-        return self._hp
+    def setHP(self, dmg):
+        self._hp -= dmg
 
     def getMaxHP(self):
         return self.max_hp

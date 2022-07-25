@@ -1,9 +1,10 @@
 # need to figure out why the main gamp loop can't call enemy from GameState class
+# remove block after enemy's turn ends
 
 from vars import *
 from enemy import *
 from cards import *
-import copy
+import time
 import random
         
 def buildDeck():
@@ -16,7 +17,6 @@ def buildDeck():
 
 def draw():
     if len(state.DRAW_PILE) < state.DRAW_COUNT:
-        print(f'Length of draw: {len(state.DRAW_PILE)}')
         state.DRAW_PILE += state.DISCARD_PILE
         state.DISCARD_PILE = []
         random.shuffle(state.DRAW_PILE)
@@ -61,6 +61,7 @@ def enemyTurn(hand, block, intent):
             print(f'Remaining Block: {block}')
     else:
         print(f'Enemy blocks for {intent[1]}')
+    state.BLOCK = 0
     playerTurn(state.HP, state.ENCOUNTER[-1], state.HAND, state.DISCARD_PILE, state.ENERGY)
 
 def playerSummary(current_energy):
@@ -81,24 +82,6 @@ def discard():
     state.DISCARD_PILE += state.HAND
     state.HAND = []
 
-def showDraw():
-    print(f'DRAW PILE:')
-    print(state.DRAW_PILE)
-
-def showHand():
-    print(f'\nCURRENT HAND:')
-    print(state.HAND)
-
-def showDiscard():
-    print(f'\nDISCARD PILE:')
-    print(state.DISCARD_PILE)
-
-def showPiles():
-    print('-' * 70 + f' [PILES]')
-    showDraw()
-    showHand()
-    showDiscard()
-
 def playerTurn(hp, enemy, hand, discard_pile, energy):
     draw()
     intent = enemyIntent(enemy)
@@ -115,11 +98,12 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                 if (energy - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
                     if cardPlayed.getType() == state.ACTIONS[2]: # checks if user input is attack action
                         energy -= cardPlayed.getEnergy()
-                        # print(f'Enemy HP: {enemy.setHP()}')
-                        # print(f'Attacking for {cardPlayed.getAttack()[0]} damage')
-                        # enemy.setHP() -= cardPlayed.getAttack()[0]
+                        print(f'Enemy HP: {enemy.getHP()}')
+                        print(f'Attacking for {cardPlayed.getAttack()[0]} damage')
+                        enemy.setHP(cardPlayed.getAttack()[0])
                         print(f'You used {cardPlayed.getEnergy()}💧 and attacked for {cardPlayed.getAttack()[0]} {cardPlayed.getType()}!\n')
-                        discard_pile += state.HAND[cardPlayed]
+                        hand.pop(index)
+                        discard_pile.append(cardPlayed)
                     elif cardPlayed.getType() == state.ACTIONS[3]: # checks if user input is block action
                         energy -= cardPlayed.getEnergy()
                         state.BLOCK += cardPlayed.getBlock()[0]
