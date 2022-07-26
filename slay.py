@@ -43,7 +43,7 @@ def createEnemy():
     return enemy
 
 def enemyTurn(hand, block, intent):
-    print(f'start of enemyTurn function')
+    print(f'start of enemyTurn() function')
     if intent[0] == 1:
         if intent[1] >= block:
             state.HP -= intent[1] - block
@@ -54,11 +54,13 @@ def enemyTurn(hand, block, intent):
             print(f'Remaining Block: {block}')
     else:
         print(f'Enemy blocks for {intent[1]}')
-    state.BLOCK = 0
+        state.ENEMY_BLOCK = intent[1]
     playerTurn(state.HP, state.ENCOUNTER[-1], state.HAND, state.DISCARD_PILE, state.ENERGY)
 
 def enemySummary(enemy, intent):
     enemy.summary()
+    # print(intent)
+    # print(state.ENEMY_BLOCK)
     if state.ENEMY_BLOCK > 0:
         print(f'🛡  Enemy Block: {state.ENEMY_BLOCK}')
     if intent[0] == 1:
@@ -89,7 +91,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
     state.TURN_COUNT += 1
     draw()
     intent = enemy.intent()
-    while state.HP > 0:
+    while hp > 0:
         print('-' * 50 + f' [Floor {state.FLOOR_COUNT} | [Turn {state.TURN_COUNT}]')
         enemySummary(enemy, intent)
         playerSummary(energy)
@@ -104,21 +106,22 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                         energy -= cardPlayed.getEnergy()
                         print(f'You used {cardPlayed.getEnergy()}💧 and attacked for {cardPlayed.getAttack()[0]} {cardPlayed.getType()}!\n')
                         time.sleep(1)
-                        print(intent)
                         if state.ENEMY_BLOCK > 0: # check to see if enemy has block
-                            damage = state.ENEMY_BLOCK[1][0] - cardPlayed.getAttack()[0]
-                            if damage < 0: # check if player damaged enemy more than block
-                                unblocked = abs(damage)
-                                print(f'You deal{unblocked} damage.')
-                                print(unblocked)
-                                print(enemy.setHP())
-                                res = enemy.setHP() - unblocked
-                                enemy.setHP(res)
+                            state.ENEMY_BLOCK -= cardPlayed.getAttack()[0]
+                            print(state.ENEMY_BLOCK)
+                            if state.ENEMY_BLOCK < 0: # check if player damaged enemy more than block
+                                unblocked = abs(state.ENEMY_BLOCK)
+                                print(f'You broke the block and hit the enemy for {unblocked} damage!')
+                                enemy.setHP(unblocked)
                                 hand.pop(index)
                                 discard_pile.append(cardPlayed)
-                            else: # damage does not exceed enemy block
-                                pass
+                            else:
+                                print(f'You damaged {cardPlayed.getAttack()[0]} points of the enemy\'s block')
+                                hand.pop(index)
+                                discard_pile.append(cardPlayed)
                         else:
+                            print(f'You hit the enemy for {cardPlayed.getAttack[0]} damage!')
+                            print(state.ENEMY_BLOCK)
                             enemy.setHP(cardPlayed.getAttack()[0])
                             hand.pop(index)
                             discard_pile.append(cardPlayed)
@@ -139,11 +142,13 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                     showPiles()
                 elif action == 'end':
                     discard()
+                    state.ENEMY_BLOCK = 0
                     enemyTurn(hand, state.BLOCK, intent)
                 else:
                     print(f'Invalid input.')
         if action == 'end':
             discard()
+            state.ENEMY_BLOCK = 0
             enemyTurn(hand, state.BLOCK, intent)
         elif action == 'piles':
             showPiles()
