@@ -55,11 +55,15 @@ class Pigeon(Enemy):
         blockValues = [12, 14, 16, 18]
         intent = random.randint(1, 2)
         attack = random.choices(attackValues, weights=[1, 2, 6, 1])
+        for i in attack:
+            attack2 = i
         block = random.choices(blockValues, weights=[1, 8, 3, 2])
+        for i in block:
+            block2 = i
         if intent == 1:
-            return intent, attack
+            return intent, attack2
         else:
-            return intent, block
+            return intent, block2
 
 class CatOfThondor(Enemy):
 
@@ -107,10 +111,10 @@ class CatOfThondor(Enemy):
     def intent(self):
         attackValues = [12, 14, 16, 18]
         blockValues = [6, 8, 10, 12]
-        intent = random.randint(1, 2)
+        action = random.randint(1, 2)
         attack = random.choices(attackValues, weights=[1, 2, 6, 1])
         block = random.choices(blockValues, weights=[1, 8, 3, 2])
-        if intent == 1:
-            return intent, attack
+        if action == 1:
+            return action, attack
         else:
-            return intent, block
+            return action, block

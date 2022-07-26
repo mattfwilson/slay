@@ -1,5 +1,3 @@
-import random
-
 class GameState:
     def __init__(self):
         self.NAME = 'You'
@@ -14,14 +12,15 @@ class GameState:
         self.DISCARD_PILE = []
         self.DRAW_COUNT = 5
         self.TURN_COUNT = 0
-        self.COMBAT_COUNT = 0
+        self.FLOOR_COUNT = 0
         self.ENCOUNTER = []
         self.ACTIONS = ['Draw', 'Draw Pile', 'Attack', 'Block', 'Discard', 'Discard Pile']
-        self.PLAYER_DMG = 0
+        self.ATTACK = 0
         self.BLOCK = 0
         self.ENEMY_HP = 0
+        self.ENEMY_INTENT = 0
         self.ENEMY_BLOCK = 0
-        self.ENEMY_DMG = 0
+        self.ENEMY_ATTACK = 0
         self.CARDS_PLAYED = 0
 
 def showDraw():
