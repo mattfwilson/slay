@@ -1,8 +1,8 @@
 class GameState:
     def __init__(self):
-        self.NAME = 'You'
-        self.HP = 50
-        self.MAX_HP = 50
+        self.NAME = 'Karmae'
+        self.HP = 37
+        self.MAX_HP = 37
         self.ENERGY = 3
         self.MAX_ENERGY = 3
         self.BLOCK = 0
@@ -18,8 +18,8 @@ class GameState:
         self.ATTACK = 0
         self.BLOCK = 0
         self.ENEMY_HP = 0
-        self.ENEMY_INTENT = 0
-        self.ENEMY_BLOCK = 0
+        self.ENEMY_INTENT = 0 # e.g. (1, 8) tuple from intent()
+        self.ENEMY_BLOCK = 0 
         self.ENEMY_ATTACK = 0
         self.CARDS_PLAYED = 0
 
@@ -36,7 +36,7 @@ def showDiscard():
     print(state.DISCARD_PILE)
 
 def showPiles():
-    print('-' * 70 + f' [PILES]')
+    print('-' * 50 + f' [PILES]')
     showDraw()
     showHand()
     showDiscard()

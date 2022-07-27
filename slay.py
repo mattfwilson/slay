@@ -43,24 +43,20 @@ def createEnemy():
     return enemy
 
 def enemyTurn(hand, block, intent):
-    print(f'start of enemyTurn() function')
     if intent[0] == 1:
         if intent[1] >= block:
             state.HP -= intent[1] - block
-            print(f'Enemy attacks for {intent[1]}!')
-            print(state.HP)
+            print(f'Enemy attacks for {intent[1]}!\n')
         else:
             block -= intent[1]
-            print(f'Remaining Block: {block}')
     else:
-        print(f'Enemy blocks for {intent[1]}')
+        print(f'Enemy blocks for {intent[1]}!\n')
         state.ENEMY_BLOCK = intent[1]
+    state.BLOCK = 0
     playerTurn(state.HP, state.ENCOUNTER[-1], state.HAND, state.DISCARD_PILE, state.ENERGY)
 
 def enemySummary(enemy, intent):
     enemy.summary()
-    # print(intent)
-    # print(state.ENEMY_BLOCK)
     if state.ENEMY_BLOCK > 0:
         print(f'🛡  Enemy Block: {state.ENEMY_BLOCK}')
     if intent[0] == 1:
@@ -91,7 +87,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
     state.TURN_COUNT += 1
     draw()
     intent = enemy.intent()
-    while hp > 0:
+    while hp > 0 and enemy.getHP() > 0:
         print('-' * 50 + f' [Floor {state.FLOOR_COUNT} | [Turn {state.TURN_COUNT}]')
         enemySummary(enemy, intent)
         playerSummary(energy)
@@ -99,7 +95,6 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
         if action.isdigit():
             index = int(action)
             try:
-                # print(f'TRY - Index played: {index}')
                 cardPlayed = hand[index]
                 if (energy - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
                     if cardPlayed.getType() == state.ACTIONS[2]: # checks if user input is attack action
@@ -108,36 +103,36 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                         time.sleep(1)
                         if state.ENEMY_BLOCK > 0: # check to see if enemy has block
                             state.ENEMY_BLOCK -= cardPlayed.getAttack()[0]
-                            print(state.ENEMY_BLOCK)
                             if state.ENEMY_BLOCK < 0: # check if player damaged enemy more than block
                                 unblocked = abs(state.ENEMY_BLOCK)
                                 print(f'You broke the block and hit the enemy for {unblocked} damage!')
                                 enemy.setHP(unblocked)
                                 hand.pop(index)
                                 discard_pile.append(cardPlayed)
+                                time.sleep(1)
                             else:
                                 print(f'You damaged {cardPlayed.getAttack()[0]} points of the enemy\'s block')
                                 hand.pop(index)
                                 discard_pile.append(cardPlayed)
+                                time.sleep(1)
                         else:
-                            print(f'You hit the enemy for {cardPlayed.getAttack[0]} damage!')
-                            print(state.ENEMY_BLOCK)
+                            print(f'You hit the enemy for {cardPlayed.getAttack()[0]} damage!')
                             enemy.setHP(cardPlayed.getAttack()[0])
                             hand.pop(index)
                             discard_pile.append(cardPlayed)
+                            time.sleep(1)
                     elif cardPlayed.getType() == state.ACTIONS[3]: # checks if user input is block action
                         energy -= cardPlayed.getEnergy()
                         state.BLOCK += cardPlayed.getBlock()[0]
                         print(f'You used {cardPlayed.getEnergy()}💧 and blocked for {cardPlayed.getBlock()[0]} {cardPlayed.getType()}!\n')
                         hand.pop(index)
                         discard_pile.append(cardPlayed)
+                        time.sleep(1)
                 else:
-                    print('You need more energy to play that card!\n')
+                    print('You need more energy💧 to play that card!\n')
             except IndexError:
-                # print(f'EXCEPT - IndexError')
                 pass
             except ValueError:
-                # print(f'EXCEPT - ValueError')
                 if action == 'show':
                     showPiles()
                 elif action == 'end':
@@ -153,12 +148,17 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
         elif action == 'piles':
             showPiles()
         elif enemy.getHP() <= 0:
-            print(f'You win! You beat the {enemy.getName()}')
+            print(f'🏆 You win! You beat the {enemy.getName()}')
             action = input('\nProceed to next floor?: ')
         else:
             continue
-    print(f'You died.')
-    quit() 
+    
+    if hp <= 0:
+        print(f'💀 {state.NAME} was defeated. You lost.')
+        quit()
+    else:
+        print(f'🏆 You defeated the {enemy.getName()}!')
+        quit()
 
 buildDeck()
 startCombat()
