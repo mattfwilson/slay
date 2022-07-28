@@ -91,7 +91,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
         print('-' * 50 + f' [Floor {state.FLOOR_COUNT} | [Turn {state.TURN_COUNT}]')
         enemySummary(enemy, intent)
         playerSummary(energy)
-        action = input('\nType the card index you want to play: ')
+        action = input('\nWhich card do you want to play: ')
         if action.isdigit():
             index = int(action)
             try:
