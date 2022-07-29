@@ -1,6 +1,3 @@
-# need to figure out why the main gamp loop can't call enemy from GameState class
-# remove block after enemy's turn ends
-
 from vars import *
 from enemy import *
 from cards import *
@@ -35,8 +32,8 @@ def enemyIntent(intent):
         state.ENEMY_BLOCK = intent[1]
 
 def createEnemy():
-    enemy_pool = [Pigeon()]
-    enemy = random.choices(enemy_pool, weights=[1])
+    enemy_pool = [Pigeon(), CatOfThondor()]
+    enemy = random.choices(enemy_pool, weights=[1, 1])
     state.ENCOUNTER.append(enemy[0])
     enemy = state.ENCOUNTER[-1]
     enemy.intro()
@@ -143,8 +140,6 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                     discard()
                     state.ENEMY_BLOCK = 0
                     enemyTurn(hand, state.BLOCK, intent)
-                else:
-                    print(f'Invalid input.')
         if action == 'end':
             discard()
             state.ENEMY_BLOCK = 0
@@ -155,6 +150,8 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
             print(f'🏆 {state.NAME} wins! The {enemy.getName()} has been defeated.')
             action = input('\nProceed to next floor?: ')
         else:
+            print(f'Invalid input. Try again.\n')
+            time.sleep(1)
             continue
     
     if hp <= 0:
@@ -166,6 +163,3 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
 
 buildDeck()
 startCombat()
-
-# is there a better/more efficient way to check for if int or str in main loop?
-# how would you retain enemy's intended block for an additional turn

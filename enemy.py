@@ -17,7 +17,7 @@ class Pigeon(Enemy):
 
         super().__init__()
         self.name = name_adj
-        self._hp = random.randint(40, 50)
+        self._hp = random.randint(35, 50)
         self.max_hp = self._hp
 
     def __repr__(self):
@@ -51,7 +51,7 @@ class Pigeon(Enemy):
         return self.hp
 
     def intent(self):
-        attackValues = [6, 8, 10, 12]
+        attackValues = [6, 8, 10, 14]
         blockValues = [12, 14, 16, 18]
         intent = random.randint(1, 2)
         attack = random.choices(attackValues, weights=[1, 2, 6, 1])
@@ -75,7 +75,7 @@ class CatOfThondor(Enemy):
 
         super().__init__()
         self.name = name_adj
-        self._hp = random.randint(60, 75)
+        self._hp = random.randint(50, 75)
         self.max_hp = self._hp
 
     def __repr__(self):
@@ -109,12 +109,16 @@ class CatOfThondor(Enemy):
         return self.hp
 
     def intent(self):
-        attackValues = [12, 14, 16, 18]
-        blockValues = [6, 8, 10, 12]
-        action = random.randint(1, 2)
+        attackValues = [10, 12, 14, 18]
+        blockValues = [8, 10, 12, 14]
+        intent = random.randint(1, 2)
         attack = random.choices(attackValues, weights=[1, 2, 6, 1])
+        for i in attack:
+            attack2 = i
         block = random.choices(blockValues, weights=[1, 8, 3, 2])
-        if action == 1:
-            return action, attack
+        for i in block:
+            block2 = i
+        if intent == 1:
+            return intent, attack2
         else:
-            return action, block
+            return intent, block2
