@@ -43,9 +43,6 @@ class Pigeon(Enemy):
     def setHP(self, dmg):
         self._hp -= dmg
 
-    def getMaxHP(self):
-        return self.max_hp
-
     def doDamage(self, damage):
         self.hp -= damage
         return self.hp
@@ -56,14 +53,14 @@ class Pigeon(Enemy):
         intent = random.randint(1, 2)
         attack = random.choices(attackValues, weights=[1, 2, 6, 1])
         for i in attack:
-            attack2 = i
+            res = i
         block = random.choices(blockValues, weights=[1, 8, 3, 2])
         for i in block:
-            block2 = i
+            res = i
         if intent == 1:
-            return intent, attack2
+            return intent, res
         else:
-            return intent, block2
+            return intent, res
 
 class CatOfThondor(Enemy):
 
@@ -101,9 +98,6 @@ class CatOfThondor(Enemy):
     def setHP(self, dmg):
         self._hp -= dmg
 
-    def getMaxHP(self):
-        return self.max_hp
-
     def doDamage(self, damage):
         self.hp -= damage
         return self.hp
@@ -114,11 +108,11 @@ class CatOfThondor(Enemy):
         intent = random.randint(1, 2)
         attack = random.choices(attackValues, weights=[1, 2, 6, 1])
         for i in attack:
-            attack2 = i
+            res = i
         block = random.choices(blockValues, weights=[1, 8, 3, 2])
         for i in block:
-            block2 = i
+            res = i
         if intent == 1:
-            return intent, attack2
+            return intent, res
         else:
-            return intent, block2
+            return intent, res

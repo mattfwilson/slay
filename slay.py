@@ -129,6 +129,8 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                         hand.pop(index)
                         discard_pile.append(cardPlayed)
                         time.sleep(1)
+                    else:
+                        print(f'Invalid input. Try again.\n')
                 else:
                     print('{state.NAME} need more energy💧 to play that card!\n')
             except IndexError:
@@ -150,10 +152,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
             print(f'🏆 {state.NAME} wins! The {enemy.getName()} has been defeated.')
             action = input('\nProceed to next floor?: ')
         else:
-            print(f'Invalid input. Try again.\n')
-            time.sleep(1)
             continue
-    
     if hp <= 0:
         print(f'💀 {state.NAME} was defeated...')
         quit()
