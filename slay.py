@@ -7,7 +7,6 @@ import random
 def buildDeck():
     for count in range(5):
         state.DECK.append(Attack())
-    for count in range(5):
         state.DECK.append(Block())
     state.DRAW_PILE = state.DECK
     random.shuffle(state.DRAW_PILE)
@@ -132,7 +131,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                     else:
                         print(f'Invalid input. Try again.\n')
                 else:
-                    print('{state.NAME} need more energy💧 to play that card!\n')
+                    print('You need more energy💧 to play that card!\n')
             except IndexError:
                 pass
             except ValueError:
