@@ -78,3 +78,31 @@ class Block(Card):
     def __repr__(self):
         for block in self._block:
             return f'Block {block}'
+
+class Block(Card):
+
+    def __init__(self):
+        super().__init__()
+        amount = [4, 6, 8, 10]
+        block = random.choices(amount, weights=[1, 2, 6, 1])
+        self._energy = 1
+        self.draw = 2
+        self._type = state.ACTIONS[0]
+
+    def setEnergy(self):
+        return self._energy
+
+    def getEnergy(self):
+        return self._energy
+
+    def setType(self):
+        return self._type
+
+    def getType(self):
+        return self._typ
+
+    def getSummary(self):
+        return f'🛡  {self._type} {self._draw} for {self._energy}💧'
+
+    def __repr__(self):
+        return f'{state.ACTIONS[0]} {self.draw}'
