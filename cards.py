@@ -48,7 +48,7 @@ class Block(Card):
 
     def __init__(self):
         super().__init__()
-        amount = [4, 6, 8, 10]
+        amount = [6, 8, 10, 12]
         block = random.choices(amount, weights=[1, 2, 6, 1])
         self._energy = 1
         self._type = state.ACTIONS[3]
@@ -79,14 +79,12 @@ class Block(Card):
         for block in self._block:
             return f'Block {block}'
 
-class Block(Card):
+class Draw(Card):
 
     def __init__(self):
         super().__init__()
-        amount = [4, 6, 8, 10]
-        block = random.choices(amount, weights=[1, 2, 6, 1])
         self._energy = 1
-        self.draw = 2
+        self._draw = 2
         self._type = state.ACTIONS[0]
 
     def setEnergy(self):
@@ -99,10 +97,10 @@ class Block(Card):
         return self._type
 
     def getType(self):
-        return self._typ
+        return self._type
 
     def getSummary(self):
-        return f'🛡  {self._type} {self._draw} for {self._energy}💧'
+        return f'♻  {self._type} {self._draw} for {self._energy}💧'
 
     def __repr__(self):
         return f'{state.ACTIONS[0]} {self.draw}'

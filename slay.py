@@ -7,7 +7,10 @@ import random
 def buildDeck():
     for count in range(5):
         state.DECK.append(Attack())
+    for count in range(3):
         state.DECK.append(Block())
+    for count in range(2):
+        state.DECK.append(Draw())
     state.DRAW_PILE = state.DECK
     random.shuffle(state.DRAW_PILE)
 
