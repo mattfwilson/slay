@@ -1,3 +1,5 @@
+# make the draw() function be able to be called for initial drawing and draw cards
+
 from vars import *
 from enemy import *
 from cards import *
@@ -98,7 +100,11 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
             try:
                 cardPlayed = hand[index]
                 if (energy - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
-                    if cardPlayed.getType() == state.ACTIONS[2]: # checks if user input is attack action
+                    if cardPlayed.getType() == state.ACTIONS[0]:
+                        print(f'{state.NAME} used {cardPlayed.getEnergy()}💧 and played {cardPlayed.getType()} {cardPlayed.getDraw()}!\n')
+                        time.sleep(1)
+                        print(f'You draw 2 cards.')
+                    elif cardPlayed.getType() == state.ACTIONS[1]: # checks if user input is attack action
                         energy -= cardPlayed.getEnergy()
                         print(f'{state.NAME} used {cardPlayed.getEnergy()}💧 and attacked for {cardPlayed.getAttack()[0]} {cardPlayed.getType()}!\n')
                         time.sleep(1)
@@ -122,7 +128,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                             hand.pop(index)
                             discard_pile.append(cardPlayed)
                             time.sleep(1)
-                    elif cardPlayed.getType() == state.ACTIONS[3]:
+                    elif cardPlayed.getType() == state.ACTIONS[2]:
                         energy -= cardPlayed.getEnergy()
                         state.BLOCK += cardPlayed.getBlock()[0]
                         print(f'{state.NAME} used {cardPlayed.getEnergy()}💧 and blocked for {cardPlayed.getBlock()[0]} {cardPlayed.getType()}!\n')

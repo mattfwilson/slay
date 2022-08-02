@@ -16,7 +16,7 @@ class Attack(Card):
         amount = [4, 6, 8]
         attack = random.choices(amount, weights=[2, 4, 1])
         self._energy = 1
-        self._type = state.ACTIONS[2]
+        self._type = state.ACTIONS[1]
         self._attack = attack
 
     def setEnergy(self):
@@ -51,7 +51,7 @@ class Block(Card):
         amount = [6, 8, 10, 12]
         block = random.choices(amount, weights=[1, 2, 6, 1])
         self._energy = 1
-        self._type = state.ACTIONS[3]
+        self._type = state.ACTIONS[2]
         self._block = block
 
     def setEnergy(self):
@@ -98,6 +98,12 @@ class Draw(Card):
 
     def getType(self):
         return self._type
+    
+    def setDraw(self):
+        return self._draw
+
+    def getDraw(self):
+        return self._draw
 
     def getSummary(self):
         return f'♻  {self._type} {self._draw} for {self._energy}💧'
