@@ -10,7 +10,8 @@ class GameState:
         self.DRAW_PILE = []
         self.HAND = []
         self.DISCARD_PILE = []
-        self.DRAW_COUNT = 5
+        self.DRAW_TURN = 5
+        self.DRAW = 0
         self.TURN_COUNT = 0
         self.FLOOR_COUNT = 0
         self.ENCOUNTER = []

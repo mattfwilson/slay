@@ -16,8 +16,8 @@ def buildDeck():
     state.DRAW_PILE = state.DECK
     random.shuffle(state.DRAW_PILE)
 
-def draw():
-    if len(state.DRAW_PILE) < state.DRAW_COUNT:
+def draw(draw_amount):
+    if len(state.DRAW_PILE) < draw_amount:
         state.DRAW_PILE += state.DISCARD_PILE
         state.DISCARD_PILE = []
         random.shuffle(state.DRAW_PILE)
@@ -25,7 +25,7 @@ def draw():
             drawn = state.DRAW_PILE.pop(-1)
             state.HAND.append(drawn)
     else:
-        for card in range(state.DRAW_COUNT):
+        for card in range(state.DRAW_TURN):
             drawn = state.DRAW_PILE.pop(-1)
             state.HAND.append(drawn)
 
@@ -88,7 +88,7 @@ def discard():
 
 def playerTurn(hp, enemy, hand, discard_pile, energy):
     state.TURN_COUNT += 1
-    draw()
+    draw(state.DRAW_TURN)
     intent = enemy.intent()
     while hp > 0 and enemy.getHP() > 0:
         print('-' * 50 + f' [Floor {state.FLOOR_COUNT} | [Turn {state.TURN_COUNT}]')
