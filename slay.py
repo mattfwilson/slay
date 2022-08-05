@@ -102,8 +102,12 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                 if (energy - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
                     if cardPlayed.getType() == state.ACTIONS[0]:
                         print(f'{state.NAME} used {cardPlayed.getEnergy()}💧 and played {cardPlayed.getType()} {cardPlayed.getDraw()}!\n')
+                        draw(cardPlayed.getDraw())
+                        hand.pop(index)
+                        discard_pile.append(cardPlayed)
                         time.sleep(1)
                         print(f'You draw 2 cards.')
+
                     elif cardPlayed.getType() == state.ACTIONS[1]: # checks if user input is attack action
                         energy -= cardPlayed.getEnergy()
                         print(f'{state.NAME} used {cardPlayed.getEnergy()}💧 and attacked for {cardPlayed.getAttack()[0]} {cardPlayed.getType()}!\n')
