@@ -100,21 +100,25 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
             try:
                 cardPlayed = hand[index]
                 if (energy - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
+                    
+                    # Draw Card
                     if cardPlayed.getType() == state.ACTIONS[0]:
+                        energy -= cardPlayed.getEnergy()
                         print(f'{state.NAME} used {cardPlayed.getEnergy()}💧 and played {cardPlayed.getType()} {cardPlayed.getDraw()}!\n')
                         draw(cardPlayed.getDraw())
                         hand.pop(index)
                         discard_pile.append(cardPlayed)
                         time.sleep(1)
                         print(f'You draw 2 cards.')
-
-                    elif cardPlayed.getType() == state.ACTIONS[1]: # checks if user input is attack action
+                    
+                    # Attack Card
+                    elif cardPlayed.getType() == state.ACTIONS[1]:
                         energy -= cardPlayed.getEnergy()
                         print(f'{state.NAME} used {cardPlayed.getEnergy()}💧 and attacked for {cardPlayed.getAttack()[0]} {cardPlayed.getType()}!\n')
                         time.sleep(1)
-                        if state.ENEMY_BLOCK > 0: # check to see if enemy has block
+                        if state.ENEMY_BLOCK > 0:
                             state.ENEMY_BLOCK -= cardPlayed.getAttack()[0]
-                            if state.ENEMY_BLOCK < 0: # check if player damaged enemy more than block
+                            if state.ENEMY_BLOCK < 0:
                                 unblocked = abs(state.ENEMY_BLOCK)
                                 print(f'{state.NAME} broke enemy\'s block and hit for {unblocked} damage!')
                                 enemy.setHP(unblocked)
@@ -132,15 +136,18 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                             hand.pop(index)
                             discard_pile.append(cardPlayed)
                             time.sleep(1)
+                    
+                    # Block Card
                     elif cardPlayed.getType() == state.ACTIONS[2]:
                         energy -= cardPlayed.getEnergy()
-                        state.BLOCK += cardPlayed.getBlock()[0]
                         print(f'{state.NAME} used {cardPlayed.getEnergy()}💧 and blocked for {cardPlayed.getBlock()[0]} {cardPlayed.getType()}!\n')
+                        state.BLOCK += cardPlayed.getBlock()[0]
                         time.sleep(1)
                         print(f'{state.NAME} gained {cardPlayed.getBlock()[0]} Block.')
                         hand.pop(index)
                         discard_pile.append(cardPlayed)
                         time.sleep(1)
+
                     else:
                         print(f'Invalid input. Try again.\n')
                 else:
