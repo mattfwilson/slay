@@ -87,7 +87,6 @@ def discard():
     state.HAND = []
 
 def playerTurn(hp, enemy, hand, discard_pile, energy):
-    
     state.TURN_COUNT += 1
     draw(state.TURN_DRAW)
     intent = enemy.intent()
