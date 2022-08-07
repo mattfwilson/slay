@@ -92,7 +92,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
     draw(state.TURN_DRAW)
     intent = enemy.intent()
     while hp > 0 and enemy.getHP() > 0:
-        print('-' * 50 + f' [Floor {state.FLOOR_COUNT} | [Turn {state.TURN_COUNT}]')
+        print('-' * 40 + f' [Floor {state.FLOOR_COUNT} | [Turn {state.TURN_COUNT}]')
         enemySummary(enemy, intent)
         playerSummary(energy)
         action = input('\nWhich card do you want to play: ')
