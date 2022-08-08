@@ -4,7 +4,7 @@ import itertools
 
 class Card:
 
-    id = itertools.count(0).__next__
+    id = itertools.count(0, 1).__next__
 
     def __init__(self):
         self.id = Card.id()
@@ -109,4 +109,4 @@ class Draw(Card):
         return f'♻  {self._type} {self._draw} for {self._energy}💧'
 
     def __repr__(self):
-        return f'{state.ACTIONS[0]} {self.draw}'
+        return f'{state.ACTIONS[0]} {self._draw}'

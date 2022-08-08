@@ -1,4 +1,5 @@
 # make the draw() function be able to be called for initial drawing and draw cards
+# fix bug where we drawing/.pop from draw.pile is causing an error
 
 from vars import *
 from enemy import *
@@ -44,6 +45,7 @@ def createEnemy():
     return enemy
 
 def enemyTurn(hand, block, intent):
+    showPiles()
     if intent[0] == 1:
         if intent[1] >= block:
             state.HP -= intent[1] - block
@@ -82,16 +84,16 @@ def startCombat():
     createEnemy()
     playerTurn(state.HP, state.ENCOUNTER[-1], state.HAND, state.DISCARD_PILE, state.ENERGY)
 
-def discard():
+def discardHand():
     state.DISCARD_PILE += state.HAND
     state.HAND = []
 
 def playerTurn(hp, enemy, hand, discard_pile, energy):
-    
     state.TURN_COUNT += 1
     draw(state.TURN_DRAW)
     intent = enemy.intent()
     while hp > 0 and enemy.getHP() > 0:
+        showPiles()
         print('-' * 40 + f' [Floor {state.FLOOR_COUNT} | [Turn {state.TURN_COUNT}]')
         enemySummary(enemy, intent)
         playerSummary(energy)
@@ -101,13 +103,12 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
             try:
                 cardPlayed = hand[index]
                 if (energy - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
-                    
                     # Draw Card
                     if cardPlayed.getType() == state.ACTIONS[0]:
                         energy -= cardPlayed.getEnergy()
                         print(f'{state.NAME} used {cardPlayed.getEnergy()}💧 and played {cardPlayed.getType()} {cardPlayed.getDraw()}!\n')
                         draw(cardPlayed.getDraw())
-                        hand.pop(index)
+                        hand.pop(hand.index)
                         discard_pile.append(cardPlayed)
                         time.sleep(1)
                         print(f'You draw 2 cards.')
@@ -123,18 +124,18 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                                 unblocked = abs(state.ENEMY_BLOCK)
                                 print(f'{state.NAME} broke enemy\'s block and hit for {unblocked} damage!')
                                 enemy.setHP(unblocked)
-                                hand.pop(index)
+                                hand.pop(hand.index)
                                 discard_pile.append(cardPlayed)
                                 time.sleep(1)
                             else:
                                 print(f'{state.NAME} damaged {cardPlayed.getAttack()[0]} points of the enemy\'s block')
-                                hand.pop(index)
+                                hand.pop(hand.index)
                                 discard_pile.append(cardPlayed)
                                 time.sleep(1)
                         else:
                             print(f'{state.NAME} hit the enemy for {cardPlayed.getAttack()[0]} damage!')
                             enemy.setHP(cardPlayed.getAttack()[0])
-                            hand.pop(index)
+                            hand.pop(hand.index)
                             discard_pile.append(cardPlayed)
                             time.sleep(1)
                     
@@ -145,7 +146,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                         state.BLOCK += cardPlayed.getBlock()[0]
                         time.sleep(1)
                         print(f'{state.NAME} gained {cardPlayed.getBlock()[0]} Block.')
-                        hand.pop(index)
+                        hand.pop(hand.index)
                         discard_pile.append(cardPlayed)
                         time.sleep(1)
 
@@ -159,11 +160,11 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                 if action == 'show':
                     showPiles()
                 elif action == 'end':
-                    discard()
+                    discardHand()
                     state.ENEMY_BLOCK = 0
                     enemyTurn(hand, state.BLOCK, intent)
         if action == 'end':
-            discard()
+            discardHand()
             state.ENEMY_BLOCK = 0
             enemyTurn(hand, state.BLOCK, intent)
         elif action == 'piles':
