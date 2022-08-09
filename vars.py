@@ -7,6 +7,9 @@ class GameState:
         self.MAX_ENERGY = 3
         self.BLOCK = 0
         self.DECK = []
+        self.START_ATTACK = 5
+        self.START_BLOCK = 3
+        self.START_DRAW = 2
         self.DRAW_PILE = []
         self.HAND = []
         self.DISCARD_PILE = []

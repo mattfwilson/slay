@@ -8,11 +8,11 @@ import time
 import random
         
 def buildDeck():
-    for count in range(5):
+    for count in range(state.START_ATTACK):
         state.DECK.append(Attack())
-    for count in range(3):
+    for count in range(state.START_BLOCK):
         state.DECK.append(Block())
-    for count in range(2):
+    for count in range(state.START_DRAW):
         state.DECK.append(Draw())
     state.DRAW_PILE = state.DECK
     random.shuffle(state.DRAW_PILE)
@@ -93,11 +93,11 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
     draw(state.TURN_DRAW)
     intent = enemy.intent()
     while hp > 0 and enemy.getHP() > 0:
-        showPiles()
         print('-' * 40 + f' [Floor {state.FLOOR_COUNT} | [Turn {state.TURN_COUNT}]')
         enemySummary(enemy, intent)
         playerSummary(energy)
         action = input('\nWhich card do you want to play: ')
+        print(action)
         if action.isdigit():
             index = int(action)
             try:
@@ -105,6 +105,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                 if (energy - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
                     # Draw Card
                     if cardPlayed.getType() == state.ACTIONS[0]:
+                        print(type(index))
                         energy -= cardPlayed.getEnergy()
                         print(f'{state.NAME} used {cardPlayed.getEnergy()}💧 and played {cardPlayed.getType()} {cardPlayed.getDraw()}!\n')
                         draw(cardPlayed.getDraw())
@@ -124,18 +125,18 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                                 unblocked = abs(state.ENEMY_BLOCK)
                                 print(f'{state.NAME} broke enemy\'s block and hit for {unblocked} damage!')
                                 enemy.setHP(unblocked)
-                                hand.pop(hand.index)
+                                hand.pop(index)
                                 discard_pile.append(cardPlayed)
                                 time.sleep(1)
                             else:
                                 print(f'{state.NAME} damaged {cardPlayed.getAttack()[0]} points of the enemy\'s block')
-                                hand.pop(hand.index)
+                                hand.pop(index)
                                 discard_pile.append(cardPlayed)
                                 time.sleep(1)
                         else:
                             print(f'{state.NAME} hit the enemy for {cardPlayed.getAttack()[0]} damage!')
                             enemy.setHP(cardPlayed.getAttack()[0])
-                            hand.pop(hand.index)
+                            hand.pop(index)
                             discard_pile.append(cardPlayed)
                             time.sleep(1)
                     
@@ -146,7 +147,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                         state.BLOCK += cardPlayed.getBlock()[0]
                         time.sleep(1)
                         print(f'{state.NAME} gained {cardPlayed.getBlock()[0]} Block.')
-                        hand.pop(hand.index)
+                        hand.pop(index)
                         discard_pile.append(cardPlayed)
                         time.sleep(1)
 
