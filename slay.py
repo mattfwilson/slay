@@ -93,11 +93,11 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
     draw(state.TURN_DRAW)
     intent = enemy.intent()
     while hp > 0 and enemy.getHP() > 0:
-        print('-' * 40 + f' [Floor {state.FLOOR_COUNT} | [Turn {state.TURN_COUNT}]')
+        showPiles()
+        print('-' * 30 + f' [Floor {state.FLOOR_COUNT} | [Turn {state.TURN_COUNT}]')
         enemySummary(enemy, intent)
         playerSummary(energy)
         action = input('\nWhich card do you want to play: ')
-        print(action)
         if action.isdigit():
             index = int(action)
             try:
@@ -105,7 +105,6 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                 if (energy - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
                     # Draw Card
                     if cardPlayed.getType() == state.ACTIONS[0]:
-                        print(type(index))
                         energy -= cardPlayed.getEnergy()
                         print(f'{state.NAME} used {cardPlayed.getEnergy()}💧 and played {cardPlayed.getType()} {cardPlayed.getDraw()}!\n')
                         draw(cardPlayed.getDraw())
