@@ -108,11 +108,6 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                         energy -= cardPlayed.getEnergy()
                         print(f'{state.NAME} used {cardPlayed.getEnergy()}💧 and played {cardPlayed.getType()} {cardPlayed.getDraw()}!\n')
                         draw(cardPlayed.getDraw())
-                        # print(state.HAND)
-                        # print(hand)
-                        # print(index)
-                        # print(hand[index])
-                        # print(hand.index)
                         print(cardPlayed)
                         hand.pop(index)
                         discard_pile.append(cardPlayed)
@@ -135,13 +130,13 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                                 time.sleep(1)
                             else:
                                 print(f'{state.NAME} damaged {cardPlayed.getAttack()[0]} points of the enemy\'s block')
-                                hand.pop(cardPlayed)
+                                hand.pop(index)
                                 discard_pile.append(cardPlayed)
                                 time.sleep(1)
                         else:
                             print(f'{state.NAME} hit the enemy for {cardPlayed.getAttack()[0]} damage!')
                             enemy.setHP(cardPlayed.getAttack()[0])
-                            hand.pop(cardPlayed)
+                            hand.pop(index)
                             discard_pile.append(cardPlayed)
                             time.sleep(1)
                     
