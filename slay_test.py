@@ -8,4 +8,5 @@ class TestSlay(unittest.TestCase):
         self.assertEqual(result, 10)
 
 if __name__ == '__main__':
+    TestSlay()
     unittest.main()
