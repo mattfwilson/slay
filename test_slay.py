@@ -1,5 +1,5 @@
 import unittest
-from vars import *
+from slay import *
 
 class Test_Deck(unittest.TestCase):
     
