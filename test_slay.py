@@ -3,16 +3,9 @@ from slay import *
 
 class Test_Deck(unittest.TestCase):
     
-    def test_HP(self):
-        self.assertGreater(state.HP, 35)
-
-    def test_energy(self):
-        self.assertEqual(state.ENERGY, 3)
-
-    def test_name(self):
-        if state.NAME is str():
-            res = True
-            self.assertTrue(res)
+    def test_buildDeck(self):
+        totalDraw = state.START_ATTACK, state.START_BLOCK, state.START_DRAW
+        self.assertEqual(totalDraw, 10)
 
 if __name__ == '__main__':
     unittest.main()
