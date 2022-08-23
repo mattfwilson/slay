@@ -1,12 +1,29 @@
 import random
 
 FLOOR = 1
-DROP_RATE = 40
+DROP_RATE = 10
 POTION_CURRENT = 0
 POTION_MAX = 3
-POTIONS = ['Flex Potion', 'Ghost in a Jar', 'Block Potion', 'Skill Potion', 'Fire Potion', 'Smoke Bomb', 'Fairy in a Bottle', 'Fruit Juice', 'Liquid Bronze', 'Cultist Potion']
+POTIONS = {
+    'Flex Potion': 1,
+    'Block Potion': 1,
+    'Skill Potion': 1,
+    'Fire Potion': 1,
+    'Smoke Bomb': 2,
+    'Liquid Bronze': 2,
+    'Cultist Potion': 2,
+    'Fruit Juice': 2,
+    'Fairy in a Bottle': 3,
+    'Ghost in a Jar': 3
+    }
+
 INVENTORY = []
 ACTION = ''
+
+def attribute_roll(weights, attributes):
+    newRoll = random.choices(*zip(*weights.items()))
+    attrRoll = random.choices(*zip(*attributes.items()), k=newRoll.pop())
+    return attrRoll
 
 def roll_potion(potions, rate, floor, inventory):
     success = random.randint(1, 100)
