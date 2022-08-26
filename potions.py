@@ -4,6 +4,8 @@ FLOOR = 1
 DROP_RATE = 40
 POTION_CURRENT = 0
 POTION_MAX = 3
+INVENTORY = []
+ACTION = ''
 POTIONS = {
     'Power Potion': 1,
     'Speed Potion': 1,
@@ -37,18 +39,13 @@ POTIONS = {
     'Snecko Oil': 3,
     'Entropic Brew': 3,
     'Fairy in a Bottle': 3,
-
     'Ghost in a Jar': 3
 
     }
 
-INVENTORY = []
-ACTION = ''
-
-def attribute_roll(weights, attributes):
-    newRoll = random.choices(*zip(*weights.items()))
-    attrRoll = random.choices(*zip(*attributes.items()), k=newRoll.pop())
-    return attrRoll
+def roll(weights):
+    weightedRoll = random.choices(weights, cum_weights=(1, 2, 3), k=3)
+    return weightedRoll
 
 def roll_potion(potions, rate, floor, inventory):
     success = random.randint(1, 100)
@@ -66,6 +63,9 @@ def roll_potion(potions, rate, floor, inventory):
         print(f'Drop rate: {rate}%')
         print('You didn\'t find anything..')
         return floor, rate, inventory
+
+test = roll(POTIONS)
+print(test)
 
 while True:
     ACTION = input(f'You are on floor {FLOOR}. Proceed to the next floor? ')
