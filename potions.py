@@ -44,7 +44,7 @@ POTIONS = {
     }
 
 def roll(weights):
-    weightedRoll = random.choices(weights, cum_weights=(1, 2, 3), k=3)
+    weightedRoll = random.choice(list(weights))
     return weightedRoll
 
 def roll_potion(potions, rate, floor, inventory):
