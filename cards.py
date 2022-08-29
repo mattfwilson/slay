@@ -4,10 +4,10 @@ import itertools
 
 class Card:
 
-    id = itertools.count(0, 1).__next__
+    id = itertools.count(0)
 
     def __init__(self):
-        self.id = Card.id()
+        self.id = next(Card.id)
 
 class Attack(Card):
 

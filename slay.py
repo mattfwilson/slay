@@ -22,11 +22,11 @@ def draw(draw_amount):
         state.DRAW_PILE += state.DISCARD_PILE
         state.DISCARD_PILE = []
         random.shuffle(state.DRAW_PILE)
-        for card in range(draw_amount):
+        for count in range(draw_amount):
             drawn = state.DRAW_PILE.pop(-1)
             state.HAND.append(drawn)
     else:
-        for card in range(draw_amount):
+        for count in range(draw_amount):
             drawn = state.DRAW_PILE.pop(-1)
             state.HAND.append(drawn)
 
