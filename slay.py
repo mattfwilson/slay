@@ -183,4 +183,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
         quit()
 
 buildDeck()
+print(len(state.DRAW_PILE))
+print(len(state.DISCARD_PILE))
+state.DISCARD_PILE.pop(-1)
 startCombat()
