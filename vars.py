@@ -1,14 +1,14 @@
 class GameState:
     def __init__(self):
         self.NAME = 'Karmae'
-        self.MAX_HP = 35
+        self.MAX_HP = 1000
         self.HP = self.MAX_HP
         self.MAX_ENERGY = 3
         self.ENERGY = self.MAX_ENERGY
         self.BLOCK = 0
         self.DECK = []
         self.START_ATTACK = 5
-        self.START_BLOCK = 3
+        self.START_BLOCK = 5
         self.START_DRAW = 2
         self.DRAW_PILE = []
         self.HAND = []

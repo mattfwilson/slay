@@ -19,8 +19,11 @@ def buildDeck():
 
 def draw(draw_amount):
     if len(state.DRAW_PILE) < draw_amount:
-        state.DRAW_PILE += state.DISCARD_PILE
-        state.DISCARD_PILE = []
+        for card in state.DISCARD_PILE:
+            returned = state.DISCARD_PILE.pop(-1)
+            state.DRAW_PILE.append(returned)
+        # state.DRAW_PILE += state.DISCARD_PILE
+        # state.DISCARD_PILE = []
         random.shuffle(state.DRAW_PILE)
         for count in range(draw_amount):
             drawn = state.DRAW_PILE.pop(-1)
@@ -183,7 +186,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
         quit()
 
 buildDeck()
-print(len(state.DRAW_PILE))
-print(len(state.DISCARD_PILE))
-state.DISCARD_PILE.pop(-1)
+# print(len(state.DRAW_PILE))
+# print(len(state.DISCARD_PILE))
+# state.DISCARD_PILE.pop(-1)
 startCombat()
