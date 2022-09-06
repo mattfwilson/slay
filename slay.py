@@ -1,5 +1,5 @@
-# make the draw() function be able to be called for initial drawing and draw cards
-# fix bug where we drawing/.pop from draw.pile is causing an error
+####### ISSUES/BUGS #######
+# Line 130, Error: 'Attack' object cannot be interpreted as an integer. Repro: only happens when enemy block is broken and additional HP damage is inflicted.
 
 from vars import *
 from enemy import *
@@ -22,8 +22,6 @@ def draw(draw_amount):
         for card in state.DISCARD_PILE:
             returned = state.DISCARD_PILE.pop(-1)
             state.DRAW_PILE.append(returned)
-        # state.DRAW_PILE += state.DISCARD_PILE
-        # state.DISCARD_PILE = []
         random.shuffle(state.DRAW_PILE)
         for count in range(draw_amount):
             drawn = state.DRAW_PILE.pop(-1)
@@ -111,11 +109,10 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                         energy -= cardPlayed.getEnergy()
                         print(f'{state.NAME} used {cardPlayed.getEnergy()}💧 and played {cardPlayed.getType()} {cardPlayed.getDraw()}!\n')
                         draw(cardPlayed.getDraw())
-                        print(cardPlayed)
+                        print(f'You play {cardPlayed} draw 2 cards.')
                         hand.pop(index)
                         discard_pile.append(cardPlayed)
                         time.sleep(1)
-                        print(f'You draw 2 cards.')
                     
                     # Attack Card
                     elif cardPlayed.getType() == state.ACTIONS[1]:
@@ -128,7 +125,9 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                                 unblocked = abs(state.ENEMY_BLOCK)
                                 print(f'{state.NAME} broke enemy\'s block and hit for {unblocked} damage!')
                                 enemy.setHP(unblocked)
+                                print(cardPlayed)
                                 hand.pop(cardPlayed)
+
                                 discard_pile.append(cardPlayed)
                                 time.sleep(1)
                             else:
