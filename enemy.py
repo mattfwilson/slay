@@ -103,13 +103,13 @@ class CatOfThondor(Enemy):
         return self.hp
 
     def intent(self):
-        attackValues = [10, 12, 14, 18]
-        blockValues = [8, 10, 12, 14]
+        attackValues = [10, 12, 14, 20]
+        blockValues = [8, 10, 12]
         intent = random.randint(1, 2)
-        attack = random.choices(attackValues, weights=[1, 2, 6, 1])
+        attack = random.choices(attackValues, weights=[1, 3, 6, 1])
         for i in attack:
             res = i
-        block = random.choices(blockValues, weights=[1, 8, 3, 2])
+        block = random.choices(blockValues, weights=[8, 3, 2])
         for i in block:
             res = i
         if intent == 1:

@@ -13,7 +13,7 @@ class Attack(Card):
 
     def __init__(self):
         super().__init__()
-        amount = [4, 6, 8]
+        amount = [6, 8, 10]
         attack = random.choices(amount, weights=[2, 4, 1])
         self._energy = 1
         self._type = state.ACTIONS[1]
@@ -48,8 +48,8 @@ class Block(Card):
 
     def __init__(self):
         super().__init__()
-        amount = [6, 8, 10, 12]
-        block = random.choices(amount, weights=[1, 2, 6, 1])
+        amount = [6, 8, 10]
+        block = random.choices(amount, weights=[3, 6, 1])
         self._energy = 1
         self._type = state.ACTIONS[2]
         self._block = block
