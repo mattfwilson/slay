@@ -1,6 +1,3 @@
-####### ISSUES/BUGS #######
-# Line 130, Error: 'Attack' object cannot be interpreted as an integer. Repro: only happens when enemy block is broken and additional HP damage is inflicted.
-
 from vars import *
 from enemy import *
 from cards import *
@@ -125,8 +122,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                                 unblocked = abs(state.ENEMY_BLOCK)
                                 print(f'{state.NAME} broke enemy\'s block and hit for {unblocked} damage!')
                                 enemy.setHP(unblocked)
-                                print(cardPlayed)
-                                hand.pop(cardPlayed)
+                                hand.pop(index)
                                 discard_pile.append(cardPlayed)
                                 time.sleep(1)
                             else:
@@ -151,7 +147,6 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                         hand.pop(index)
                         discard_pile.append(cardPlayed)
                         time.sleep(1)
-
                     else:
                         print(f'Invalid input. Try again.\n')
                 else:
