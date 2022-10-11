@@ -1,7 +1,7 @@
 class GameState:
     def __init__(self):
         self.NAME = 'Karmae'
-        self.MAX_HP = 1000
+        self.MAX_HP = 72
         self.HP = self.MAX_HP
         self.MAX_ENERGY = 3
         self.ENERGY = self.MAX_ENERGY

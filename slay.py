@@ -1,3 +1,5 @@
+# fix bug where enemy's attack/block print isn't showing whey they do it
+
 from vars import *
 from enemy import *
 from cards import *
@@ -43,7 +45,6 @@ def createEnemy():
     return enemy
 
 def enemyTurn(hand, block, intent):
-    showPiles()
     if intent[0] == 1:
         if intent[1] >= block:
             state.HP -= intent[1] - block
@@ -91,7 +92,6 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
     draw(state.TURN_DRAW)
     intent = enemy.intent()
     while hp > 0 and enemy.getHP() > 0:
-        showPiles()
         print('-' * 30 + f' [Floor {state.FLOOR_COUNT} | [Turn {state.TURN_COUNT}]')
         enemySummary(enemy, intent)
         playerSummary(energy)
