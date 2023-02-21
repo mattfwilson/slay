@@ -1,10 +1,10 @@
 import random
 
-event_chance = {'Event': .6375, 'Shrine': .2125, 'Fight': .10, 'Shop': .03, 'Treasure': .02}
+event_chance = {'Event': 64, 'Shrine': 21, 'Fight': 10, 'Shop': 3, 'Treasure': 2}
+trials = 100
 
-res = random.randint(1, 100)
-print(res)
-
-for value in event_chance:
-    if res == event_chance.values():
-        print(event_chance.key)
+for trial in range(0, trials):
+    for key, value in event_chance.items():
+        roll = random.randint(0, 100)
+        if roll <= value:
+            print(key)
