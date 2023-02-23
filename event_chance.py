@@ -8,12 +8,6 @@ event_chance = {
     'Treasure': 2
 }
 
-test_dict = {
-    None: 'a',
-    (1, 2): 'b',
-    True: 'c'
-}
-
 trials = 25
 
 for trial in range(0, trials):
@@ -24,7 +18,13 @@ for trial in range(0, trials):
 
 my_tuple = ((1, 1), (2, 2), (1, 2))
 
-for key in test_dict:
+test_dict = {
+    None: 'a',
+    (1, 2): 'b',
+    True: 'c'
+}
+
+for key in my_tuple:
     if (key == (1, 2)):
         print(test_dict.get(key))
     else:

@@ -150,7 +150,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                     else:
                         print(f'Invalid input. Try again.\n')
                 else:
-                    print('You need more energy💧 to play that card!\n')
+                    print('You need more 💧 to play that card!\n')
             except IndexError:
                 pass
             except ValueError:
@@ -172,10 +172,10 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
         else:
             continue
     if hp <= 0:
-        print(f'💀 {state.NAME} was defeated...')
+        print(f'\n 💀 {state.NAME} was defeated...')
         quit()
     else:
-        print(f'🏆 {state.NAME} defeated the {enemy.getName()}!')
+        print(f'\n🏆 {state.NAME} defeated the {enemy.getName()}!')
         quit()
 
 buildDeck()
