@@ -100,7 +100,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
             index = int(action)
             try:
                 cardPlayed = hand[index]
-                if (energy - cardPlayed.getEnergy()) >= 0: #checks to see if you have enough energy to play the card
+                if (energy - cardPlayed.getEnergy()) >= 0: # checks to see if you have enough energy to play the card
                     # Draw Card
                     if cardPlayed.getType() == state.ACTIONS[0]:
                         energy -= cardPlayed.getEnergy()

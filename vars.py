@@ -5,7 +5,6 @@ class GameState:
         self.HP = self.MAX_HP
         self.MAX_ENERGY = 3
         self.ENERGY = self.MAX_ENERGY
-        self.BLOCK = 0
         self.DECK = []
         self.START_ATTACK = 5
         self.START_BLOCK = 5
