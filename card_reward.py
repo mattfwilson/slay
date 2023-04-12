@@ -10,17 +10,21 @@ class BallLightning(DefectCard):
     def __init__(self, upgrade):
         super().__init__()
         self._name = ('Ball Lightning', 'Ball Lightning +1')
-        self.type = 'common'
-        self._upgrade = False
-        self._energy = (1, 1)
-        self._damage = (7, 10)
-        self._block = (0, 0)
+        self.type = 'Common'
+        self._upgrade = upgrade
+        self._energy = 1
+        self._damage = 7
+        self._block = 0
         self._channel_type = 'Lightning'
         self._channel_amount = (1, 1)
-        self._desc = f'Deal {self._damage[0]} damage. Channel {self._channel_amount[0]} {self._channel_type}.'
+        self._exhaust = False
+        self._power = False
+        if self._upgrade == True:
+            self._damage += 3
+        self._desc = f'Deal {self._damage} damage. Channel {self._channel_amount[0]} {self._channel_type}.'
     
     def showCard(self):
-        print(f'{self._name[0]} ({self._energy[0]})')
+        print(f'{self._name[0]} ({self._energy})')
         print(f'{self._desc}')
 
 card1 = BallLightning(True)
