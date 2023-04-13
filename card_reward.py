@@ -7,7 +7,7 @@ class DefectCard:
         self._class = 'Defect'
 
 class BallLightning(DefectCard):
-    def __init__(self, upgraded):
+    def __init__(self, upgraded=False):
         super().__init__()
         self._name = ('Ball Lightning', 'Ball Lightning +1')
         self.type = 'Common'
@@ -24,8 +24,11 @@ class BallLightning(DefectCard):
         self._desc = f'Deal {self._damage} damage. Channel {self._channel_amount[0]} {self._channel_type}.'
 
     def showCard(self):
-        print(f'{self._name[0]} ({self._energy})')
+        print(f'{self._name[0]} ({self._energy}💧) - ID: {self._id}')
         print(f'{self._desc}')
+
+
+    damage = property()
 
 card1 = BallLightning(False)
 card1.showCard()
