@@ -1,4 +1,5 @@
 import itertools
+import random
 
 class DefectCard:
     id = itertools.count(0)
@@ -22,11 +23,14 @@ class BallLightning(DefectCard):
         if self._upgrade == True:
             self._name = 'Ball Lightning +1'
             self._damage += 3
-        self._desc = f'Deal {self._damage} damage. Channel {self._channel_amount[0]} {self._channel_type}.'
+        self._desc = f'Deal {self._damage} damage. Channel {self._channel_amount[0]} {self._channel_type}.\n'
 
     def showCard(self):
-        print(f'\n{self._name} ({self._energy}💧) - ID: {self._id}')
+        print(f'{self._name} ({self._energy}💧) - ID: {self._id}')
         print(f'{self._desc}')
+    
+    def __repr__(self):
+        return self._name
 
 class ColdSnap(DefectCard):
     def __init__(self, upgraded=False):
@@ -44,18 +48,25 @@ class ColdSnap(DefectCard):
         if self._upgrade == True:
             self._name = 'Cold Snap +1'
             self._damage += 3
-        self._desc = f'Deal {self._damage} damage. Channel {self._channel_amount[0]} {self._channel_type}.'
+        self._desc = f'Deal {self._damage} damage. Channel {self._channel_amount[0]} {self._channel_type}.\n'
 
     def showCard(self):
-        print(f'\n{self._name} ({self._energy}💧) - ID: {self._id}')
+        print(f'{self._name} ({self._energy}💧) - ID: {self._id}')
         print(f'{self._desc}')
+    
+    def __repr__(self):
+        return self._name
 
+defectCards = [BallLightning(), ColdSnap()]
 
 card1 = BallLightning(False)
 card1.showCard()
 
-card2 = BallLightning(True)
-card2.showCard()
+# card2 = BallLightning(True)
+# card2.showCard()
 
-card3 = ColdSnap(True)
-card3.showCard()
+# card3 = ColdSnap(True)
+# card3.showCard()
+
+hand = random.choices(defectCards, k=5)
+print(list(hand))
