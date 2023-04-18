@@ -30,7 +30,7 @@ class BallLightning(DefectCard):
         print(f'{self._desc}')
     
     def __repr__(self):
-        return self._name
+        return f'({self._energy}💧) {self._name}'
 
 class ColdSnap(DefectCard):
     def __init__(self, upgraded=False):
@@ -55,7 +55,7 @@ class ColdSnap(DefectCard):
         print(f'{self._desc}')
     
     def __repr__(self):
-        return self._name
+        return f'({self._energy}💧) {self._name}'
 
 defectCards = [BallLightning(), ColdSnap()]
 
@@ -68,5 +68,5 @@ card1.showCard()
 # card3 = ColdSnap(True)
 # card3.showCard()
 
-hand = random.choices(defectCards, k=5)
-print(list(hand))
+draw = random.choices(defectCards, k=5)
+print(draw)
