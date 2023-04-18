@@ -8,7 +8,7 @@ class DefectCard:
         self._class = 'Defect'
 
 class BallLightning(DefectCard):
-    def __init__(self, upgraded=False):
+    def __init__(self, upgraded):
         super().__init__()
         self._name = 'Ball Lightning'
         self.type = 'Common'
@@ -33,7 +33,7 @@ class BallLightning(DefectCard):
         return f'({self._energy}💧) {self._name}'
 
 class ColdSnap(DefectCard):
-    def __init__(self, upgraded=False):
+    def __init__(self, upgraded):
         super().__init__()
         self._name = 'Cold Snap'
         self.type = 'Common'
@@ -65,35 +65,16 @@ defectCards = [BallLightning(upgraded), ColdSnap(upgraded)]
 card1 = BallLightning(False)
 card1.showCard()
 
-# card2 = BallLightning(True)
-# card2.showCard()
-
-# card3 = ColdSnap(True)
-# card3.showCard()
-
 hand = []
 
 for count in range(drawCount):
-    drawUpgrade = random.choices(upgradeCard, weights=[1, 6])
+    drawUpgrade = random.choice(upgradeCard)
     print(drawUpgrade)
-    if drawUpgrade[0] == True:
+    if drawUpgrade == True:
         upgraded = True
-    if drawUpgrade[0] == False:
+    if drawUpgrade == False:
         upgraded = False
     hand.append(random.choice(defectCards))
 
 for card in hand:
     print(card)
-
-# for card in range(len(hand)):
-#     if drawUpgrade == False:
-#         card()
-#     elif drawUpgrade == True:
-#         card(True)
-
-# print(hand)
-
-# for card in hand:
-#     print(card)
-
-# lambda upgraded: if drawUpgrade == True upgraded = True else upgraded == False
