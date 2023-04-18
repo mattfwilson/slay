@@ -57,7 +57,10 @@ class ColdSnap(DefectCard):
     def __repr__(self):
         return f'({self._energy}💧) {self._name}'
 
-defectCards = [BallLightning(), ColdSnap()]
+drawCount = 5
+upgraded = False
+upgradeCard = (True, False)
+defectCards = [BallLightning(upgraded), ColdSnap(upgraded)]
 
 card1 = BallLightning(False)
 card1.showCard()
@@ -68,5 +71,29 @@ card1.showCard()
 # card3 = ColdSnap(True)
 # card3.showCard()
 
-draw = random.choices(defectCards, k=5)
-print(draw)
+hand = []
+
+for count in range(drawCount):
+    drawUpgrade = random.choices(upgradeCard, weights=[1, 6])
+    print(drawUpgrade)
+    if drawUpgrade[0] == True:
+        upgraded = True
+    if drawUpgrade[0] == False:
+        upgraded = False
+    hand.append(random.choice(defectCards))
+
+for card in hand:
+    print(card)
+
+# for card in range(len(hand)):
+#     if drawUpgrade == False:
+#         card()
+#     elif drawUpgrade == True:
+#         card(True)
+
+# print(hand)
+
+# for card in hand:
+#     print(card)
+
+# lambda upgraded: if drawUpgrade == True upgraded = True else upgraded == False
