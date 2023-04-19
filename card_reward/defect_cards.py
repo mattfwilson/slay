@@ -1,5 +1,4 @@
 import itertools
-import random
 
 class DefectCard:
     id = itertools.count(0)
@@ -56,21 +55,3 @@ class ColdSnap(DefectCard):
     
     def __repr__(self):
         return f'({self._energy}💧) {self._name}'
-
-drawCount = 5
-upgradeCard = (True, False)
-upgraded = False
-defectCards = [BallLightning(upgraded), ColdSnap(upgraded)]
-hand = []
-
-for count in range(drawCount):
-    drawUpgrade = random.choice(upgradeCard)
-    print(drawUpgrade)
-    if drawUpgrade == True:
-        upgraded = True
-    else:
-        upgraded = False
-    hand.append(random.choice(defectCards))
-
-for card in hand:
-    print(card)
