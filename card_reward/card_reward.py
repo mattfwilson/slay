@@ -1,12 +1,11 @@
 import random
-from collections import deque
 from defect_cards import *
 
 drawCount = 5
 upgradeCard = (True, False)
 upgraded = False
 defectCards = [BallLightning(upgraded), ColdSnap(upgraded)]
-hand = deque()
+hand = []
 
 for count in range(drawCount):
     drawUpgrade = random.choice(upgradeCard)
@@ -19,4 +18,3 @@ for count in range(drawCount):
 
 for card in hand:
     print(card)
-print(type(hand))

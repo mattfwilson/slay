@@ -4,13 +4,13 @@ class DefectCard:
     id = itertools.count(0)
     def __init__(self):
         self._id = next(DefectCard.id)
-        self._class = 'Defect'
+        self._character = 'Defect'
 
 class BallLightning(DefectCard):
     def __init__(self, upgraded):
         super().__init__()
         self._name = 'Ball Lightning'
-        self.type = 'Common'
+        self._rarity = 'Common'
         self._upgrade = upgraded
         self._energy = 1
         self._damage = 7
@@ -35,7 +35,7 @@ class ColdSnap(DefectCard):
     def __init__(self, upgraded):
         super().__init__()
         self._name = 'Cold Snap'
-        self.type = 'Common'
+        self._rarity = 'Common'
         self._upgrade = upgraded
         self._energy = 1
         self._damage = 6
@@ -45,7 +45,7 @@ class ColdSnap(DefectCard):
         self._exhaust = False
         self._power = False
         if self._upgrade == True:
-            self._name = 'Cold Snap +1'
+            self._name += 'Cold Snap +1'
             self._damage += 3
         self._desc = f'Deal {self._damage} damage. Channel {self._channel_amount[0]} {self._channel_type}.\n'
 
