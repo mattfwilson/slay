@@ -1,19 +1,14 @@
 import random
 from defect_cards import *
 
-drawCount = 5
-upgradeCard = (True, False)
-upgraded = False
+drawCount = 10
+upgradeChoice = (True, False)
+upgraded = random.choice(upgradeChoice)
 defectCards = [BallLightning(upgraded), ColdSnap(upgraded)]
 hand = []
 
 for count in range(drawCount):
-    drawUpgrade = random.choice(upgradeCard)
-    print(drawUpgrade)
-    if drawUpgrade == True:
-        upgraded = True
-    else:
-        upgraded = False
+    print(count)
     hand.append(random.choice(defectCards))
 
 for card in hand:
