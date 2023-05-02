@@ -5,12 +5,13 @@ drawCount = 10
 upgraded = False
 hand = []
 
+random.seed(1)
+
 for count in range(drawCount):
     defectCards = [BallLightning(upgraded), ColdSnap(upgraded)]
     upgraded = random.choice([True, False])
     draw = random.choice(defectCards)
     hand.append(draw)
-
 
 for card in hand:
     print(card)
