@@ -20,7 +20,7 @@ class BallLightning(DefectCard):
         self._exhaust = False
         self._power = False
         if self._upgrade == True:
-            self._name = 'Ball Lightning +1'
+            self._name += ' +1'
             self._damage += 3
         self._desc = f'Deal {self._damage} damage. Channel {self._channel_amount[0]} {self._channel_type}.\n'
 
@@ -45,9 +45,34 @@ class ColdSnap(DefectCard):
         self._exhaust = False
         self._power = False
         if self._upgrade == True:
-            self._name += 'Cold Snap +1'
+            self._name += ' +1'
             self._damage += 3
         self._desc = f'Deal {self._damage} damage. Channel {self._channel_amount[0]} {self._channel_type}.\n'
+
+    def showCard(self):
+        print(f'{self._name} ({self._energy}💧) - ID: {self._id}')
+        print(f'{self._desc}')
+    
+    def __repr__(self):
+        return f'({self._energy}💧) {self._name}'
+
+class Barrage(DefectCard):
+    def __init__(self, upgraded):
+        super().__init__()
+        self._name = 'Barrage'
+        self._rarity = 'Common'
+        self._upgrade = upgraded
+        self._energy = 1
+        self._damage = 4
+        self._block = 0
+        self._channel_type = 'Frost'
+        self._channel_amount = (0, 0)
+        self._exhaust = False
+        self._power = False
+        if self._upgrade == True:
+            self._name += ' +1'
+            self._damage += 3
+        self._desc = f'Deal {self._damage} damage for each channeled {self._channel_type} Orb.\n'
 
     def showCard(self):
         print(f'{self._name} ({self._energy}💧) - ID: {self._id}')
