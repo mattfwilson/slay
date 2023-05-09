@@ -5,7 +5,9 @@ drawCount = 10
 upgraded = False
 hand = []
 
-random.seed(4)
+seed = random.seed(4)
+nested_seed = random.seed(seed)
+print(nested_seed)
 
 for count in range(drawCount):
     defectCards = [BallLightning(upgraded), ColdSnap(upgraded), Barrage(upgraded)]
