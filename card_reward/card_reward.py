@@ -8,8 +8,6 @@ deck = []
 hand = []
 
 seed = random.seed(4)
-nested_seed = random.seed(seed)
-print(nested_seed)
 
 for count in range(deckCount):
     defectCards = [BallLightning(upgraded), ColdSnap(upgraded), Barrage(upgraded)]
@@ -17,11 +15,16 @@ for count in range(deckCount):
     draw = random.choice(defectCards)
     deck.append(draw)
 
-for card in deck:
+for card in range(drawCount):
+    drawn = deck.pop(-1)
+    hand.append(drawn)
+
+print(f'\nYour hand:')
+for card in hand:
     print(card)
 
+print(f'\nDraw pile::')
 for card in deck:
-    hand.append(card)
-print(f'Your hand: {hand}')
+    print(card)
 
     
