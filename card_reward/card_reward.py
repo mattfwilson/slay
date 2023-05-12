@@ -23,8 +23,6 @@ print(f'\nYour hand:')
 for card in hand:
     print(card)
 
-print(f'\nDraw pile::')
+print(f'\nDraw pile:')
 for card in deck:
     print(card)
-
-    

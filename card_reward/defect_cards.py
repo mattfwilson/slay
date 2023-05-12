@@ -25,11 +25,11 @@ class BallLightning(DefectCard):
         self._desc = f'Deal {self._damage} damage. Channel {self._channel_amount[0]} {self._channel_type}.\n'
 
     def showCard(self):
-        print(f'{self._name} ({self._energy}💧) - ID: {self._id}')
+        print(f'{self._name} ({self._energy}) - ID: {self._id}')
         print(f'{self._desc}')
     
     def __repr__(self):
-        return f'({self._energy}💧) {self._name}'
+        return f'({self._energy}) {self._name}'
 
 class ColdSnap(DefectCard):
     def __init__(self, upgraded):
@@ -50,11 +50,11 @@ class ColdSnap(DefectCard):
         self._desc = f'Deal {self._damage} damage. Channel {self._channel_amount[0]} {self._channel_type}.\n'
 
     def showCard(self):
-        print(f'{self._name} ({self._energy}💧) - ID: {self._id}')
+        print(f'{self._name} ({self._energy}) - ID: {self._id}')
         print(f'{self._desc}')
     
     def __repr__(self):
-        return f'({self._energy}💧) {self._name}'
+        return f'({self._energy}) {self._name}'
 
 class Barrage(DefectCard):
     def __init__(self, upgraded):
@@ -75,8 +75,8 @@ class Barrage(DefectCard):
         self._desc = f'Deal {self._damage} damage for each channeled {self._channel_type} Orb.\n'
 
     def showCard(self):
-        print(f'{self._name} ({self._energy}💧) - ID: {self._id}')
+        print(f'{self._name} ({self._energy}) - ID: {self._id}')
         print(f'{self._desc}')
     
     def __repr__(self):
-        return f'({self._energy}💧) {self._name}'
+        return f'({self._energy}) {self._name}'
