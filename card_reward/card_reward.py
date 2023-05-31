@@ -7,7 +7,7 @@ upgraded = False
 deck = []
 hand = []
 
-seed = random.seed(4)
+# seed = random.seed(4)
 
 for count in range(deckCount):
     defectCards = [BallLightning(upgraded), ColdSnap(upgraded), Barrage(upgraded)]

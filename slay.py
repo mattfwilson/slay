@@ -5,7 +5,6 @@ from enemy import *
 from cards import *
 import time
 import random
-import cProfile
 
 def buildDeck():
     for count in range(state.START_ATTACK):
@@ -137,7 +136,6 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                             hand.pop(index)
                             discard_pile.append(cardPlayed)
                             time.sleep(1)
-                    
                     # Block Card
                     elif cardPlayed.getType() == state.ACTIONS[2]:
                         energy -= cardPlayed.getEnergy()
@@ -188,10 +186,6 @@ def main():
     createEnemy()
     startCombat()
     discardHand()
-    
-if __name__ == '__main__':
-    print('Timing program...')
-    cProfile.run('main()', sort='cumtime')
 
 buildDeck()
 startCombat()
