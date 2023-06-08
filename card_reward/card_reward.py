@@ -24,3 +24,5 @@ for card in hand:
 print(f'\nDraw pile:')
 for card in deck:
     print(card)
+
+# Test 2
