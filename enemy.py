@@ -2,14 +2,11 @@ import itertools
 import random
 
 class Enemy:
-
     id = itertools.count(0)
-
     def __init__(self):
         self.id = next(Enemy.id)
 
 class Pigeon(Enemy):
-
     def __init__(self):
         adj = ['Standard', 'Basic', 'Plebian', 'Undead', 'Armored', 'Elite', 'Untouchable']
         roll = random.choice(adj)
@@ -63,9 +60,7 @@ class Pigeon(Enemy):
             return intent, res
 
 class CatOfThondor(Enemy):
-
     def __init__(self):
-
         adj = ['Shrieking', 'Complacent', 'Regimented', 'Ghostly', 'Robotic', 'Frantic', 'Verbose']
         roll = random.choice(adj)
         name_adj = '😼 ' + roll + ' Cat Of Thondor'
