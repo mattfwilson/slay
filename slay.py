@@ -1,5 +1,4 @@
 # fix bug where enemy's attack/block print isn't showing whey they do it
-# test for nvim
 
 from vars import *
 from enemy import *
