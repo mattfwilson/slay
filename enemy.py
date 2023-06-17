@@ -37,7 +37,7 @@ class Pigeon(Enemy):
     def getHP(self):
         return self._hp
     
-    def setHP(self, dmg):
+    def minusHP(self, dmg):
         self._hp -= dmg
 
     def doDamage(self, damage):
@@ -90,7 +90,7 @@ class CatOfThondor(Enemy):
     def getHP(self):
         return self._hp
     
-    def setHP(self, dmg):
+    def minusHP(self, dmg):
         self._hp -= dmg
 
     def doDamage(self, damage):
