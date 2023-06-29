@@ -121,7 +121,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                             if state.ENEMY_BLOCK < 0:
                                 unblocked = abs(state.ENEMY_BLOCK)
                                 print(f'{state.NAME} broke enemy\'s block and hit for {unblocked} damage!')
-                                enemy.setHP(unblocked)
+                                enemy.minusHP(unblocked)
                                 hand.pop(index)
                                 discard_pile.append(cardPlayed)
                                 time.sleep(1)
@@ -132,7 +132,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                                 time.sleep(1)
                         else:
                             print(f'{state.NAME} hit the enemy for {cardPlayed.getAttack()[0]} damage!')
-                            enemy.setHP(cardPlayed.getAttack()[0])
+                            enemy.minusHP(cardPlayed.getAttack()[0])
                             hand.pop(index)
                             discard_pile.append(cardPlayed)
                             time.sleep(1)

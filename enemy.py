@@ -2,14 +2,11 @@ import itertools
 import random
 
 class Enemy:
-
     id = itertools.count(0)
-
     def __init__(self):
         self.id = next(Enemy.id)
 
 class Pigeon(Enemy):
-
     def __init__(self):
         adj = ['Standard', 'Basic', 'Plebian', 'Undead', 'Armored', 'Elite', 'Untouchable']
         roll = random.choice(adj)
@@ -40,7 +37,7 @@ class Pigeon(Enemy):
     def getHP(self):
         return self._hp
     
-    def setHP(self, dmg):
+    def minusHP(self, dmg):
         self._hp -= dmg
 
     def doDamage(self, damage):
@@ -63,9 +60,7 @@ class Pigeon(Enemy):
             return intent, res
 
 class CatOfThondor(Enemy):
-
     def __init__(self):
-
         adj = ['Shrieking', 'Complacent', 'Regimented', 'Ghostly', 'Robotic', 'Frantic', 'Verbose']
         roll = random.choice(adj)
         name_adj = '😼 ' + roll + ' Cat Of Thondor'
@@ -95,7 +90,7 @@ class CatOfThondor(Enemy):
     def getHP(self):
         return self._hp
     
-    def setHP(self, dmg):
+    def minusHP(self, dmg):
         self._hp -= dmg
 
     def doDamage(self, damage):
