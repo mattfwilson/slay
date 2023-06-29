@@ -177,10 +177,6 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
         print(f'\n🏆 {state.NAME} defeated the {enemy.getName()}!')
         quit()
 
-def testLoop():
-    for i in range(10**5):
-        pass
-
 def main():
     testLoop()
     createEnemy()
