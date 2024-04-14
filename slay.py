@@ -110,7 +110,7 @@ def playerTurn(hp, enemy, hand, discard_pile, energy):
                         hand.pop(index)
                         discard_pile.append(cardPlayed)
                         time.sleep(1)
-                    
+
                     # Attack Card
                     elif cardPlayed.getType() == state.ACTIONS[1]:
                         energy -= cardPlayed.getEnergy()
