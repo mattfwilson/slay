@@ -18,6 +18,7 @@ class GameState:
         self.FLOOR_COUNT = 0
         self.ENCOUNTER = []
         self.ACTIONS = ['Draw', 'Attack', 'Block', 'Discard', 'Draw Pile', 'Discard Pile']
+        self.DEBUFFS = ['Vulnerable', 'Weakness', 'Frail']
         self.ATTACK = 0
         self.BLOCK = 0
         self.ENEMY_HP = 0
@@ -45,3 +46,4 @@ def showPiles():
     showDiscard()
 
 state = GameState()
+print(state.START_DRAW)

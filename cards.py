@@ -3,14 +3,12 @@ import random
 import itertools
 
 class Card:
-
     id = itertools.count(0)
 
     def __init__(self):
         self.id = next(Card.id)
 
 class Attack(Card):
-
     def __init__(self):
         super().__init__()
         amount = [6, 8, 10]
@@ -45,7 +43,6 @@ class Attack(Card):
             return f'Attack {attack}'
 
 class Block(Card):
-
     def __init__(self):
         super().__init__()
         amount = [6, 8, 10]
@@ -80,7 +77,6 @@ class Block(Card):
             return f'Block {block}'
 
 class Draw(Card):
-
     def __init__(self):
         super().__init__()
         self._energy = 1
@@ -110,3 +106,4 @@ class Draw(Card):
 
     def __repr__(self):
         return f'{state.ACTIONS[0]} {self._draw}'
+
