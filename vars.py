@@ -46,4 +46,3 @@ def showPiles():
     showDiscard()
 
 state = GameState()
-print(state.START_DRAW)
