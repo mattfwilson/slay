@@ -1,5 +1,5 @@
 from vars2 import *
-from enemy import *
+from cultist import *
 from cards import *
 import time
 import random
@@ -35,11 +35,10 @@ def enemyIntent(intent):
         state.ENEMY_BLOCK = intent[1]
 
 def createEnemy():
-    enemy_pool = [Pigeon(), CatOfThondor()]
-    enemy = random.choices(enemy_pool, weights=[1, 1])
+    enemy_pool = [Cultist()]
+    enemy = random.choices(enemy_pool, weights=[1])
     state.ENCOUNTER.append(enemy[0])
     enemy = state.ENCOUNTER[-1]
-    enemy.intro()
     return enemy
 
 def enemyTurn(hand, block, intent):

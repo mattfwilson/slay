@@ -18,7 +18,7 @@ class Cultist(Enemy):
 
     def summary(self):
         print(f'\n{self.name}')
-        print(f'🩸 HP: {self._hp}/{self.max_hp}')
+        print(f'HP: {self._hp}/{self.max_hp}')
 
     def getName(self):
         return self.name
@@ -32,8 +32,7 @@ class Cultist(Enemy):
 
     def intent(self):
         intents = [state.ACTIONS[2], state.ACTIONS[3]]
-        attackValues = [6, 8, 10, 14]
-        blockValues = [12, 14, 16, 18]
+        attackValues = 6
         intent = random.randint(1, 2)
         attack = random.choices(attackValues, weights=[1, 2, 6, 1])
         for i in attack:
