@@ -7,7 +7,7 @@ class Card:
     def __init__(self):
         self.id = next(Card.id)
 
-class Strike:
+class Strike(Card):
     def __init__(self):
         super().__init__()
         self.dmg_amount = 6
@@ -23,7 +23,7 @@ class Strike:
     def getType(self):
         return self.type
 
-class Defend:
+class Defend(Card):
     def __init__(self):
         super().__init__()
         self.block_amount = 5
@@ -39,7 +39,7 @@ class Defend:
     def getType(self):
         return self.type
 
-class Bash:
+class Bash(Card):
     def __init__(self):
         super().__init__()
         self.type = 'Attack'

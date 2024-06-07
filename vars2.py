@@ -18,6 +18,7 @@ class GameState:
         self.FLOOR_COUNT = 0
         self.ENCOUNTER = []
         self.ACTIONS = ['Draw', 'Attack', 'Block', 'Buff', 'Discard', 'Draw Pile', 'Discard Pile']
+        self.BUFFS = ['Block', 'Strength', 'Dexerity', 'Metallicize', 'HP', 'Regen', 'Energy']
         self.DEBUFFS = ['Vulnerable', 'Weakness', 'Frail']
         self.ATTACK = 0
         self.BLOCK = 0
