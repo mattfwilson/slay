@@ -89,3 +89,4 @@ stack = Stack(0)
 for i in range(5):
     stack.add_card()
 print(stack.stringify())
+
