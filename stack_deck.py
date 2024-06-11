@@ -22,7 +22,7 @@ class StrikeCard:
     def get_energy(self):
         return self.energy
 
-    def get_value(self) -> int:
+    def get_value(self):
         return self.value
 
     def get_next_card(self):
@@ -48,7 +48,7 @@ class DefendCard:
     def get_energy(self):
         return self.energy
 
-    def get_value(self) -> int:
+    def get_value(self):
         return self.value
 
     def get_next_card(self):
@@ -75,7 +75,7 @@ class SurvivorCard:
     def get_energy(self):
         return self.energy
 
-    def get_value(self) -> int:
+    def get_value(self):
         return self.value
 
     def get_abilities(self):
@@ -90,12 +90,12 @@ class SurvivorCard:
 base_cards = [SurvivorCard(), StrikeCard(), DefendCard()]
 
 class Stack:
-    def __init__(self, value=None, limit=5):
-        self.top_card = StrikeCard()
+    def __init__(self, top_card=None, limit=5):
+        self.top_card = top_card
         self.size = 0
         self.limit = 5
 
-    def peek(self) -> object:
+    def peek(self):
         return self.top_card
 
     def add_card(self):
@@ -106,7 +106,6 @@ class Stack:
         else:
             if self.has_space():
                 new_card = random.choices(base_cards, weights=[5, 3, 1])
-                new_card = random.choices(StrikeCard(), DefendCard(), SurvivorCard())
                 new_card.set_next_card(self.top_card)
                 self.top_card = new_card
 
@@ -123,19 +122,20 @@ class Stack:
         if self.size == 0:
             return True
 
-    def stringify(self):
+    def stringify(self) -> str:
         str_stack = ''
         top_card = self.peek()
         while top_card:
-            if top_card.get_value() != None:
+            if top_card != None:
                 str_stack += '(' + str(top_card.get_energy()) + ')' + str(top_card.get_type()) + ' ' + str(top_card.get_value()) + ', '
                 top_card = top_card.get_next_card()
         return str_stack
 
 stack = Stack(0)
+
 for i in range(5):
     stack.add_card()
-    print(stack.get_name())
+    print(stack.peek())
 
 print(stack.stringify())
 
