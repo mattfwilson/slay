@@ -6,6 +6,15 @@ class Loop:
         self.type = 'Power'
         self.energy = energy
 
+    def get_name(self):
+        return self.name
+
+    def get_type(self):
+        return self.type
+
+    def get_energy(self):
+        return self.energy
+
     def __repr__(self):
         return f'({self.energy}) {self.name} - {self.type}'
     
@@ -15,6 +24,15 @@ class Reprogram:
         self.type = 'Skill'
         self.energy = energy
 
+    def get_name(self):
+        return self.name
+
+    def get_type(self):
+        return self.type
+
+    def get_energy(self):
+        return self.energy
+
     def __repr__(self):
         return f'({self.energy}) {self.name} - {self.type}'
 
@@ -23,6 +41,15 @@ class MeteorStrike:
         self.name = 'Meteor Strike'
         self.type = 'Attack'
         self.energy = energy
+
+    def get_name(self):
+        return self.name
+
+    def get_type(self):
+        return self.type
+
+    def get_energy(self):
+        return self.energy
 
     def __repr__(self):
         return f'({self.energy}) {self.name} - {self.type}'
@@ -45,5 +72,7 @@ match snecko:
 print(card1)
 print(card2)
 print(card3)
+
+print(f'\n({card3.get_energy()}) {card3.get_name()} - {card3.get_type()}')
 
 
