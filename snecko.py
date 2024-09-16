@@ -32,14 +32,15 @@ def rand_energy():
 
 snecko = True
 
-if snecko:
-    card1 = Loop(rand_energy())
-    card2 = Reprogram(rand_energy())
-    card3 = MeteorStrike(rand_energy())
-else:
-    card1 = Loop()
-    card2 = Reprogram()
-    card3 = MeteorStrike()
+match snecko:
+    case True:
+        card1 = Loop(rand_energy())
+        card2 = Reprogram(rand_energy())
+        card3 = MeteorStrike(rand_energy())
+    case False:
+        card1 = Loop()
+        card2 = Reprogram()
+        card3 = MeteorStrike()
 
 print(card1)
 print(card2)
