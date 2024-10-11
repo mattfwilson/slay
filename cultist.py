@@ -4,31 +4,31 @@ import random
 class Enemy:
     id = itertools.count(0)
     def __init__(self):
-        self.id = next(Enemy.id)
+        self._id = next(Enemy.id)
 
 class Cultist(Enemy):
     def __init__(self):
         super().__init__()
-        self.name = 'Cultist'
+        self._name = 'Cultist'
         self._hp = random.randint(42, 48)
-        self.max_hp = self._hp
+        self._max_hp = self._hp
 
     def __repr__(self):
-        return f'__repr__ for {self.name}, id: {self.id}'
+        return f'__repr__ for {self._name}, id: {self._id}'
 
     def summary(self):
-        print(f'\n{self.name}')
-        print(f'HP: {self._hp}/{self.max_hp}')
+        print(f'\n{self._name}')
+        print(f'HP: {self._hp}/{self._max_hp}')
 
     def getName(self):
-        return self.name
+        return self._name
 
     def getHP(self):
         return self._hp
     
     def doDamage(self, damage):
-        self.hp -= damage
-        return self.hp
+        self._hp -= damage
+        return self._hp
 
     def intent(self):
         intents = [state.ACTIONS[2], state.ACTIONS[3]]
