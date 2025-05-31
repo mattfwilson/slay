@@ -1,3 +1,4 @@
+from starters import starters
 import json
 from pathlib import Path
 import matplotlib.pyplot as plt
@@ -60,30 +61,36 @@ for char in characters:
                 else:
                     print(f"[{filename} #{i}] Invalid run format: {run}\n")
 
-sorted_res: dict = dict(sorted(card_picks.items(), key=lambda item: item[1], reverse=True))
-starters = {'Strike_R', 'Defend_R', 'Strike_R+1', 'Defend_R+1', 'Strike_G', 'Defend_G', 'Strike_G+1', 'Defend_G+1', 'Strike_B', 'Defend_B', 'Strike_B+1', 'Defend_B+1', 'Strike_P', 'Defend_P', 'Strike_P+1', 'Defend_P+1'}
-sorted_res = {key: val for key, val in sorted_res.items() if key not in starters}
+    sorted_res: dict = dict(sorted(card_picks.items(), key=lambda item: item[1], reverse=True))
+    sorted_res = {key: val for key, val in sorted_res.items() if key not in starters}
 
-for key, val in sorted_res.items():
-        print(f'{key}: {val}')
+    for key, val in sorted_res.items():
+            print(f'{key}: {val}')
 
-labels = list(sorted_res.keys())
-values = list(sorted_res.values())
-max_values = max(values)
+    labels = list(sorted_res.keys())
+    values = list(sorted_res.values())
+    max_values = max(values)
 
-plt.figure(figsize=(20, 12))
-bars = plt.bar(labels, values, color='green')
-plt.ylim (0, max_values * 1.05)
-plt.xticks(rotation=90, fontsize=8)
+    plt.figure(figsize=(20, 12))
+    if char == 'IRONCLAD':
+        bars = plt.bar(labels, values, color='red')
+    elif char == 'THE_SILENT':
+        bars = plt.bar(labels, values, color='green')
+    elif char == 'DEFECT':
+        bars = plt.bar(labels, values, color='skyblue')
+    elif char == 'WATCHER':
+        bars = plt.bar(labels, values, color='purple')
+    plt.ylim (0, max_values * 1.05)
+    plt.xticks(rotation=90, fontsize=8)
 
-for bar in bars:
-    height = bar.get_height()
-    plt.text(
-        bar.get_x() + bar.get_width() / 2, height, f'{int(height)}', ha='center', va='bottom')
+    for bar in bars:
+        height = bar.get_height()
+        plt.text(
+            bar.get_x() + bar.get_width() / 2, height, f'{int(height)}', ha='center', va='bottom')
 
-plt.title('Most Picked Cards in Successful Runs')
-plt.xlabel('Card Picks')
-plt.ylabel('Times Picked')
-plt.tight_layout()
-plt.show()
+    plt.title('Most Picked Cards in Successful Runs')
+    plt.xlabel('Card Picks')
+    plt.ylabel('# Times Picked')
+    plt.tight_layout()
+    plt.show()
 
