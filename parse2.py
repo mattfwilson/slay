@@ -13,27 +13,32 @@ def load_run_history(character):
     runs: dict = {}
 
     for file in folder.iterdir():
-        if file.is_file():
-            try:
-                with file.open("r", encoding="utf-8") as f:
-                    try:
-                        data = json.load(f)
-                        print(f"{character} - {file.name} - \n\n{data}\n")
-                        runs[file.name] = data
-                    except json.JSONDecodeError:
-                        f.seek(0)
-                        file_runs = []
-                        for line in f:
-                            line = line.strip()
-                            if line:
-                                try:
-                                    file_runs.append(json.loads(line))
-                                except json.JSONDecodeError:
-                                    print(f"Line in {file.name} is malformed.")
-                        if file_runs:
-                            runs[file.name] = file_runs
-            except Exception as e:
-                print(f"Error reading {file}: {e}")
+        if not file.is_file():
+            continue
+
+        try:
+            with file.open("r", encoding="utf-8") as f:
+                try:
+                    data = json.load(f)
+                    print(f"{character} - {file.name} - \n\n{data}\n")
+                    runs[file.name] = data
+                except json.JSONDecodeError:
+                    f.seek(0)
+                    file_runs = []
+                    for line in f:
+                        line = line.strip()
+                        if not line:
+                            continue
+                        try:
+                            file_runs.append(json.loads(line))
+                        except json.JSONDecodeError:
+                            print(f"Line in {file.name} is malformed.")
+
+                    if file_runs:
+                        runs[file.name] = file_runs
+
+        except Exception as e:
+            print(f"Error reading {file}: {e}")
 
     return runs
    
@@ -70,24 +75,25 @@ for char in characters:
     labels = list(sorted_res.keys())
     values = list(sorted_res.values())
     max_values = max(values)
-
     plt.figure(figsize=(20, 12))
-    if char == 'IRONCLAD':
-        bars = plt.bar(labels, values, color='red')
-    elif char == 'THE_SILENT':
-        bars = plt.bar(labels, values, color='green')
-    elif char == 'DEFECT':
-        bars = plt.bar(labels, values, color='skyblue')
-    elif char == 'WATCHER':
-        bars = plt.bar(labels, values, color='purple')
-    plt.ylim (0, max_values * 1.05)
-    plt.xticks(rotation=90, fontsize=8)
-
+    
+    match char:
+        case 'IRONCLAD':
+            bars = plt.bar(labels, values, color='red')
+        case 'THE_SILENT':
+            bars = plt.bar(labels, values, color='green')
+        case 'DEFECT':
+            bars = plt.bar(labels, values, color='skyblue')
+        case 'WATCHER':
+            bars = plt.bar(labels, values, color='purple')
+        
     for bar in bars:
         height = bar.get_height()
         plt.text(
             bar.get_x() + bar.get_width() / 2, height, f'{int(height)}', ha='center', va='bottom')
 
+    plt.ylim (0, max_values * 1.05)
+    plt.xticks(rotation=90, fontsize=8)
     plt.title('Most Picked Cards in Successful Runs')
     plt.xlabel('Card Picks')
     plt.ylabel('# Times Picked')
