@@ -1,47 +1,10 @@
 from starters import starters
-import json
-from pathlib import Path
+from load_runs import load_run_history
 import matplotlib.pyplot as plt
 
-
-runs_dir = Path("C:/Program Files (x86)/Steam/steamapps/common/SlayTheSpire/runs")
-characters = ["DEFECT"]
+characters = ['DEFECT']
+char_colors = {'IRONCLAD': 'red', 'THE_SILENT': 'green', 'DEFECT': 'skyblue', 'WATCHER': 'purple'}
 card_picks: dict = {}
-
-def load_run_history(character):
-    folder = runs_dir / f"{character}/"
-    runs: dict = {}
-
-    for file in folder.iterdir():
-        if not file.is_file():
-            continue
-
-        try:
-            with file.open("r", encoding="utf-8") as f:
-                try:
-                    data = json.load(f)
-                    print(f"{character} - {file.name} - \n\n{data}\n")
-                    runs[file.name] = data
-                except json.JSONDecodeError:
-                    f.seek(0)
-                    file_runs = []
-                    for line in f:
-                        line = line.strip()
-                        if not line:
-                            continue
-                        try:
-                            file_runs.append(json.loads(line))
-                        except json.JSONDecodeError:
-                            print(f"Line in {file.name} is malformed.")
-
-                    if file_runs:
-                        runs[file.name] = file_runs
-
-        except Exception as e:
-            print(f"Error reading {file}: {e}")
-
-    return runs
-   
 
 for char in characters:
     runs = load_run_history(char)
@@ -77,20 +40,11 @@ for char in characters:
     max_values = max(values)
     plt.figure(figsize=(20, 12))
     
-    match char:
-        case 'IRONCLAD':
-            bars = plt.bar(labels, values, color='red')
-        case 'THE_SILENT':
-            bars = plt.bar(labels, values, color='green')
-        case 'DEFECT':
-            bars = plt.bar(labels, values, color='skyblue')
-        case 'WATCHER':
-            bars = plt.bar(labels, values, color='purple')
-        
+    bars = plt.bar(labels, values, color=char_colors.get(char))
+    
     for bar in bars:
         height = bar.get_height()
-        plt.text(
-            bar.get_x() + bar.get_width() / 2, height, f'{int(height)}', ha='center', va='bottom')
+        plt.text(bar.get_x() + bar.get_width() / 2, height, f'{int(height)}', ha='center', va='bottom')
 
     plt.ylim (0, max_values * 1.05)
     plt.xticks(rotation=90, fontsize=8)
