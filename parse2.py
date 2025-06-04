@@ -1,6 +1,6 @@
 from starters import starters
 from load_runs import load_run_history
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 
 characters = ['DEFECT']
 char_colors = {'IRONCLAD': 'red', 'THE_SILENT': 'green', 'DEFECT': 'skyblue', 'WATCHER': 'purple'}
@@ -10,7 +10,7 @@ for char in characters:
     runs = load_run_history(char)
      
     for filename, data in runs.items():
-        print(f"{filename}\n{data}\n")
+        print(f'{filename}\n{data}\n')
         master_deck = data.get('master_deck')
 
         for card in master_deck:
@@ -25,9 +25,9 @@ for char in characters:
         elif isinstance(data, list):
             for i, run in enumerate(data):
                 if isinstance(run, dict):
-                    print("multiple embedded dicts")
+                    print('multiple embedded dicts')
                 else:
-                    print(f"[{filename} #{i}] Invalid run format: {run}\n")
+                    print(f'[{filename} #{i}] Invalid run format: {run}\n')
 
     sorted_res: dict = dict(sorted(card_picks.items(), key=lambda item: item[1], reverse=True))
     sorted_res = {key: val for key, val in sorted_res.items() if key not in starters}
@@ -53,4 +53,3 @@ for char in characters:
     plt.ylabel('# Times Picked')
     plt.tight_layout()
     plt.show()
-
