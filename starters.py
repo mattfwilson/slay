@@ -1,1 +1,1 @@
-starters = {'AscendersBane', 'Strike_R', 'Defend_R', 'Strike_R+1', 'Defend_R+1', 'Strike_G', 'Defend_G', 'Strike_G+1', 'Defend_G+1', 'Strike_B', 'Defend_B', 'Strike_B+1', 'Defend_B+1', 'Strike_P', 'Defend_P', 'Strike_P+1', 'Defend_P+1'}
+starters = {'AscendersBane', 'Burning Blood', 'Ring of the Snake', 'Cracked Core', 'PureWater', 'Strike_R', 'Defend_R', 'Strike_R+1', 'Defend_R+1', 'Strike_G', 'Defend_G', 'Strike_G+1', 'Defend_G+1', 'Strike_B', 'Defend_B', 'Strike_B+1', 'Defend_B+1', 'Strike_P', 'Defend_P', 'Strike_P+1', 'Defend_P+1'}

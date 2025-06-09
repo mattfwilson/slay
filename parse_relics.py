@@ -2,7 +2,7 @@ from starters import starters
 from load_runs import load_run_history
 from matplotlib import pyplot as plt
 
-characters = ['IRONCLAD']
+characters = ['WATCHER']
 char_colors = {'IRONCLAD': 'red', 'THE_SILENT': 'green', 'DEFECT': 'skyblue', 'WATCHER': 'purple'}
 relic_picks: dict = {}
 
@@ -11,7 +11,7 @@ for char in characters:
      
     for filename, data in runs.items():
         print(f'{filename}\n{data}\n')
-        relics = data.get('master_deck')
+        relics = data.get('relics')
 
         for relic in relics:
             if data.get('victory') == True:
@@ -29,11 +29,14 @@ for char in characters:
                 else:
                     print(f'[{filename} #{i}] Invalid run format: {run}\n')
 
+    sorted_res: dict = dict(sorted(relic_picks.items(), key=lambda item: item[1], reverse=True))
+    sorted_res = {key: val for key, val in sorted_res.items() if key not in starters}
+    
     for key, val in relic_picks.items():
             print(f'{key}: {val}')
 
-    labels = list(relic_picks.keys())
-    values = list(relic_picks.values())
+    labels = list(sorted_res.keys())
+    values = list(sorted_res.values())
     max_values = max(values)
     plt.figure(figsize=(20, 12))
     
@@ -45,8 +48,8 @@ for char in characters:
 
     plt.ylim (0, max_values * 1.05)
     plt.xticks(rotation=90, fontsize=8)
-    plt.title('Most Picked Cards in Successful Runs')
-    plt.xlabel('Card Picks')
+    plt.title('Most Picked Relics in Successful Runs')
+    plt.xlabel('Relics Picks')
     plt.ylabel('# Times Picked')
     plt.tight_layout()
     plt.show()
