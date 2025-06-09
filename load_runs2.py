@@ -18,7 +18,19 @@ def load_run_history(character):
                     print(f"{character} - {file.name} - \n\n{data}\n")
                     runs[file.name] = data
                 except json.JSONDecodeError:
-                    return runs
+                    f.seek(0)
+                    file_runs = []
+                    for line in f:
+                        line = line.strip()
+                        if not line:
+                            continue
+                        try:
+                            file_runs.append(json.loads(line))
+                        except json.JSONDecodeError:
+                            print(f"Line in {file.name} is malformed.")
+
+                    if file_runs:
+                        runs[file.name] = file_runs
 
         except Exception as e:
             print(f"Error reading {file}: {e}")

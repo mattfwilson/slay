@@ -23,11 +23,11 @@ for char in characters:
         if isinstance(data, dict):
             print(f"Score: {data.get('score')} | Victory: {data.get('victory')} | Floor Reached: {data.get('floor_reached')} | Ascension Level: {data.get('ascension_level')}\n")
         elif isinstance(data, list):
-            for i, run in enumerate(data):
+            for runid, run in enumerate(data):
                 if isinstance(run, dict):
                     print('multiple embedded dicts')
                 else:
-                    print(f'[{filename} #{i}] Invalid run format: {run}\n')
+                    print(f'[{filename} #{runid}] Invalid run format: {run}\n')
 
     sorted_res: dict = dict(sorted(relic_picks.items(), key=lambda item: item[1], reverse=True))
     sorted_res = {key: val for key, val in sorted_res.items() if key not in starters}
