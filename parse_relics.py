@@ -21,8 +21,9 @@ for char in characters:
                     relic_picks[relic] += 1
 
         if isinstance(data, dict):
-            print(f"Score: {data.get('score')} | Victory: {data.get('victory')} | Floor Reached: {data.get('floor_reached')} | Ascension Level: {data.get('ascension_level')}\n")
+            print('is dict')
         elif isinstance(data, list):
+            print('is list')
             for runid, run in enumerate(data):
                 if isinstance(run, dict):
                     print('multiple embedded dicts')
