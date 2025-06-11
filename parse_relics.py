@@ -2,7 +2,7 @@ from starters import starters
 from load_runs import load_run_history
 from matplotlib import pyplot as plt
 
-characters = ['WATCHER']
+characters = ['DEFECT']
 char_colors = {'IRONCLAD': 'red', 'THE_SILENT': 'green', 'DEFECT': 'skyblue', 'WATCHER': 'purple'}
 relic_picks: dict = {}
 
@@ -10,7 +10,6 @@ for char in characters:
     runs = load_run_history(char)
      
     for filename, data in runs.items():
-        print(f'{filename}\n{data}\n')
         relics = data.get('relics')
 
         for relic in relics:
@@ -26,7 +25,7 @@ for char in characters:
             print('is list')
             for runid, run in enumerate(data):
                 if isinstance(run, dict):
-                    print('multiple embedded dicts')
+                    print(f'multiple embedded dicts: [{filename} #{runid}] Invalid run format: {run}\n')
                 else:
                     print(f'[{filename} #{runid}] Invalid run format: {run}\n')
 
@@ -54,3 +53,4 @@ for char in characters:
     plt.ylabel('# Times Picked')
     plt.tight_layout()
     plt.show()
+
