@@ -4,20 +4,15 @@ from matplotlib import pyplot as plt
 
 characters = ['DEFECT']
 char_colors = {'IRONCLAD': 'red', 'THE_SILENT': 'green', 'DEFECT': 'skyblue', 'WATCHER': 'purple'}
-relic_picks: dict = {}
+floor_reached: dict = {}
 
 for char in characters:
     runs = load_run_history(char)
      
     for filename, data in runs.items():
-        relics = data.get('relics')
+        floor_reached = data.get('floors_reached')
 
-        for relic in relics:
-            if data.get('victory') == True:
-                if relic not in relic_picks:
-                    relic_picks[relic] = 1
-                else:
-                    relic_picks[relic] += 1
+        print(floor_reached)
 
         if isinstance(data, dict):
             print('is dict')
@@ -29,11 +24,7 @@ for char in characters:
                 else:
                     print(f'[{filename} #{runid}] Invalid run format: {run}\n')
 
-    sorted_res: dict = dict(sorted(relic_picks.items(), key=lambda item: item[1], reverse=True))
-    sorted_res = {key: val for key, val in sorted_res.items() if key not in starters}
-    
-    for key, val in relic_picks.items():
-            print(f'{key}: {val}')
+    sorted_res: dict = dict(sorted(floor_reached.items(), key=lambda item: item[1], reverse=True))
 
     labels = list(sorted_res.keys())
     values = list(sorted_res.values())
