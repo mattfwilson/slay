@@ -12,6 +12,13 @@ for char in characters:
     for filename, data in runs.items():
         floor_reached = data.get('floors_reached')
 
+        for floor in floor_reached:
+            if data.get('victory') == True:
+                if floor not in floor_reached:
+                    floor_reached[floor] = 1
+                else:
+                    floor_reached[floor] += 1
+
         print(floor_reached)
 
         if isinstance(data, dict):
