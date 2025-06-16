@@ -2,7 +2,7 @@ from starters import starters
 from load_runs import load_run_history
 from matplotlib import pyplot as plt
 
-characters = ['IRONCLAD']
+characters = ['DEFECT']
 char_colors = {'IRONCLAD': 'red', 'THE_SILENT': 'green', 'DEFECT': 'skyblue', 'WATCHER': 'purple'}
 card_picks: dict = {}
 
