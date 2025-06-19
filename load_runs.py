@@ -15,7 +15,7 @@ def load_run_history(character):
             with file.open("r", encoding="utf-8") as f:
                 try:
                     data = json.load(f)
-                    print(f"{character} - {file.name} - \n\n{data}\n")
+#                    print(f"{character} - {file.name} - \n\n{data}\n")
                     runs[file.name] = data
                 except json.JSONDecodeError:
                     return runs
