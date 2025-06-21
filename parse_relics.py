@@ -1,5 +1,6 @@
 from starters import starters
 from load_runs import load_run_history
+from load_runs import char_colors
 from matplotlib import pyplot as plt
 
 characters = ['DEFECT']

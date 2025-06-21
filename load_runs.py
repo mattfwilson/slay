@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 
+char_colors = {'IRONCLAD': 'red', 'THE_SILENT': 'green', 'DEFECT': 'skyblue', 'WATCHER': 'purple'}
 runs_dir = Path("C:/Program Files (x86)/Steam/steamapps/common/SlayTheSpire/runs")
 
 def load_run_history(character):
