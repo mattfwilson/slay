@@ -28,18 +28,30 @@ for char in characters:
                 else:
                     print(f'[{filename} #{i}] Invalid run format: {run}\n')
 
-    sorted_res: dict = dict(sorted(card_picks.items(), key=lambda item: item[1], reverse=True))
-    sorted_res = {key: val for key, val in sorted_res.items() if key not in starters}
+    sorted_res = {
+        key: val for key, val in sorted(
+            ((k, v) for k, v in card_picks.items() if k not in starters and v > 10),
+            key=lambda item: item[1],
+            reverse=True
+        )
+    }
 
     for key, val in sorted_res.items():
             print(f'{key}: {val}')
 
     labels = list(sorted_res.keys())
-    values = list(sorted_res.values())
-    max_values = max(values)
+    values = list(filter(lambda x: x > 1, sorted_res.values()))
+    print(values)
+
+    if values:
+        max_values = max(values)
+    else:
+        print('No card values > 1 to plot')
+        continue
+
     plt.figure(figsize=(20, 12))
-    
-    bars = plt.bar(labels, values, color=char_colors.get(char))
+    color = char_colors.get(char, 'gray') 
+    bars = plt.bar(labels, values, color=color)
     
     for bar in bars:
         height = bar.get_height()
@@ -52,3 +64,4 @@ for char in characters:
     plt.ylabel('# Times Picked')
     plt.tight_layout()
     plt.show()
+
