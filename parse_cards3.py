@@ -28,19 +28,13 @@ for char in characters:
                 else:
                     print(f'[{filename} #{i}] Invalid run format: {run}\n')
 
-    sorted_res = {
-        key: val for key, val in sorted(
-            ((k, v) for k, v in card_picks.items() if k not in starters and v > 10),
-            key=lambda item: item[1],
-            reverse=True
-        )
-    }
+    sorted_res = {key: val for key, val in sorted(((k, v) for k, v in card_picks.items() if k not in starters and v > 10), key=lambda item: item[1], reverse=True)}
 
     for key, val in sorted_res.items():
             print(f'{key}: {val}')
 
     labels = list(sorted_res.keys())
-    values = list(filter(lambda x: x > 1, sorted_res.values()))
+    values = list(sorted_res.values())
     print(values)
 
     if values:
