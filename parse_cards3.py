@@ -20,11 +20,11 @@ for char in characters:
                 card_picks[card] += 1
 
         if isinstance(data, dict):
-            print(f"Score: {data.get('score')} | Victory: {data.get('victory')} | Floor Reached: {data.get('floor_reached')} | Ascension Level: {data.get('ascension_level')}\n")
+            continue
         elif isinstance(data, list):
             for i, run in enumerate(data):
                 if isinstance(run, dict):
-                    print('multiple embedded dicts')
+                    print('Enumerating multiple embedded dicts')
                 else:
                     print(f'[{filename} #{i}] Invalid run format: {run}\n')
 
@@ -40,7 +40,6 @@ for char in characters:
     if values:
         max_values = max(values)
     else:
-        print('No card values > 1 to plot')
         continue
 
     plt.figure(figsize=(20, 12))
